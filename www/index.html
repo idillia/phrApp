@@ -4,41 +4,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
-
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-
           <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/chat/chatCtrl.js"></script>
+
 
   </head>
   <body ng-app="starter">
+    <ion-nav-bar class="bar-dark"></ion-nav-bar>
+  <ion-tabs  class="tabs-dark tabs-icon-top">
+    <ion-tab title="EditHand" icon="ion-compose" ui-sref="editHand">
+      <ion-nav-view name="editHand"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="ViewHand" icon="ion-ios-browsers" ui-sref="viewHand">
+      <ion-nav-view name="viewHand"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Chat" icon="ion-ios-chatboxes" ui-sref="chat">
+      <ion-nav-view name="chat"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
 
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">PHR</h1>
-      </ion-header-bar>
-      <ion-content>
-      <chat></chat>
-      
-      </ion-content>
-    </ion-pane>
+
   </body>
 </html>

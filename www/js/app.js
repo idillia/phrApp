@@ -16,4 +16,37 @@ angular.module('starter', ['ionic', 'firebase'])
       StatusBar.styleDefault();
     }
   });
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
+
+$stateProvider.state('editHand', {
+  url: '/edithand',
+  views: {
+    editHand: {
+      templateUrl: 'js/editHand/editHand.html'
+    }
+  }
 });
+
+$stateProvider.state('viewHand', {
+  url: '/viewhand',
+  views: {
+    viewHand: {
+      templateUrl: 'js/viewHand/viewHand.html'
+    }
+  }
+});
+
+$stateProvider.state('chat', {
+  url: '/chat',
+  views: {
+    chat: {
+      templateUrl: 'js/chat/chat.html'
+    }
+  }
+});
+});
+
+

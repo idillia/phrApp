@@ -1,4 +1,24 @@
 /* Empty. Add your own CSS if you like */
+
+/* Table */
+table {
+    border-collapse: collapse;
+    color: black;
+    background: #fff;
+    border: 1px solid #b4b4b4;
+    font: bold 15px helvetica;
+    padding: 0;
+    margin-top:0;
+    width: 100%;
+    table-layout: fixed;
+}
+table tr td {
+    color: #666;
+    border-bottom: 1px solid #b4b4b4;
+    border-right: 1px solid #b4b4b4;
+}
+
+/* Chat */
 .chatbox {
     position:absolute;
     bottom: 0px;
@@ -17,3 +37,12 @@
     line-height: 29px;
     overflow: hidden;
 }
+
+textarea, input[type = "text"] {
+    border:1px solid #b4b4b4;
+}
+.input-cell tr td input {
+  width: 100%;
+}
+
+
