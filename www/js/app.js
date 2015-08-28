@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'firebase', 'chat'])
+angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,7 +20,8 @@ $stateProvider.state('editHand', {
   url: '/edithand',
   views: {
     editHand: {
-      templateUrl: 'js/editHand/editHand.html'
+      templateUrl: 'js/editHand/editHand.html',
+      controller: 'editHandCtrl'
     }
   }
 });
@@ -29,7 +30,8 @@ $stateProvider.state('viewHand', {
   url: '/viewhand',
   views: {
     viewHand: {
-      templateUrl: 'js/viewHand/viewHand.html'
+      templateUrl: 'js/viewHand/viewHand.html',
+      controller: 'editHandCtrl'
     }
   }
 });

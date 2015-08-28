@@ -1,7 +1,7 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
-    <form name="addHandForm">    
-    <label>Board</label><span><input name="board" type="text"/></span>
+    <form name="addHandForm" ng-submit="addHand(hand.theHand)">    
+    <label>Board</label><span><input name="board" type="text" ng-model="hand.theHand" placeholder="Add Board"/></span>
     <table class="table table-bordered">
      <tbody class="input-cell">
     <tr>
