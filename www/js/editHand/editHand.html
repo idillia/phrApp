@@ -4,29 +4,14 @@
     <label>Board</label><span><input name="board" type="text" ng-model="hand.theHand" placeholder="Add Board"/></span>
     <table class="table table-bordered">
      <tbody class="input-cell">
-    <tr>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-        <td><input placeholder="hand"/></td>
-    </tr>
-    <tr>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-        <td><input placeholder="stack"/></td>
-    </tr>
-    <tr>
+      <tr>
+        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in table.hand"></td>
+      </tr>
+      <tr>
+        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in table.stack"></td>
+      </tr>  
+      <div ></div>
+      <tr>
         <td>SB</td>
         <td>BB</td>
         <td>UG</td>
@@ -36,52 +21,11 @@
         <td>M3</td>
         <td>CO</td>
         <td>B</td>
-    </tr>    
-    <tr>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-    </tr>
-        <tr>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-    </tr>  
-    <tr>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-    </tr>
-        <tr>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-    </tr>  
-  </tbody>
+      </tr>  
+      <tr style = "height:1em; border: 1px solid black" ng-repeat="row in table.action">
+        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in row"></td>  
+      </tr>
+    </tbody>
 </table>
 <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text"></textarea> 
 

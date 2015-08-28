@@ -8,6 +8,7 @@ angular.module('editHand', [])
 .controller('editHandCtrl', ['$scope', 'editHandRecords', function($scope, editHandRecords){
   $scope.hands = editHandRecords;
   $scope.hand = {};
+  $scope.table = new PHR.Table();
   $scope.addHand = function(hand){
     console.log("submiting hand");
     $scope.hands.$add({content: hand});

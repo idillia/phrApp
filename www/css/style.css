@@ -45,4 +45,10 @@ textarea, input[type = "text"] {
   width: 100%;
 }
 
+.col {
+    background: gray;
+    border: solid black;
+    padding: 0;
+}
+
 
