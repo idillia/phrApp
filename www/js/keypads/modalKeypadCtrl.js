@@ -1,23 +1,4 @@
-angular.module('editHand', []) 
-
-.factory('editHandRecords', ['$firebaseArray', function($firebaseArray){
-  var ref = new Firebase("https://phr.firebaseio.com/" + 'handrecords');
-  return $firebaseArray(ref);
-}]) 
-
-.controller('editHandCtrl', ['$scope', 'editHandRecords', function($scope, editHandRecords){
-  $scope.hands = editHandRecords;
-  $scope.hand = {};
-  $scope.table = new PHR.Table();
-  $scope.addHand = function(hand) {
-    console.log("submiting hand");
-    $scope.hands.$add({content: hand});
-    $scope.hand.theHand = "";
-  }
-  $scope.handKeypad = function() {
-    console.log("cell was clicked");
-  }
-}])
+angular.module('overlay', []) 
 
 .controller('modalKeypadCtrl', function($scope, $ionicModal) {
   $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
@@ -45,3 +26,14 @@ angular.module('editHand', [])
     // Execute action
   });
 });
+//   console.log('viewHandCtrl');
+//     // Load the modal from the given template URL
+//     $ionicModal.fromTemplateUrl('modal.html', function($ionicModal) {
+//         $scope.modal = $ionicModal;
+//     }, {
+//         // Use our scope for the scope of the modal to keep it simple
+//         scope: $scope,
+//         // The animation we want to use for the modal entrance
+//         animation: 'slide-in-up'
+//     });
+// });
