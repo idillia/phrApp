@@ -13,6 +13,8 @@ table {
     table-layout: fixed;
 }
 table tr td {
+    width:100%;
+    height:2em;
     color: #666;
     border-bottom: 1px solid #b4b4b4;
     border-right: 1px solid #b4b4b4;
@@ -41,14 +43,8 @@ table tr td {
 textarea, input[type = "text"] {
     border:1px solid #b4b4b4;
 }
-.input-cell tr td input {
-  width: 100%;
-}
 
-.col {
-    background: gray;
-    border: solid black;
-    padding: 0;
-}
+
+
 
 

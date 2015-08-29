@@ -1,14 +1,14 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
     <form name="addHandForm" ng-submit="addHand(hand.theHand)">    
-    <label>Board</label><span><input name="board" type="text" ng-model="hand.theHand" placeholder="Add Board"/></span>
+    <label>Board:</label><input name="board" type="text" ng-model="hand.theHand" placeholder="Add Board"/>
     <table class="table table-bordered">
      <tbody class="input-cell">
       <tr>
-        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in table.hand"></td>
+        <td ng-repeat="cell in table.hand" ng-click = handKeypad()></td>
       </tr>
       <tr>
-        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in table.stack"></td>
+        <td ng-repeat="cell in table.stack"></td>
       </tr>  
       <div ></div>
       <tr>
@@ -22,8 +22,8 @@
         <td>CO</td>
         <td>B</td>
       </tr>  
-      <tr style = "height:1em; border: 1px solid black" ng-repeat="row in table.action">
-        <td style = "height:1em; border: 1px solid black" ng-repeat="cell in row"></td>  
+      <tr ng-repeat="row in table.action">
+        <td ng-repeat="cell in row"></td>  
       </tr>
     </tbody>
 </table>

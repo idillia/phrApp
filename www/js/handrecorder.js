@@ -30,7 +30,6 @@ PHR.Table = function(rows, col) {
       }
   }
 };
-var some = new PHR.Table();
-console.log(some.action);
+
 
 
