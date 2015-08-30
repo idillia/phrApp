@@ -16,35 +16,35 @@ angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand'])
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
-$stateProvider.state('editHand', {
-  url: '/edithand',
-  views: {
-    editHand: {
-      templateUrl: 'js/editHand/editHand.html',
-      controller: 'editHandCtrl'
+  $stateProvider.state('editHand', {
+    url: '/edithand',
+    views: {
+      editHand: {
+        templateUrl: 'js/editHand/editHand.html',
+        controller: 'editHandCtrl'
+      }
     }
-  }
-});
+  });
 
-$stateProvider.state('viewHand', {
-  url: '/viewhand',
-  views: {
-    viewHand: {
-      templateUrl: 'js/viewHand/viewHand.html',
-      controller: 'editHandCtrl'
+  $stateProvider.state('viewHand', {
+    url: '/viewhand',
+    views: {
+      viewHand: {
+        templateUrl: 'js/viewHand/viewHand.html',
+        controller: 'viewHandCtrl'
+      }
     }
-  }
-});
+  });
 
-$stateProvider.state('chat', {
-  url: '/chat',
-  views: {
-    chat: {
-      templateUrl: 'js/chat/chat.html',
-      controller: 'chatCtrl'
+  $stateProvider.state('chat', {
+    url: '/chat',
+    views: {
+      chat: {
+        templateUrl: 'js/chat/chat.html',
+        controller: 'chatCtrl'
+      }
     }
-  }
-});
+  });
 });
 
 

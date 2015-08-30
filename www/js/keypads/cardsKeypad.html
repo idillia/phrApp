@@ -1,0 +1,18 @@
+<ion-modal-view>
+  <ion-content class="">
+  <div class="">
+    <div class="row row-20 overlay-container ">
+      <button class="button-wide smaller" ng-click="movePrev()">Previous</button>
+      <button class="button-wide smaller" ng-click="moveNext()">Next</button>
+      <button class="button-wide smaller" ng-click = "closeDeckModal()">Done</button>
+    </div>
+
+    <div class="row" ng-repeat="rank in cardRanks">
+      <div class="col" ng-repeat="suit in cardSuits">
+        <button class="card-button" ng-click="buttonDeckModal(rank, suit)">{{rank}}{{suit}}</button>
+      </div>
+    </div>
+  </div>  
+  </ion-content>
+</ion-modal-view>
+

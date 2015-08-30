@@ -5,7 +5,7 @@ angular.module('editHand', [])
   return $firebaseArray(ref);
 }]) 
 
-.controller('editHandCtrl', ['$scope', 'editHandRecords', function($scope, editHandRecords){
+.controller('editHandCtrl', ['$scope', 'editHandRecords', '$ionicModal', function($scope, editHandRecords, $ionicModal){
   $scope.hands = editHandRecords;
   $scope.hand = {};
   $scope.table = new PHR.Table();
@@ -14,68 +14,53 @@ angular.module('editHand', [])
     $scope.hands.$add({content: hand});
     $scope.hand.theHand = "";
   }
-  $scope.handKeypad = function() {
-    console.log("cell was clicked");
-  }
-
-  $scope.cardRanksNumeric = ["10", "9", "8", "7", "6", "5", "4", "3", "2"];
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
-}])
 
-.controller('DeckKeyboardCtrl', function($scope) {
-  function cardDeck() {
-    var ranks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
-    var suits = ['\u2660','\u2665', '\u2663', '\u2666'];
-    var rankSuits;
-    var fiftyTwo = [];
-    for (var s in suits) {
-      for( var r in ranks) {
-        fiftyTwo.push(ranks[r]+suits[s]);       
-      };       
-    }; 
-    return fiftyTwo;    
-  }
-  var deck = cardDeck();
-  var container = [];
-
-  for (var i = 0; i < 52; i++) {
-  if (i % 13 == 0) {
-    var row = [];
-  }
-
-  row.push(deck[i]);
-  
-  if (i != 0 && ((i+1) % 13) == 0) {
-      container.push(row);
-    }
-  }
-  $scope.cardDeck = container;
-})
-
-.controller('modalKeypadCtrl', function($scope, $ionicModal) {
   $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.deckModal.modal = modal;
+    $scope.deckModal = modal;
   });
-  $scope.openModal = function() {
-    $scope.modal.show();
+
+  $scope.openDeckModal = function(row, col) {
+    $scope.openRow = row;
+    $scope.openCol = col;
+    $scope.deckModal.show();
+    
+    $scope.movePrev = function() {
+      $scope.openCol--;
+      if ($scope.openCol > 0) {
+        $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+      }
+    };
+    $scope.moveNext = function() {
+      $scope.openCol++;
+      if ($scope.openCol <= 8) {
+        console.log($scope.openCol);
+        $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+      } else return;
+    };
   };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
+  $scope.closeDeckModal = function() {
+    $scope.table.hand[$scope.openCol].value = $scope.modalVal;
+    $scope.deckModal.hide();
   };
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
-})
+
+  $scope.buttonDeckModal = function(rank, suit) {
+    $scope.modalVal = rank+suit;
+
+    if (typeof $scope.modalCard1 === 'undefined') {
+        $scope.modalCard1 = rank+suit;  
+    }
+    else {
+        $scope.modalCard2 = rank+suit;
+        $scope.table.hand[$scope.openCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
+        // console.log('card1: ' + $scope.table.hand[$scope.openCol].card1 + " , card2: " + $scope.table.hand[$scope.openCol].card2);
+        delete $scope.modalCard1;
+        delete $scope.modalCard2;
+        $scope.moveNext();  
+    }
+  }
+}]);
