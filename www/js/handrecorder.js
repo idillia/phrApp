@@ -2,7 +2,7 @@ var PHR = PHR || {};
 
 
 PHR.Cell = function(val) {
-  this.value = typeof val !== 'undefined' ? val : '';
+  this.value = typeof val !== 'undefined' ? val : ''; 
 };
 
 PHR.HandCell = function(val1, val2) {
@@ -34,6 +34,7 @@ PHR.Table = function(rows, col) {
       }
   }
 };
-
+var some = new PHR.Table();
+// console.log(some.action)
 
 

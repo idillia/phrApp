@@ -63,4 +63,55 @@ angular.module('editHand', [])
         $scope.moveNext();  
     }
   }
+
+  $ionicModal.fromTemplateUrl('js/keypads/actionKeypad.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.actionModal = modal;
+    $scope.modalVal = [];
+  });
+
+  $scope.openActionModal = function(row, col) {
+    // console.log(row);
+    $scope.openRow = row;
+    $scope.openCol = col;
+    $scope.actionModal.show();
+    
+    $scope.movePrev = function() {
+      $scope.openCol--;
+      if ($scope.openCol > 0) {
+        $scope.table.action[$scope.openCol].value = $scope.modalVal;  
+      }
+    };
+    $scope.moveNext = function() {
+      $scope.modalVal = [];
+      $scope.openCol++;
+      if ($scope.openCol <= 8) {
+        $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
+      } else return;
+    };
+  };
+
+  $scope.eraseActionModal = function() {
+    // console.log($scope.table.action[$scope.openRow][$scope.openCol]);
+    // console.log("erasing");
+    $scope.modalVal = [];
+    // console.log($scope.table.action[$scope.openRow][$scope.openCol]);
+  };
+
+  $scope.closeActionModal = function() {
+    $scope.modalVal = [];
+    $scope.actionModal.hide();
+  };
+  $scope.buttonActionModal = function(val) {
+
+    $scope.modalVal.push(val);
+    $scope.numbers = $scope.modalVal.join('');
+    $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
+    
+    console.log($scope.table.action[$scope.openRow][$scope.openCol])
+    console.log("row: ", $scope.openRow, "col: ", $scope.openCol)
+    console.log($scope.table.action)
+  }
 }]);
