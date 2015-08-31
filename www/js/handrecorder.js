@@ -11,6 +11,7 @@ PHR.HandCell = function(val1, val2) {
 };
 
 PHR.Table = function(rows, col) {
+  this.date = new Date();
   this.COLUMNS = 9;
   this.ROWS = 6;
   this.rows = this.ROWS;

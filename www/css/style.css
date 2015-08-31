@@ -88,6 +88,9 @@ textarea, input[type = "text"] {
     padding: 0;
 
 }
+.modal {
+ -webkit-opacity: 0.3;
+}
 .overlay-container {
   position: relative;
   top: 10;
@@ -98,8 +101,13 @@ textarea, input[type = "text"] {
   background: transparent;
   filter: alpha(opacity=50);
   -moz-opacity: 0.8;
+  -webkit-opacity: 0.3;
   opacity: 0.8;
   background: transparent !important;
+}
+
+.cards {
+    background-color: white;
 }
 
 /*.overlay-content {

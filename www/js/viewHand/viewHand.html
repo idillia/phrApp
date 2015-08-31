@@ -1,19 +1,37 @@
-<!--   <ion-view title="View Hand">
-    <ion-content padding="true">
-    <ion-modal-view id="deckModal">
-      <ion-content>
-    <div class="row row-20">
-            <button class="button-wide smaller">Previous</button>
-            <button class="button-wide smaller">Next</button>
-            <button class="button-wide smaller">Done</button>
+<ion-view title="View Hand">
+  <ion-content padding="true">
+    <div >
+        <div >
+        Created on: {{table.date}}
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td ng-repeat="cell in table.hand">
+                    {{cell.value || '&nbsp;'}}
+                </td>
+            </tr>
+            <tr>
+                <td ng-repeat="cell in table.stack">
+                   {{cell.value || '&nbsp;'}}
+                </td>
+            </tr>
+            <tr>
+                <td>SB</td>
+                <td>BB</td>
+                <td>UG</td>
+                <td>UG1</td>
+                <td>M1</td>
+                <td>M2</td>
+                <td>M3</td>
+                <td>CO</td>
+                <td>B</td>
+            </tr>
+            <tr ng-repeat="row in table.action">
+                <td ng-repeat="cell in row">{{cell.value || '&nbsp;'}}</td>
+            </tr>
+            </tbody>
+        </table>
         </div>
-        
-        <div class="row" ng-repeat="rank in cardRanks">
-        <div class="col col-4" ng-repeat="suit in cardSuits">
-        <button class="card-button" ng-click="buttonDeckModal(rank, suit)">{{rank}}{{suit}}</button>
-        </div>
-        </div>
-         <ion-modal-view>
-      </ion-content>
-    </ion-content>
-  </ion-view> -->
+    </div>
+  <ion-content>  
+</ion-view>    
