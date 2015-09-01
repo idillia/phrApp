@@ -7,8 +7,7 @@ angular.module('editHand', [])
   $scope.comment = new PHR.Comment();
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
   var handId = fireref.push();
-
-
+  
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
 
@@ -200,11 +199,12 @@ angular.module('editHand', [])
 
   // Restore information from firebase
   $scope.restoreHand = function() {  
-    handId.on('value', function(snapshot){
-      console.log(snapshot);
-      
+    fireref.on("child_added", function(snapshot){
+      $scope.board = JSON.parse(snapshot.val().board);
+      $scope.table = JSON.parse(snapshot.val().table);
+      $scope.comment = JSON.parse(snapshot.val().comment);
       // $scope.table = JSON.parse(snapshot.val());
-      // $scope.$apply();
+      $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     });

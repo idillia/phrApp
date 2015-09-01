@@ -2,7 +2,8 @@
   <ion-content padding="true">
     <div>
         <div>
-        Created on: {{table.date}}
+        Created on: Today
+        <label>Board:</label><label>Pot Size: {{pot}}</label> <table class="board"><tr><td ng-repeat="cell in board.board">{{cell.value || '&nbsp;'}}</td></tr></table> 
         <table class="table table-bordered">
             <tbody>
             <tr>
@@ -31,6 +32,7 @@
             </tr>
             </tbody>
         </table>
+        <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text">{{comment.value}}</textarea> 
         </div>
     </div>
   <ion-content>  
