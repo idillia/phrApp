@@ -1,12 +1,7 @@
 angular.module('editHand', []) 
 
-// .factory('editHandRecords', ['$firebaseArray', function($firebaseArray){
-//   var ref = new Firebase("https://phr.firebaseio.com/" + 'handrecords');
-//   return $firebaseArray(ref);
-// }]) 
-
-.controller('editHandCtrl', ['$scope','$ionicModal', function($scope, $ionicModal){
-  // $scope.hands = editHandRecords;
+.controller('editHandCtrl', ['$scope','$ionicModal', 'editHandRecords', function($scope, $ionicModal, editHandRecords){
+  $scope.fromFactory = editHandRecords.calculatePotSize();
   // $scope.hand = {};
   // $scope.table = new PHR.Table();
   // $scope.addHand = function(hand) {
@@ -181,24 +176,37 @@ angular.module('editHand', [])
     $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
-  while ($scope.openCol <=4){ 
+  if ($scope.openCol <=4){ 
     $scope.modalVal = rank+suit;
     $scope.board.board[$scope.openCol].value = $scope.modalVal;
     delete $scope.modalVal;
     $scope.moveNext();
-  } $scope.closeBoardModal();
+  } else $scope.closeBoardModal();
   };
 
   // Save hand information to firebase
   $scope.saveHands = function() {
     console.log("saving hands...")
-    $scope.date = new Date().getTime();
-    fireref.set(JSON.stringify($scope.date, $scope.table), function(error) {
+    fireref.set(JSON.stringify($scope.board, $scope.table, $scope.comment), function(error) {
       if (error) {console.log("failed to save")}
       else {console.log("saved successfuly")}
     });
   };
-}]);
+}])
+
+
+.factory('editHandRecords', function($scope){
+  return {
+    calculatePotSize: function() {
+      var pot =''; 
+      for (var i = 0; i < $scope.table.row; i++){
+        for(var k = 0; k < $scope.table.col; k++)
+          pot += $scope.table.action[i][k].value;
+      }
+      return pot;
+    }
+  }
+}); 
 
 
 
