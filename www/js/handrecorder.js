@@ -10,6 +10,15 @@ PHR.HandCell = function(val1, val2) {
   this.card2 = typeof val2 !== 'undefined' ? val2 : '';
 };
 
+PHR.Board = function() {
+  this.rows = 5;
+
+  this.board = [];
+  for (var m = 0; m < this.rows; m++) {
+    this.board[m] = new PHR.Cell();
+  }
+}
+
 PHR.Table = function(rows, col) {
   this.date = new Date();
   this.COLUMNS = 9;

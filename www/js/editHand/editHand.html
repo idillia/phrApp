@@ -1,7 +1,7 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
     <form name="addHandForm">    
-      <label>Board:</label><input name="board" type="text"   placeholder="Add Board"/>
+      <label>Board:</label> <table class="board"><tr><td ng-repeat="cell in board.board"></td></tr></table>
       <table class="table table-bordered">
         <tbody class="input-cell">
           <tr>
@@ -29,7 +29,8 @@
       </table>
       <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text"></textarea> 
       <button ng-click="saveHands()">Save Hand</button> 
-       <button>Clear Hand</button> 
+      <button>Clear Hand</button> 
+      
     </form>  
   </ion-content>
 </ion-view>

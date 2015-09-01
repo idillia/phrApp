@@ -1,0 +1,37 @@
+
+<ion-modal-view>
+  <ion-content class="has-header" padding="true">
+  <div class="action-keypad overlay-container">
+    <div class="row row-20  ">
+    <table>
+    <tr>
+      <td><button class="button-wide smaller" ng-click="eraseStackModal()">Erase</button></td>
+      <td><button class="button-wide smaller" ng-click="">No player</button></td>
+      <td><button class="button-wide smaller" ng-click = "closeStackModal()">Done</button></td>
+    </tr>  
+    <tr>
+      <td ng-click="buttonStackModal(1)">1</td>
+      <td ng-click="buttonStackModal(2)">2</td>
+      <td ng-click="buttonStackModal(3)">3<td>  
+    </tr> 
+    <tr>
+      <td ng-click="buttonStackModal(4)">4</td>
+      <td ng-click="buttonStackModal(5)">5</td>
+      <td ng-click="buttonStackModal(6)">6</td>  
+    </tr> 
+    <tr>
+      <td ng-click="buttonStackModal(7)">7</td>
+      <td ng-click="buttonStackModal(8)">8</td>
+      <td ng-click="buttonStackModal(9)">9<td>  
+    </tr>
+    <tr>
+      <td><button class="button-wide smaller" ng-click="movePrev()">Previous</button></td>
+      <td ng-click="buttonStackModal(0)">0</td>
+      <td><button class="button-wide smaller" ng-click="moveNext()">Next</button></td>  
+    </tr>
+  </table>
+  </div>
+  </div>  
+  </ion-content>
+
+</ion-modal-view>

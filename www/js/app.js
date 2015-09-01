@@ -44,6 +44,6 @@ angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand'])
       StatusBar.styleDefault();
     }
   });
-})
+});
 
 
