@@ -17,6 +17,7 @@ angular.module('editHand', [])
 
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
+  console.log($scope.board.board);
   $scope.date = new Date().getTime();
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/' + $scope.date);
 
@@ -88,7 +89,7 @@ angular.module('editHand', [])
     $scope.movePrev = function() {
       $scope.openCol--;
       if ($scope.openCol > 0) {
-        $scope.table.action[$scope.openCol].value = $scope.modalVal;  
+        $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
       }
     };
     $scope.moveNext = function() {
@@ -111,6 +112,7 @@ angular.module('editHand', [])
     $scope.numbers = $scope.modalVal.join('');
     $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
   };
+
   // Number custom keypad when inputing in table.stack
   $ionicModal.fromTemplateUrl('js/keypads/stackKeypad.html', {
     scope: $scope,
@@ -119,31 +121,37 @@ angular.module('editHand', [])
     $scope.stackModal = modal;
   });
   $scope.openStackModal = function(row, col) {
+    $scope.openRow = row;
     $scope.openCol = col;
-    $scope.actionModal.show();
+    $scope.stackModal.show();
     $scope.movePrev = function() {
       $scope.openCol--;
       if ($scope.openCol > 0) {
-        $scope.table.stack[$scope.openCol].value = $scope.modalVal;  
+        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
       }
     };
     $scope.moveNext = function() {
       $scope.modalVal = [];
       $scope.openCol++;
       if ($scope.openCol <= 8) {
-        $scope.table.stack[$scope.openCol].value = $scope.modalVal;  
+        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
       } else return;
     };
   };
   $scope.eraseStackModal = function() {
-    $scope.modalVal = '';
+    $scope.modalVal = [];
   };
   $scope.closeStackModal = function() {
+    $scope.modalVal = [];
     $scope.stackModal.hide();
   };
   $scope.buttonStackModal = function(val) {
-    $scope.table.stack[$scope.openCol].value = $scope.modalVal;
+    console.log($scope.modalVal)
+    $scope.modalVal.push(val);
+    $scope.numbers = $scope.modalVal.join('');
+    $scope.table.stack[$scope.openCol].value = $scope.numbers;
   };
+
   // Cards custom keypad when inputing in board.board
   $ionicModal.fromTemplateUrl('js/keypads/cardsBoardKeypad.html', {
     scope: $scope,
@@ -152,29 +160,33 @@ angular.module('editHand', [])
     $scope.boardModal = modal;
   });
   $scope.openBoardModal = function(row, col) {
+    console.log("open bord model")
     $scope.openCol = col;
     $scope.boardModal.show();
     $scope.movePrev = function() {
       $scope.openCol--;
       if ($scope.openCol > 0) {
-        $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+        $scope.board.board[$scope.openCol].value = $scope.modalVal;  
       }
     };
     $scope.moveNext = function() {
       $scope.openCol++;
-      if ($scope.openCol <= 8) {
-        $scope.table.hand[$scope.openCol].value = $scope.modalVal;
+      if ($scope.openCol <= 4 ) {
+        $scope.board.board[$scope.openCol].value = $scope.modalVal;
  
       } else return;
     };
   };
   $scope.closeBoardModal = function() {
-    $scope.BoardModal.hide();
+    $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
+  while ($scope.openCol <=4){ 
     $scope.modalVal = rank+suit;
-    $scope.table.hand[$scope.openCol].value = $scope.modalVal;
+    $scope.board.board[$scope.openCol].value = $scope.modalVal;
+    delete $scope.modalVal;
     $scope.moveNext();
+  } $scope.closeBoardModal();
   };
 
   // Save hand information to firebase

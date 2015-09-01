@@ -1,7 +1,7 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
     <form name="addHandForm">    
-      <label>Board:</label> <table class="board"><tr><td ng-repeat="cell in board.board"></td></tr></table>
+      <label>Board:</label> <table class="board"><tr><td ng-repeat="cell in board.board" ng-click="openBoardModal($parent, $index)">{{cell.value}}</td></tr></table>
       <table class="table table-bordered">
         <tbody class="input-cell">
           <tr>
@@ -9,7 +9,7 @@
               {{cell.card1}} {{cell.card2}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in table.stack" ng-click="openStackModal($parent, $index)"></td>
+            <td ng-repeat="cell in table.stack" ng-click="openStackModal($parent, $index)">{{cell.value}}</td>
           </tr>  
           <tr>
             <td>SB</td>
@@ -30,7 +30,7 @@
       <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text"></textarea> 
       <button ng-click="saveHands()">Save Hand</button> 
       <button>Clear Hand</button> 
-      
+
     </form>  
   </ion-content>
 </ion-view>
