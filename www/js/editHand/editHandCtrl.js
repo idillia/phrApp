@@ -1,20 +1,12 @@
 angular.module('editHand', []) 
 
-.controller('editHandCtrl', ['$scope','$ionicModal', 'editHandRecords', function($scope, $ionicModal, editHandRecords){
-  $scope.fromFactory = editHandRecords.calculatePotSize();
-  // $scope.hand = {};
-  // $scope.table = new PHR.Table();
-  // $scope.addHand = function(hand) {
-  //   console.log("submiting hand");
-  //   $scope.hands.$add({content: hand});
-  //   $scope.hand.theHand = "";
-  // }
-
+.controller('editHandCtrl', ['$scope','$ionicModal', function($scope, $ionicModal){
+  // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
-  console.log($scope.board.board);
-  $scope.date = new Date().getTime();
-  var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/' + $scope.date);
+  $scope.comment = new PHR.Comment();
+  var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
+  var handId = fireref.push();
 
 
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
@@ -101,6 +93,8 @@ angular.module('editHand', [])
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
     $scope.actionModal.hide();
+    $scope.calculatePotSize();
+    console.log($scope.calculatePotSize());
   };
   $scope.buttonActionModal = function(val) {
     $scope.modalVal.push(val);
@@ -187,26 +181,57 @@ angular.module('editHand', [])
   // Save hand information to firebase
   $scope.saveHands = function() {
     console.log("saving hands...")
-    fireref.set(JSON.stringify($scope.board, $scope.table, $scope.comment), function(error) {
+    var boardref = handId.child("board");
+    boardref.set(JSON.stringify($scope.board), function(error) {
       if (error) {console.log("failed to save")}
-      else {console.log("saved successfuly")}
+      else {console.log("board saved successfuly")}
+    });
+    var tableref = handId.child("table");
+    tableref.set(JSON.stringify($scope.table), function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("table saved successfuly")}
+    });
+    var commentref = handId.child("comment");
+    commentref.set(JSON.stringify($scope.comment), function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("comment saved successfuly")}
     });
   };
-}])
 
-
-.factory('editHandRecords', function($scope){
-  return {
-    calculatePotSize: function() {
-      var pot =''; 
-      for (var i = 0; i < $scope.table.row; i++){
-        for(var k = 0; k < $scope.table.col; k++)
+  // Restore information from firebase
+  $scope.restoreHand = function() {  
+    handId.on('value', function(snapshot){
+      console.log(snapshot);
+      
+      // $scope.table = JSON.parse(snapshot.val());
+      // $scope.$apply();
+    }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  };
+  // $scope.restoreHand()
+  $scope.calculatePotSize = function() {
+    console.log($scope.table.rows, $scope.table.col);
+      var pot = 0; 
+      for (var i = 0; i < 2; i++){
+        for(var k = 0; k < 1; k++)
+          if ($scope.table.action[i][k].value == "") {
+            console.log("yes");
+          }
           pot += $scope.table.action[i][k].value;
+        console.log(parseInt($scope.table.action[0][0].value));
       }
       return pot;
     }
-  }
-}); 
+  
+}]);
+
+
+// .factory('editHandRecords', function(){
+//   return {
+
+//   }
+// }); 
 
 
 

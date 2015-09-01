@@ -1,5 +1,16 @@
 var PHR = PHR || {};
 
+//Generating UUID
+PHR.generateUUID = function() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+  };
+
 
 PHR.Cell = function(val) {
   this.value = typeof val !== 'undefined' ? val : ''; 
@@ -12,15 +23,13 @@ PHR.HandCell = function(val1, val2) {
 
 PHR.Board = function() {
   this.rows = 5;
-
   this.board = [];
   for (var m = 0; m < this.rows; m++) {
     this.board[m] = new PHR.Cell();
   }
-}
+};
 
 PHR.Table = function(rows, col) {
-  this.date = new Date();
   this.COLUMNS = 9;
   this.ROWS = 6;
   this.rows = this.ROWS;
@@ -39,12 +48,13 @@ PHR.Table = function(rows, col) {
   this.action = [];
   for (var k = 0; k < this.rows; k++) {
     this.action[k] = [];
-      for (var m = 0; m < this.col; m++) {
-        this.action[k][m] = new PHR.Cell();
-      }
+    for (var m = 0; m < this.col; m++) {
+      this.action[k][m] = new PHR.Cell();
+    }
   }
 };
-var some = new PHR.Table();
-// console.log(some.action)
 
+PHR.Comment = function(val) {
+  this.value = '';
+};
 
