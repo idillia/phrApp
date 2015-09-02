@@ -22,9 +22,9 @@ PHR.HandCell = function(val1, val2) {
 };
 
 PHR.Board = function() {
-  this.rows = 5;
+  this.cell = 5;
   this.board = [];
-  for (var m = 0; m < this.rows; m++) {
+  for (var m = 0; m < this.cell; m++) {
     this.board[m] = new PHR.Cell();
   }
 };

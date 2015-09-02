@@ -7,6 +7,7 @@ angular.module('editHand', [])
   $scope.comment = new PHR.Comment();
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
   var handId = fireref.push();
+  console.log(handId)
   
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
@@ -203,18 +204,32 @@ angular.module('editHand', [])
     fireref.on("child_added", function(snapshot){
       // console.log(snapshot.key());
       // console.log(JSON.parse(snapshot.val().board));
-      var id = snapshot.key();
+      // var id = snapshot.key();
       var board = {};
-      board[id] = JSON.parse(snapshot.val().board);
-      table[id] = JSON.parse(snapshot.val().table);
-      $scope.handRecords.push(board, table);
-      console.log($scope.handRecords);
+      
+      var b = JSON.parse(snapshot.val().board);
+      var t = JSON.parse(snapshot.val().table);
+      var c = JSON.parse(snapshot.val().comment);
+      for (var prop in b) {
+        board[prop] = b[prop];
+          for (var x in t) {
+            board[x] = t[x];
+              for (var a in c) {
+                board[a] = c[a];
+              }
+          }
+      }
+
+      console.log(board);
+      // table[id] = JSON.parse(snapshot.val().table);
+      $scope.handRecords.push(board);
+      // console.log($scope.handRecords);
 
       // $scope.board = JSON.parse(snapshot.val().board);
       // $scope.table = JSON.parse(snapshot.val().table);
       // $scope.comment = JSON.parse(snapshot.val().comment);
       
-      $scope.$apply();
+      // $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     });

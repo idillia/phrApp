@@ -85,4 +85,7 @@ textarea, input[type = "text"] {
   width:50%; 
   margin-bottom: 5px;   
 }
+.pane {
+    overflow-y: scroll;
+}
 
