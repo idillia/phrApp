@@ -198,12 +198,14 @@ angular.module('editHand', [])
   };
 
   // Restore information from firebase
+
   $scope.restoreHand = function() {  
     fireref.on("child_added", function(snapshot){
+
       $scope.board = JSON.parse(snapshot.val().board);
       $scope.table = JSON.parse(snapshot.val().table);
       $scope.comment = JSON.parse(snapshot.val().comment);
-      // $scope.table = JSON.parse(snapshot.val());
+      $scope.handRecords = [$scope.board,$scope.table,$scope.comment];
       $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -223,7 +225,12 @@ angular.module('editHand', [])
       }
       return pot;
     }
-  
+  $scope.clearHand = function() {
+    console.log("clear hand");
+  $scope.table = new PHR.Table();
+  $scope.board = new PHR.Board();
+  $scope.comment = new PHR.Comment();
+  }
 }]);
 
 

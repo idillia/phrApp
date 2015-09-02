@@ -67,20 +67,20 @@ textarea, input[type = "text"] {
   margin-top:90%;
 }
 
-.scroll-content{
+/*.scroll-content{
   top: 0 !important;
   bottom: 0 !important;
 
-}
+}*/
 
-.has-header{
-  padding-top:44px !important;
-}
+  /*.has-header{
+    padding-top:44px !important;
+  }
 
-.has-footer{
-  padding-bottom:44px !important;
-}
-
+  .has-footer{
+    padding-bottom:44px !important;
+  }
+*/
 .board {
   width:50%; 
   margin-bottom: 5px;   

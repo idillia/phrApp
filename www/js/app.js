@@ -14,6 +14,7 @@ angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand'])
   });
 
   $stateProvider.state('viewHand', {
+    cache: false,
     url: '/viewhand',
     views: {
       viewHand: {
