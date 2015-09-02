@@ -1,7 +1,7 @@
 <ion-view title="View Hand">
   <ion-content padding="true" ng-init="restoreHand()">
     <div ng-repeat="hand in handRecords">
-        <div >
+        <div ng-repeat="(boardId, board) in hand">
         Created on: Today
         <label>Board:</label><label>Pot Size: {{pot}}</label> <table class="board"><tr><td ng-repeat="cell in board.board">{{cell.value || '&nbsp;'}}</td></tr></table> 
         <table class="table table-bordered">

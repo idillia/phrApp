@@ -198,14 +198,22 @@ angular.module('editHand', [])
   };
 
   // Restore information from firebase
-
+  $scope.handRecords = [];
   $scope.restoreHand = function() {  
     fireref.on("child_added", function(snapshot){
+      // console.log(snapshot.key());
+      // console.log(JSON.parse(snapshot.val().board));
+      var id = snapshot.key();
+      var board = {};
+      board[id] = JSON.parse(snapshot.val().board);
+      table[id] = JSON.parse(snapshot.val().table);
+      $scope.handRecords.push(board, table);
+      console.log($scope.handRecords);
 
-      $scope.board = JSON.parse(snapshot.val().board);
-      $scope.table = JSON.parse(snapshot.val().table);
-      $scope.comment = JSON.parse(snapshot.val().comment);
-      $scope.handRecords = [$scope.board,$scope.table,$scope.comment];
+      // $scope.board = JSON.parse(snapshot.val().board);
+      // $scope.table = JSON.parse(snapshot.val().table);
+      // $scope.comment = JSON.parse(snapshot.val().comment);
+      
       $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
