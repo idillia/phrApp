@@ -52,6 +52,20 @@ PHR.Table = function(rows, col) {
       this.action[k][m] = new PHR.Cell();
     }
   }
+
+  this.calculatePotSize = function() {
+    var pot = 0; 
+    for (var i = 0; i < this.rows; i++){
+      for(var k = 0; k < this.col; k++){
+        if (this.action[i][k].value !== "") {        
+          pot += parseInt(this.action[i][k].value);
+        } else {
+        }
+      }
+    }
+    console.log(pot);
+  return pot;
+  };
 };
 
 PHR.Comment = function(val) {

@@ -93,8 +93,7 @@ angular.module('editHand', [])
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
     $scope.actionModal.hide();
-    $scope.calculatePotSize();
-    console.log($scope.calculatePotSize());
+    $scope.pot = $scope.table.calculatePotSize();
   };
   $scope.buttonActionModal = function(val) {
     $scope.modalVal.push(val);
@@ -212,42 +211,22 @@ angular.module('editHand', [])
       var c = JSON.parse(snapshot.val().comment);
       for (var prop in b) {
         board[prop] = b[prop];
-          for (var x in t) {
-            board[x] = t[x];
-              for (var a in c) {
-                board[a] = c[a];
-              }
-          }
+        for (var x in t) {
+          board[x] = t[x];
+            for (var a in c) {
+              board[a] = c[a];
+            }
+        }
       }
-
       console.log(board);
-      // table[id] = JSON.parse(snapshot.val().table);
-      $scope.handRecords.push(board);
-      // console.log($scope.handRecords);
-
-      // $scope.board = JSON.parse(snapshot.val().board);
-      // $scope.table = JSON.parse(snapshot.val().table);
-      // $scope.comment = JSON.parse(snapshot.val().comment);
-      
+      $scope.handRecords.push(board);     
       // $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
   };
-  // $scope.restoreHand()
-  $scope.calculatePotSize = function() {
-    console.log($scope.table.rows, $scope.table.col);
-      var pot = 0; 
-      for (var i = 0; i < 2; i++){
-        for(var k = 0; k < 1; k++)
-          if ($scope.table.action[i][k].value == "") {
-            console.log("yes");
-          }
-          pot += $scope.table.action[i][k].value;
-        console.log(parseInt($scope.table.action[0][0].value));
-      }
-      return pot;
-    }
+  
+  
   $scope.clearHand = function() {
     console.log("clear hand");
   $scope.table = new PHR.Table();
@@ -256,12 +235,6 @@ angular.module('editHand', [])
   }
 }]);
 
-
-// .factory('editHandRecords', function(){
-//   return {
-
-//   }
-// }); 
 
 
 
