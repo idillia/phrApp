@@ -4,41 +4,26 @@
       <label>Board:</label><label>Pot Size: {{pot}}</label>
       <table class="board">
         <tr>
-            <td ng-repeat="cell in hand.board">{{cell.value || '&nbsp;'}}</td>
+          <td ng-repeat="cell in hand.board">{{cell.value || '&nbsp;'}}</td>
         </tr>
       </table> 
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
-                <td ng-repeat="cell in hand.hand">
-                    {{cell.card1}}{{cell.card2}}
-                </td>
-            </tr>
-            <tr>
-                <td ng-repeat="cell in hand.stack">
-                   {{cell.value}}
-                </td>
-            </tr>
-            <tr>
-                <td>SB</td>
-                <td>BB</td>
-                <td>UG</td>
-                <td>UG1</td>
-                <td>M1</td>
-                <td>M2</td>
-                <td>M3</td>
-                <td>CO</td>
-                <td>B</td>
-            </tr>
-            <tr ng-repeat="row in hand.action">
-                <td ng-repeat="cell in row">{{cell.value}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text">{{hand.value}}</textarea> 
-
-
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-repeat="cell in table.posVal">{{cell}}</td>
+          </tr>
+          <tr>
+            <td ng-repeat="cell in hand.hand">{{cell.card1}}{{cell.card2}}</td>
+          </tr>
+          <tr>
+            <td ng-repeat="cell in hand.stack">{{cell.value}}</td>
+          </tr>
+          <tr ng-repeat="row in hand.action">
+            <td ng-repeat="cell in row">{{cell.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <label>Comments:</label><textarea rows="2" cols="40" name="comment" type="text">{{hand.value}}</textarea> 
     </div>
-
   <ion-content>  
 </ion-view>    

@@ -81,3 +81,7 @@ textarea, input[type = "text"] {
   background-color: aqua;
 }
 
+table tr td disabled {
+  background-color: yellow;
+}
+

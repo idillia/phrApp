@@ -5,12 +5,17 @@ angular.module('editHand', [])
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();
+
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
   var handId = fireref.push();
-  console.log(handId)
   
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
+
+
+  // Disable cell
+
+ 
 
 
   // Cards custom keypad when inputing in table.hand
@@ -26,26 +31,39 @@ angular.module('editHand', [])
     $scope.openRow = row;
     $scope.openCol = col;
     $scope.deckModal.show();
-    
-    $scope.movePrev = function() {
-      $scope.openCol--;
-      if ($scope.openCol > 0) {
-        $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-      }
-    };
-    $scope.moveNext = function() {
-      $scope.openCol++;
-      if ($scope.openCol <= 8) {
-        console.log($scope.openCol);
-        $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-      } else return;
-    };
   };
+
+  $scope.noPlayer = function() {
+    // $scope.table.disableCell($scope.openCol);
+    console.log($scope.table);
+
+    // $scope.isDisabled = true;
+    // $scope.dis = 
+    for (var i = 0; i< $scope.table.hand.length; i++) {
+      $scope.table.hand[i].isDisabled = true;
+      $scope.isDisabled = $scope.table.hand[i].isDisabled;
+    console.log($scope.table.hand[i]);
+    }
+  };
+    
+  $scope.movePrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol > 0) {
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    }
+  };
+  $scope.moveNext = function() {
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      console.log($scope.openCol);
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    } else return;
+  };
+  
   $scope.closeDeckModal = function() {
     $scope.table.hand[$scope.openCol].value = $scope.modalVal;
     $scope.deckModal.hide();
   };
-
   $scope.buttonDeckModal = function(rank, suit) {
     $scope.modalVal = rank+suit;
 
@@ -161,7 +179,6 @@ angular.module('editHand', [])
       $scope.openCol++;
       if ($scope.openCol <= 4 ) {
         $scope.board.board[$scope.openCol].value = $scope.modalVal;
- 
       } else return;
     };
   };
@@ -169,13 +186,64 @@ angular.module('editHand', [])
     $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
-  if ($scope.openCol <=4){ 
-    $scope.modalVal = rank+suit;
-    $scope.board.board[$scope.openCol].value = $scope.modalVal;
-    delete $scope.modalVal;
-    $scope.moveNext();
-  } else $scope.closeBoardModal();
+    if ($scope.openCol <=4){ 
+      $scope.modalVal = rank+suit;
+      $scope.board.board[$scope.openCol].value = $scope.modalVal;
+      delete $scope.modalVal;
+      $scope.moveNext();
+    } else $scope.closeBoardModal();
   };
+
+  // Position Keypad
+
+  $ionicModal.fromTemplateUrl('js/keypads/positionKeypad.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.posModal = modal;
+  });
+
+  $scope.openPositionModal = function(row, col) {
+    $scope.openRow = row;
+    $scope.openCol = col;
+    $scope.posModal.show();
+  };
+
+  // $scope.noPlayer = function() {
+  //   // $scope.table.disableCell($scope.openCol);
+  //   console.log($scope.table);
+
+  //   // $scope.isDisabled = true;
+  //   // $scope.dis = 
+  //   for (var i = 0; i< $scope.table.hand.length; i++) {
+  //     $scope.table.hand[i].isDisabled = true;
+  //     $scope.isDisabled = $scope.table.hand[i].isDisabled;
+  //   console.log($scope.table.hand[i]);
+  //   }
+  // };
+    
+  $scope.movePrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol > 0) {
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    }
+  };
+  $scope.moveNext = function() {
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      console.log($scope.openCol);
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    } else return;
+  };
+  
+  $scope.closePositionModal = function() {
+    $scope.table.hand[$scope.openCol].value = $scope.modalVal;
+    $scope.posModal.hide();
+  };
+  $scope.playerNoteModal = function() {
+    
+  };
+
 
   // Save hand information to firebase
   $scope.saveHands = function() {
@@ -200,12 +268,8 @@ angular.module('editHand', [])
   // Restore information from firebase
   $scope.handRecords = [];
   $scope.restoreHand = function() {  
-    fireref.on("child_added", function(snapshot){
-      // console.log(snapshot.key());
-      // console.log(JSON.parse(snapshot.val().board));
-      // var id = snapshot.key();
+    fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
       var board = {};
-      
       var b = JSON.parse(snapshot.val().board);
       var t = JSON.parse(snapshot.val().table);
       var c = JSON.parse(snapshot.val().comment);
@@ -213,22 +277,20 @@ angular.module('editHand', [])
         board[prop] = b[prop];
         for (var x in t) {
           board[x] = t[x];
-            for (var a in c) {
-              board[a] = c[a];
-            }
+          for (var a in c) {
+            board[a] = c[a];
+          }
         }
       }
       console.log(board);
-      $scope.handRecords.push(board);     
+      $scope.handRecords.unshift(board);     
       // $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
   };
   
-  
   $scope.clearHand = function() {
-    console.log("clear hand");
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();

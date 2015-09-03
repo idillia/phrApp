@@ -1,25 +1,21 @@
 var PHR = PHR || {};
 
-//Generating UUID
-PHR.generateUUID = function() {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-    });
-    return uuid;
-  };
 
 
 PHR.Cell = function(val) {
   this.value = typeof val !== 'undefined' ? val : ''; 
+  this.isDisabled = false;
 };
 
 PHR.HandCell = function(val1, val2) {
   this.card1 = typeof val1 !== 'undefined' ? val1 : '';
   this.card2 = typeof val2 !== 'undefined' ? val2 : '';
+  this.isDisabled = false;
 };
+
+PHR.PositionCell = function() {
+  
+}
 
 PHR.Board = function() {
   this.cell = 5;
@@ -29,11 +25,18 @@ PHR.Board = function() {
   }
 };
 
+
 PHR.Table = function(rows, col) {
   this.COLUMNS = 9;
   this.ROWS = 6;
   this.rows = this.ROWS;
   this.col = this.COLUMNS;
+  this.posVal = ["SB", "BB", "U1", "U2", "M1", "M2", "M3", "CO", "B"];
+  // for (var f = 0; f < this.col; f++) {
+  //   for(var m = 0; m < this.posVal.length; m++){
+  //     this.position[f] = ;
+  //   }
+  // }
 
   this.hand = [];
   for (var j = 0; j < this.col; j++) {
@@ -51,7 +54,7 @@ PHR.Table = function(rows, col) {
     for (var m = 0; m < this.col; m++) {
       this.action[k][m] = new PHR.Cell();
     }
-  }
+  };
 
   this.calculatePotSize = function() {
     var pot = 0; 
@@ -66,6 +69,16 @@ PHR.Table = function(rows, col) {
     console.log(pot);
   return pot;
   };
+
+  // this.disableCell = function(col) {
+  //   // console.log("the col is", col);
+  //   for (var i=0; i<this.rows; i++) {
+  //     // console.log(i, col);
+  //     this.hand[i].isDisabled = true;
+  //     console.log("this.hand"+ [i]+".isDisabled", this.hand[i].isDisabled);
+  //   }
+  //   // console.log("disabling cell", this.isDisabled, col);
+  // };
 };
 
 PHR.Comment = function(val) {
