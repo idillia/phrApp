@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand'])
+angular.module('starter', ['ionic', 'firebase', 'chat', 'editHand', 'underscore'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');

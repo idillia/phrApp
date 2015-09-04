@@ -5,7 +5,6 @@ angular.module('editHand', [])
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();
-  console.log(JSON.stringify($scope.table.action))
 
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
   var handId = fireref.push();
@@ -247,6 +246,9 @@ angular.module('editHand', [])
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
     $scope.pot = $scope.table.calculatePotSize();
+    $scope.colSum= $scope.sum();
+    console.log($scope.colSum);
+    console.log(colSortArray);
     $scope.actionModal.hide();
     
   };
@@ -307,6 +309,9 @@ angular.module('editHand', [])
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();
   }
+
+     
+
 }]);
 
 

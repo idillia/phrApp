@@ -71,14 +71,24 @@ PHR.Table = function(rows, col) {
   return pot;
   };
 
-  this.calculateColSum = function(actionNumbers) {
-    return actionNumbers.map(function(z, w) {
-      return actionNumbers.map(function(z) {
-        return z[w]; }
-      ).reduce(function(a, b) {
-        return a+b;
-      }, 0);
-    });
+// arr!!!!
+var getVal = function(a){
+  var res = _.map(a, function(item){
+      return _.pluck(item, "value");
+  }); 
+  return res;
+};
+var colSortArray =  _.zip.apply(null, getVal());
+console.log(colSortArray);
+
+this.sum = function(matrix) {
+  var sums = _.map(matrix, function(item) {
+    return _.reduce(item, function(a,b){
+        if (a === '' ) a=0;
+        if (b === '') b=0;
+        return parseInt(a)+parseInt(b);})
+  });
+  return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
   };
 
   // this.disableCell = function(col) {
