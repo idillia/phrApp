@@ -1,18 +1,18 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
     <form name="addHandForm">    
-      <label>Board:</label><label>Pot Size: {{pot}}</label> <table class="board"><tr><td ng-repeat="cell in board.board" ng-click="openBoardModal($parent, $index)">{{cell.value}}</td></tr></table> 
+      <label>Board:</label><label>Pot Size: {{pot}} SumCol {{calcColSum}}</label> <table class="board"><tr><td ng-repeat="cell in board.board" ng-click="openBoardModal($index)">{{cell.value}}</td></tr></table> 
       <table class="table table-bordered">
         <tbody class="input-cell">
           <tr>
-            <td ng-click="openPositionModal($parent, $index)" ng-repeat="cell in table.posVal">{{cell}}</td>
+            <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal">{{cell}}</td>
           </tr> 
           <tr>
-            <td ng-repeat="cell in table.hand" ng-click="openDeckModal($parent, $index)"  ng-disabled="isDisabled === true" data-text="text">
+            <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)"  ng-disabled="isDisabled === true" data-text="text">
               {{cell.card1}} {{cell.card2}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in table.stack" ng-click="openStackModal($parent, $index)"  ng-disabled="isDisabled">{{cell.value}}</td>
+            <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"  ng-disabled="isDisabled">{{cell.value}}</td>
           </tr>   
           <tr ng-repeat="row in table.action">
             <td ng-repeat="cell in row" ng-click="openActionModal($parent.$index, $index); pot()"  ng-disabled="isDisabled">{{cell.value}}</td>  
@@ -22,7 +22,7 @@
       <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text" ng-model="comment.value" ></textarea> 
       <button ng-click="saveHands()">Save Hand</button> 
       <button ng-click="clearHand()">Clear Hand</button> 
-      <!-- <button ng-click="restoreHand()">Restore</button> -->
+      <button ng-click="">Add row</button>
 
     </form>  
   </ion-content>

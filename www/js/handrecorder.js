@@ -14,7 +14,8 @@ PHR.HandCell = function(val1, val2) {
 };
 
 PHR.PositionCell = function() {
-  
+  this.heroPosition = false;
+  this.playerNote = '';
 }
 
 PHR.Board = function() {
@@ -32,10 +33,10 @@ PHR.Table = function(rows, col) {
   this.rows = this.ROWS;
   this.col = this.COLUMNS;
   this.posVal = ["SB", "BB", "U1", "U2", "M1", "M2", "M3", "CO", "B"];
+  this.highlightClasses = ["preflop", "flop", "turn", "river"];
   // for (var f = 0; f < this.col; f++) {
-  //   for(var m = 0; m < this.posVal.length; m++){
-  //     this.position[f] = ;
-  //   }
+  //   for(var m = 0: m < this.posVal.length)
+  //   this.position[f] = ;
   // }
 
   this.hand = [];
@@ -69,6 +70,17 @@ PHR.Table = function(rows, col) {
     console.log(pot);
   return pot;
   };
+  var z = 2;
+  var w = 2;
+  this.calculateColSum = function(actionNumbers) {
+    return actionNumbers.map(function(z, w) {
+      return actionNumbers.map(function(z) {
+        return z[w]; }
+      ).reduce(function(a, b) {
+        return a+b;
+      }, 0);
+    });
+  };
 
   // this.disableCell = function(col) {
   //   // console.log("the col is", col);
@@ -79,6 +91,14 @@ PHR.Table = function(rows, col) {
   //   }
   //   // console.log("disabling cell", this.isDisabled, col);
   // };
+};
+
+PHR.Table.prototype.forEachActionCell = function(func) {
+  for (var i=0; i<this.rows; i++) {
+    for (var j =0; j<this.col; j++) {
+      func(this.action[i][j]);
+    }
+  }
 };
 
 PHR.Comment = function(val) {

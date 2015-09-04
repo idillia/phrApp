@@ -13,188 +13,43 @@ angular.module('editHand', [])
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
 
 
-  // Disable cell
-
- 
-
-
-  // Cards custom keypad when inputing in table.hand
-
-  $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.deckModal = modal;
-  });
-
-  $scope.openDeckModal = function(row, col) {
-    $scope.openRow = row;
-    $scope.openCol = col;
-    $scope.deckModal.show();
-  };
-
-  $scope.noPlayer = function() {
-    // $scope.table.disableCell($scope.openCol);
-    console.log($scope.table);
-
-    // $scope.isDisabled = true;
-    // $scope.dis = 
-    for (var i = 0; i< $scope.table.hand.length; i++) {
-      $scope.table.hand[i].isDisabled = true;
-      $scope.isDisabled = $scope.table.hand[i].isDisabled;
-    console.log($scope.table.hand[i]);
-    }
-  };
-    
-  $scope.movePrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol > 0) {
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-    }
-  };
-  $scope.moveNext = function() {
-    $scope.openCol++;
-    if ($scope.openCol <= 8) {
-      console.log($scope.openCol);
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-    } else return;
-  };
-  
-  $scope.closeDeckModal = function() {
-    $scope.table.hand[$scope.openCol].value = $scope.modalVal;
-    $scope.deckModal.hide();
-  };
-  $scope.buttonDeckModal = function(rank, suit) {
-    $scope.modalVal = rank+suit;
-
-    if (typeof $scope.modalCard1 === 'undefined') {
-        $scope.modalCard1 = rank+suit;  
-    }
-    else {
-        $scope.modalCard2 = rank+suit;
-        $scope.table.hand[$scope.openCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
-        // console.log('card1: ' + $scope.table.hand[$scope.openCol].card1 + " , card2: " + $scope.table.hand[$scope.openCol].card2);
-        delete $scope.modalCard1;
-        delete $scope.modalCard2;
-        $scope.moveNext();  
-    }
-  };
- // Number custom keypad when inputing in table.action
-  $ionicModal.fromTemplateUrl('js/keypads/actionKeypad.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.actionModal = modal;
-    $scope.modalVal = [];
-  });
-  $scope.openActionModal = function(row, col) {
-    $scope.openRow = row;
-    $scope.openCol = col;
-    $scope.actionModal.show();
-    $scope.movePrev = function() {
-      $scope.openCol--;
-      if ($scope.openCol > 0) {
-        $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
-      }
-    };
-    $scope.moveNext = function() {
-      $scope.modalVal = [];
-      $scope.openCol++;
-      if ($scope.openCol <= 8) {
-        $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
-      } else return;
-    };
-  };
-  $scope.eraseActionModal = function() {
-    $scope.modalVal = [];
-  };
-  $scope.closeActionModal = function() {
-    $scope.modalVal = [];
-    $scope.actionModal.hide();
-    $scope.pot = $scope.table.calculatePotSize();
-  };
-  $scope.buttonActionModal = function(val) {
-    $scope.modalVal.push(val);
-    $scope.numbers = $scope.modalVal.join('');
-    $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
-  };
-
-  // Number custom keypad when inputing in table.stack
-  $ionicModal.fromTemplateUrl('js/keypads/stackKeypad.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.stackModal = modal;
-  });
-  $scope.openStackModal = function(row, col) {
-    $scope.openRow = row;
-    $scope.openCol = col;
-    $scope.stackModal.show();
-    $scope.movePrev = function() {
-      $scope.openCol--;
-      if ($scope.openCol > 0) {
-        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
-      }
-    };
-    $scope.moveNext = function() {
-      $scope.modalVal = [];
-      $scope.openCol++;
-      if ($scope.openCol <= 8) {
-        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
-      } else return;
-    };
-  };
-  $scope.eraseStackModal = function() {
-    $scope.modalVal = [];
-  };
-  $scope.closeStackModal = function() {
-    $scope.modalVal = [];
-    $scope.stackModal.hide();
-  };
-  $scope.buttonStackModal = function(val) {
-    console.log($scope.modalVal)
-    $scope.modalVal.push(val);
-    $scope.numbers = $scope.modalVal.join('');
-    $scope.table.stack[$scope.openCol].value = $scope.numbers;
-  };
-
-  // Cards custom keypad when inputing in board.board
-  $ionicModal.fromTemplateUrl('js/keypads/cardsBoardKeypad.html', {
+ // Board - boardKeypad
+  $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.boardModal = modal;
   });
-  $scope.openBoardModal = function(row, col) {
-    console.log("open bord model")
+  $scope.openBoardModal = function(col) {
     $scope.openCol = col;
     $scope.boardModal.show();
-    $scope.movePrev = function() {
-      $scope.openCol--;
-      if ($scope.openCol > 0) {
-        $scope.board.board[$scope.openCol].value = $scope.modalVal;  
-      }
-    };
-    $scope.moveNext = function() {
-      $scope.openCol++;
-      if ($scope.openCol <= 4 ) {
-        $scope.board.board[$scope.openCol].value = $scope.modalVal;
-      } else return;
-    };
+  };  
+  $scope.moveBoardPrev = function() {
+    $scope.openCol--;
+    console.log($scope.openCol);
+    if ($scope.openCol >= 0) {
+      $scope.board.board[$scope.openCol].value = $scope.modalVal;  
+    }
   };
+  $scope.moveBoardNext = function() {
+    if ($scope.openCol < 4 ) {
+      $scope.openCol++;
+      $scope.board.board[$scope.openCol].value = $scope.modalVal;
+    } else return;
+  };
+  
   $scope.closeBoardModal = function() {
     $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
-    if ($scope.openCol <=4){ 
+    if ($scope.openCol <= 4){ 
       $scope.modalVal = rank+suit;
       $scope.board.board[$scope.openCol].value = $scope.modalVal;
       delete $scope.modalVal;
       $scope.moveNext();
     } else $scope.closeBoardModal();
   };
-
-  // Position Keypad
+  // Player position Keypad
 
   $ionicModal.fromTemplateUrl('js/keypads/positionKeypad.html', {
     scope: $scope,
@@ -203,8 +58,7 @@ angular.module('editHand', [])
     $scope.posModal = modal;
   });
 
-  $scope.openPositionModal = function(row, col) {
-    $scope.openRow = row;
+  $scope.openPositionModal = function(col) {
     $scope.openCol = col;
     $scope.posModal.show();
   };
@@ -222,26 +76,163 @@ angular.module('editHand', [])
   //   }
   // };
     
-  $scope.movePrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol > 0) {
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-    }
-  };
-  $scope.moveNext = function() {
-    $scope.openCol++;
-    if ($scope.openCol <= 8) {
-      console.log($scope.openCol);
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-    } else return;
-  };
+  // $scope.movePositionPrev = function() {
+  //   $scope.openCol--;
+  //   if ($scope.openCol > 0) {
+  //     $scope.table.[$scope.openCol].value = $scope.modalVal;  
+  //   }
+  // };
+  // $scope.movePositionNext = function() {
+  //   $scope.openCol++;
+  //   if ($scope.openCol <= 8) {
+  //     console.log($scope.openCol);
+  //     $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+  //   } else return;
+  // };
   
   $scope.closePositionModal = function() {
-    $scope.table.hand[$scope.openCol].value = $scope.modalVal;
     $scope.posModal.hide();
   };
   $scope.playerNoteModal = function() {
     
+  };
+  // Player Hand Keypad
+  $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.deckModal = modal;
+  });
+
+  $scope.openDeckModal = function(col) {
+    $scope.openCol = col;
+    $scope.deckModal.show();
+  };
+  // $scope.noPlayer = function() {
+  //   // $scope.table.disableCell($scope.openCol);
+  //   console.log($scope.table);
+
+  //   // $scope.isDisabled = true;
+  //   // $scope.dis = 
+  //   for (var i = 0; i< $scope.table.hand.length; i++) {
+  //     $scope.table.hand[i].isDisabled = true;
+  //     $scope.isDisabled = $scope.table.hand[i].isDisabled;
+  //   console.log($scope.table.hand[i]);
+  //   }
+  // };
+    
+  $scope.moveDeckPrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol >= 0) {
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    }
+  };
+  $scope.moveDeckNext = function() {
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    } else return;
+  };
+  
+  $scope.closeDeckModal = function() {
+    $scope.deckModal.hide();
+  };
+  $scope.buttonDeckModal = function(rank, suit) {
+    $scope.modalVal = rank+suit;
+    if ($scope.openCol <= 8){ 
+      if (typeof $scope.modalCard1 === 'undefined') {
+        $scope.modalCard1 = rank+suit;  
+      }
+      else {
+        $scope.modalCard2 = rank+suit;
+        $scope.table.hand[$scope.openCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
+        delete $scope.modalCard1;
+        delete $scope.modalCard2;
+        $scope.moveDeckNext();  
+      }
+    } else {
+      $scope.closeDeckModal();
+    }  
+  };
+
+    // Stack Keypad
+  $ionicModal.fromTemplateUrl('js/keypads/stackKeypad.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.stackModal = modal;
+    $scope.modalVal = [];
+  });
+  $scope.openStackModal = function(col) {
+    $scope.openCol = col;
+    $scope.stackModal.show();
+  };  
+  $scope.moveStackPrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol > 0) {
+      $scope.table.stack[$scope.openCol].value = $scope.numbers;  
+    }
+  };
+  $scope.moveStackNext = function() {
+    $scope.modalVal = [];
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      $scope.table.stack[$scope.openCol].value = $scope.numbers;  
+    } else return;
+  };
+  $scope.closeStackModal = function() {
+    $scope.stackModal.hide();
+  };
+  $scope.buttonStackModal = function(val) {
+    if ($scope.openCol <= 8){ 
+      $scope.modalVal.push(val);
+      $scope.numbers = $scope.modalVal.join('');
+      $scope.table.stack[$scope.openCol].value = $scope.numbers;
+    } else {
+      $scope.closeStackModal();
+    }  
+  };
+
+
+ // Action Keypad
+  $ionicModal.fromTemplateUrl('js/keypads/actionKeypad.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.actionModal = modal;
+    $scope.modalVal = [];
+  });
+  $scope.openActionModal = function(row, col) {
+    $scope.openRow = row;
+    $scope.openCol = col;
+    $scope.actionModal.show();
+  };  
+  $scope.moveActionPrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol > 0) {
+      $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
+    }
+  };
+  $scope.moveActionNext = function() {
+    $scope.modalVal = [];
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
+    } else return;
+  };
+
+  // $scope.eraseActionModal = function() {
+  //   $scope.modalVal = [];
+  // };
+  $scope.closeActionModal = function() {
+    $scope.modalVal = [];
+    $scope.actionModal.hide();
+    $scope.pot = $scope.table.calculatePotSize();
+  };
+  $scope.buttonActionModal = function(val) {
+    $scope.modalVal.push(val);
+    $scope.numbers = $scope.modalVal.join('');
+    $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
   };
 
 
