@@ -70,8 +70,7 @@ PHR.Table = function(rows, col) {
     console.log(pot);
   return pot;
   };
-  var z = 2;
-  var w = 2;
+
   this.calculateColSum = function(actionNumbers) {
     return actionNumbers.map(function(z, w) {
       return actionNumbers.map(function(z) {

@@ -5,6 +5,7 @@ angular.module('editHand', [])
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();
+  console.log(JSON.stringify($scope.table.action))
 
   var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
   var handId = fireref.push();
@@ -25,11 +26,13 @@ angular.module('editHand', [])
     $scope.boardModal.show();
   };  
   $scope.moveBoardPrev = function() {
-    $scope.openCol--;
-    console.log($scope.openCol);
-    if ($scope.openCol >= 0) {
-      $scope.board.board[$scope.openCol].value = $scope.modalVal;  
-    }
+    if($scope.openCol !== 0) {
+      $scope.openCol--;
+      console.log($scope.openCol);
+      if ($scope.openCol >= 0) {
+        $scope.board.board[$scope.openCol].value = $scope.modalVal;  
+      }
+  }
   };
   $scope.moveBoardNext = function() {
     if ($scope.openCol < 4 ) {
@@ -46,7 +49,7 @@ angular.module('editHand', [])
       $scope.modalVal = rank+suit;
       $scope.board.board[$scope.openCol].value = $scope.modalVal;
       delete $scope.modalVal;
-      $scope.moveNext();
+      $scope.moveBoardNext();
     } else $scope.closeBoardModal();
   };
   // Player position Keypad
@@ -135,6 +138,7 @@ angular.module('editHand', [])
   };
   
   $scope.closeDeckModal = function() {
+    $scope.modalVal = [];
     $scope.deckModal.hide();
   };
   $scope.buttonDeckModal = function(rank, suit) {
@@ -161,26 +165,33 @@ angular.module('editHand', [])
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.stackModal = modal;
-    $scope.modalVal = [];
   });
   $scope.openStackModal = function(col) {
     $scope.openCol = col;
     $scope.stackModal.show();
+    $scope.modalVal = [];
   };  
   $scope.moveStackPrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol > 0) {
-      $scope.table.stack[$scope.openCol].value = $scope.numbers;  
+    if ($scope.openCol !== 0) {
+      $scope.openCol--;
+      if ($scope.openCol > 0) {
+        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
+      }
     }
   };
+  $scope.eraseStack = function(){
+    $scope.modalVal = [];
+    $scope.table.stack[$scope.openCol].value ='';
+  }
   $scope.moveStackNext = function() {
     $scope.modalVal = [];
     $scope.openCol++;
     if ($scope.openCol <= 8) {
       $scope.table.stack[$scope.openCol].value = $scope.numbers;  
-    } else return;
+    } else $scope.closeStackModal();
   };
   $scope.closeStackModal = function() {
+    $scope.modalVal = [];
     $scope.stackModal.hide();
   };
   $scope.buttonStackModal = function(val) {
@@ -188,6 +199,8 @@ angular.module('editHand', [])
       $scope.modalVal.push(val);
       $scope.numbers = $scope.modalVal.join('');
       $scope.table.stack[$scope.openCol].value = $scope.numbers;
+       console.log($scope.table.stack[$scope.openCol].value)
+
     } else {
       $scope.closeStackModal();
     }  
@@ -216,9 +229,16 @@ angular.module('editHand', [])
   $scope.moveActionNext = function() {
     $scope.modalVal = [];
     $scope.openCol++;
-    if ($scope.openCol <= 8) {
+    console.log($scope.openCol);
+    if ($scope.openCol < 9) {
       $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
-    } else return;
+      if($scope.openCol === 8) {
+
+        $scope.openRow++;
+        $scope.openCol = -1;
+        console.log($scope.openRow);
+      }
+    }
   };
 
   // $scope.eraseActionModal = function() {
@@ -226,8 +246,9 @@ angular.module('editHand', [])
   // };
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
-    $scope.actionModal.hide();
     $scope.pot = $scope.table.calculatePotSize();
+    $scope.actionModal.hide();
+    
   };
   $scope.buttonActionModal = function(val) {
     $scope.modalVal.push(val);
