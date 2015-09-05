@@ -23,11 +23,16 @@ angular.module('editHand', [])
   $scope.openBoardModal = function(col) {
     $scope.openCol = col;
     $scope.boardModal.show();
+     $scope.setSelected = function (col) {
+      $scope.idCol = col;
+    };
+    $scope.setSelected($scope.openCol);
+
   };  
   $scope.moveBoardPrev = function() {
     if($scope.openCol !== 0) {
       $scope.openCol--;
-      console.log($scope.openCol);
+      $scope.setSelected($scope.openCol);
       if ($scope.openCol >= 0) {
         $scope.board.board[$scope.openCol].value = $scope.modalVal;  
       }
@@ -36,11 +41,13 @@ angular.module('editHand', [])
   $scope.moveBoardNext = function() {
     if ($scope.openCol < 4 ) {
       $scope.openCol++;
+      $scope.setSelected($scope.openCol);
       $scope.board.board[$scope.openCol].value = $scope.modalVal;
-    } else return;
+    } else $scope.closeBoardModal();
   };
   
   $scope.closeBoardModal = function() {
+    $scope.setSelected($scope.openCol+1);
     $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
@@ -218,10 +225,14 @@ angular.module('editHand', [])
     $scope.openRow = row;
     $scope.openCol = col;
     $scope.actionModal.show();
-    $scope.hlCell = function() {
-      console.log("is being called")
-    return $scope.openCol == $scope.opneCol;
-  }
+    $scope.idRow = null;
+    $scope.idCol = null;
+    $scope.setSelected = function (row, col) {
+      $scope.idRow = row;
+      $scope.idCol = col;
+    };
+    $scope.setSelected($scope.openRow,$scope.openCol);
+  
     
   };  
   $scope.moveActionPrev = function() {
@@ -231,11 +242,13 @@ angular.module('editHand', [])
     }
   };
   $scope.moveActionNext = function() {
+    
     $scope.modalVal = [];
     $scope.numbers = '';
     
     if ($scope.openCol < 8) {
       $scope.openCol++;
+      $scope.setSelected($scope.openRow, $scope.openCol);
       console.log($scope.openCol)
       $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
       console.log($scope.table.action[$scope.openRow][$scope.openCol].value)
@@ -260,6 +273,7 @@ angular.module('editHand', [])
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
     $scope.actionModal.hide();
+    $scope.setSelected($scope.openRow+1, $scope.openCol);
     
   };
   $scope.buttonActionModal = function(val) {
