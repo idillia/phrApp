@@ -101,3 +101,7 @@ table tr td disabled {
   background-color: blue;
 }
 
+.highlightedCell {
+  background-color: yellow;
+}
+

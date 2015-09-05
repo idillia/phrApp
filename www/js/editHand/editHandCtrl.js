@@ -218,6 +218,11 @@ angular.module('editHand', [])
     $scope.openRow = row;
     $scope.openCol = col;
     $scope.actionModal.show();
+    $scope.hlCell = function() {
+      console.log("is being called")
+    return $scope.openCol == $scope.opneCol;
+  }
+    
   };  
   $scope.moveActionPrev = function() {
     $scope.openCol--;
@@ -227,16 +232,26 @@ angular.module('editHand', [])
   };
   $scope.moveActionNext = function() {
     $scope.modalVal = [];
-    $scope.openCol++;
-    console.log($scope.openCol);
-    if ($scope.openCol <= 8) {
+    $scope.numbers = '';
+    
+    if ($scope.openCol < 8) {
+      $scope.openCol++;
+      console.log($scope.openCol)
       $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
-      if($scope.openCol === 8) {
+      console.log($scope.table.action[$scope.openRow][$scope.openCol].value)
+     
+    } else if($scope.openCol === 8) {
+
+      console.log($scope.openRow, $scope.openCol)
         $scope.openRow++;
-        $scope.openCol = -1;
+        $scope.openCol = 0;
         console.log($scope.openRow);
-      }
     }
+    if($scope.openCol ===7) {
+      $scope.table.addRow();
+    }
+    
+
   };
 
   // $scope.eraseActionModal = function() {
@@ -252,7 +267,7 @@ angular.module('editHand', [])
     $scope.numbers = $scope.modalVal.join('');
     $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
     $scope.colSum= $scope.table.getSum();
-    console.log($scope.colSum());
+    // console.log($scope.colSum());
     $scope.pot = $scope.table.calculatePotSize();
     // console.log($scope.pot);
   };
@@ -304,11 +319,15 @@ angular.module('editHand', [])
   };
   
   $scope.clearHand = function() {
-  $scope.table = new PHR.Table();
-  $scope.board = new PHR.Board();
-  $scope.comment = new PHR.Comment();
+    $scope.table = new PHR.Table();
+    $scope.board = new PHR.Board();
+    $scope.comment = new PHR.Comment();
   }
+  
 
+
+
+  
      
 
 }]);

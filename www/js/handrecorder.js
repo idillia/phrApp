@@ -31,7 +31,7 @@ PHR.Board = function() {
 
 PHR.Table = function(rows, col) {
   this.COLUMNS = 9;
-  this.ROWS = 6;
+  this.ROWS = 1;
   this.rows = this.ROWS;
   this.col = this.COLUMNS;
   this.posVal = ["SB", "BB", "U1", "U2", "M1", "M2", "M3", "CO", "B"];
@@ -69,7 +69,7 @@ PHR.Table = function(rows, col) {
         }
       }
     }
-    console.log(pot);
+    // console.log(pot);
   return pot;
   };
 
@@ -90,24 +90,23 @@ PHR.Table = function(rows, col) {
             if (b === '') b=0;
             return parseInt(a)+parseInt(b);})
       });
-      console.log("sums", sums);
+      // console.log("sums", sums);
       return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
       }; 
   }; 
-
+  
   this.addRow = function() {
     this.action[this.rows] = [];
     for (var j=0; j<this.col; j++) {
       this.action[this.rows][j] = new PHR.Cell();
+
     }
     ++this.rows;
-  }
-
-  this.setClass = function() {
-    if (getSum() == true) {
-      
-    }
+    console.log(this.action)
   }    
+  
+  
+
 };
 
 // PHR.Table.prototype.sum = function(matrix) {
