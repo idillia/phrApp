@@ -229,10 +229,9 @@ angular.module('editHand', [])
     $scope.modalVal = [];
     $scope.openCol++;
     console.log($scope.openCol);
-    if ($scope.openCol < 9) {
+    if ($scope.openCol <= 8) {
       $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
       if($scope.openCol === 8) {
-
         $scope.openRow++;
         $scope.openCol = -1;
         console.log($scope.openRow);
@@ -245,10 +244,6 @@ angular.module('editHand', [])
   // };
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
-    $scope.pot = $scope.table.calculatePotSize();
-    $scope.colSum= $scope.sum();
-    console.log($scope.colSum);
-    console.log(colSortArray);
     $scope.actionModal.hide();
     
   };
@@ -256,6 +251,10 @@ angular.module('editHand', [])
     $scope.modalVal.push(val);
     $scope.numbers = $scope.modalVal.join('');
     $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
+    $scope.colSum= $scope.table.getSum();
+    console.log($scope.colSum());
+    $scope.pot = $scope.table.calculatePotSize();
+    // console.log($scope.pot);
   };
 
 

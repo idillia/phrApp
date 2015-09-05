@@ -85,3 +85,19 @@ table tr td disabled {
   background-color: yellow;
 }
 
+.preflop {
+  background-color: yellow;
+}
+
+.flop {
+  background-color: green;
+}
+
+.turn {
+  background-color: gray;
+}
+
+.river {
+  background-color: blue;
+}
+

@@ -14,8 +14,8 @@
           <tr>
             <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"  ng-disabled="isDisabled">{{cell.value}}</td>
           </tr>   
-          <tr ng-repeat="row in table.action">
-            <td ng-repeat="cell in row" ng-click="openActionModal($parent.$index, $index); pot()"  ng-disabled="isDisabled">{{cell.value}}</td>  
+          <tr ng-repeat="row in table.action" ng-class="{river: colSum()}">
+            <td ng-repeat="cell in row" ng-click="openActionModal($parent.$index, $index); pot()"  ng-disabled="isDisabled" >{{cell.value}}</td>  
           </tr>
         </tbody>
       </table>

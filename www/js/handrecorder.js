@@ -5,6 +5,8 @@ var PHR = PHR || {};
 PHR.Cell = function(val) {
   this.value = typeof val !== 'undefined' ? val : ''; 
   this.isDisabled = false;
+  this.isHighlighted = false;
+  this.highlightClasses = ["preflop", "flop", "turn", "river"];
 };
 
 PHR.HandCell = function(val1, val2) {
@@ -33,7 +35,7 @@ PHR.Table = function(rows, col) {
   this.rows = this.ROWS;
   this.col = this.COLUMNS;
   this.posVal = ["SB", "BB", "U1", "U2", "M1", "M2", "M3", "CO", "B"];
-  this.highlightClasses = ["preflop", "flop", "turn", "river"];
+  
   // for (var f = 0; f < this.col; f++) {
   //   for(var m = 0: m < this.posVal.length)
   //   this.position[f] = ;
@@ -71,44 +73,63 @@ PHR.Table = function(rows, col) {
   return pot;
   };
 
-// arr!!!!
-var getVal = function(a){
-  var res = _.map(a, function(item){
-      return _.pluck(item, "value");
-  }); 
-  return res;
-};
-var colSortArray =  _.zip.apply(null, getVal());
-console.log(colSortArray);
+  this.getSum = function() {
+    var colSortArray = [];
+    this.getVal = function(a){
+      var res = _.map(a, function(item){
+          return _.pluck(item, "value");
+      }); 
+      return res;
+    };
+    colSortArray =  _.zip.apply(null, this.getVal(this.action));
 
-this.sum = function(matrix) {
-  var sums = _.map(matrix, function(item) {
-    return _.reduce(item, function(a,b){
-        if (a === '' ) a=0;
-        if (b === '') b=0;
-        return parseInt(a)+parseInt(b);})
-  });
-  return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
-  };
+    return sum = function() {
+      var sums = _.map(colSortArray, function(item) {
+        return _.reduce(item, function(a,b){
+            if (a === '' ) a=0;
+            if (b === '') b=0;
+            return parseInt(a)+parseInt(b);})
+      });
+      console.log("sums", sums);
+      return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
+      }; 
+  }; 
 
-  // this.disableCell = function(col) {
-  //   // console.log("the col is", col);
-  //   for (var i=0; i<this.rows; i++) {
-  //     // console.log(i, col);
-  //     this.hand[i].isDisabled = true;
-  //     console.log("this.hand"+ [i]+".isDisabled", this.hand[i].isDisabled);
-  //   }
-  //   // console.log("disabling cell", this.isDisabled, col);
-  // };
-};
-
-PHR.Table.prototype.forEachActionCell = function(func) {
-  for (var i=0; i<this.rows; i++) {
-    for (var j =0; j<this.col; j++) {
-      func(this.action[i][j]);
+  this.addRow = function() {
+    this.action[this.rows] = [];
+    for (var j=0; j<this.col; j++) {
+      this.action[this.rows][j] = new PHR.Cell();
     }
+    ++this.rows;
   }
+
+  this.setClass = function() {
+    if (getSum() == true) {
+      
+    }
+  }    
 };
+
+// PHR.Table.prototype.sum = function(matrix) {
+//   var sums = _.map(matrix, function(item) {
+//     return _.reduce(item, function(a,b){
+//         if (a === '' ) a=0;
+//         if (b === '') b=0;
+//         return parseInt(a)+parseInt(b);})
+//   });
+//   return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
+//   };  
+
+ // var some = new PHR.Table(); 
+ //  console.log("is true:", some.sum(this.colSortArray))
+
+// PHR.Table.prototype.forEachActionCell = function(func) {
+//   for (var i=0; i<this.rows; i++) {
+//     for (var j =0; j<this.col; j++) {
+//       func(this.action[i][j]);
+//     }
+//   }
+// };
 
 PHR.Comment = function(val) {
   this.value = '';
