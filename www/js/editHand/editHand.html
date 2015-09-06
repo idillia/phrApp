@@ -1,21 +1,21 @@
 <ion-view title="Edit Hand">
   <ion-content padding="true">
     <form name="addHandForm">    
-      <label>Board:</label><label>Pot Size: {{pot}} SumCol {{calcColSum}}</label> <table class="board"><tr><td ng-repeat="cell in board.board" ng-click="openBoardModal($index)" ng-class="{highlightedCell:idCol === $index}">{{cell.value}}</td></tr></table> 
+      <label>Board:</label><label>Pot Size: {{pot}} SumCol {{calcColSum}}</label> <table class="board"><tr><td ng-repeat="cell in board.board" ng-click="openBoardModal($index)" ng-class="{highlightedCell:idBoardCol === $index}">{{cell.value}}</td></tr></table> 
       <table class="table table-bordered">
         <tbody class="input-cell">
           <tr>
-            <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal">{{cell}}</td>
+            <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal" ng-class="{highlightedCell:idPositionCol === $index}">{{cell}}</td>
           </tr> 
           <tr>
-            <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)"  ng-disabled="isDisabled === true" data-text="text">
+            <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)" ng-class="{highlightedCell:idDeckCol === $index}">
               {{cell.card1}} {{cell.card2}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"  ng-disabled="isDisabled">{{cell.value}}</td>
+            <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"  ng-class="{highlightedCell:idStackCol === $index}">{{cell.value}}</td>
           </tr>   
-          <tr ng-repeat="row in table.action" ng-class="{river: colSum()}">
-            <td ng-repeat="cell in row" ng-click="openActionModal($parent.$index, $index); pot()" ng-class="{highlightedCell: idRow === $parent.$index && idCol === $index}" >{{cell.value}}</td>  
+          <tr ng-repeat="row in table.action" ng-class="{preflop: preflopClass === preflop}">
+            <td ng-repeat="cell in row" ng-click="openActionModal($parent.$index, $index);" ng-class="{highlightedCell: idActionRow === $parent.$index && idActionCol === $index}" >{{cell.value}}</td>  
           </tr>
         </tbody>
       </table>
