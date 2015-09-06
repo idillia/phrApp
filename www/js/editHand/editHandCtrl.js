@@ -157,7 +157,7 @@ angular.module('editHand', [])
   $scope.closeDeckModal = function() {
     $scope.modalVal = [];
     $scope.deckModal.hide();
-    $scope.setSelected($scope.openCol+1);
+    $scope.setSelected($scope.openCol+11);
   };
   $scope.buttonDeckModal = function(rank, suit) {
     $scope.modalVal = rank+suit;

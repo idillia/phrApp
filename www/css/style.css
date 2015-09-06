@@ -55,6 +55,7 @@ textarea, input[type = "text"] {
  -webkit-opacity: 0.5;
  -moz-opacity: 0.5;
  margin-top:30%;
+ background-color: transparent;
 }
 
 .card-button {
@@ -86,7 +87,7 @@ table tr td disabled {
 }
 
 .preflop {
-  background-color: yellow;
+  background-color: #F0F8FF;
 }
 
 .flop {
@@ -103,5 +104,9 @@ table tr td disabled {
 
 .highlightedCell {
   border:3px solid blue;
+}
+
+.action {
+  background-color: green;
 }
 
