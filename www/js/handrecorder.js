@@ -53,7 +53,6 @@ PHR.Table = function(rows, col) {
       this.action[k][m] = new PHR.Cell();
     }
   };
-
   this.calculatePotSize = function() {
     var pot = 0; 
     for (var i = 0; i < this.rows; i++){
@@ -64,14 +63,8 @@ PHR.Table = function(rows, col) {
         }
       }
     }
-    // console.log(pot);
   return pot;
   };
-
-
-
-
-
 
   this.getSum = function() {
    
@@ -99,44 +92,48 @@ PHR.Table = function(rows, col) {
    this.setIsHighlighted = function () {
     for (var i=0; i<this.rows; i++) {
       for (var j =0; j<this.col; j++) {
-        console.log(this.highlightClasses[this.highlightIndex]);
+        // console.log(this.highlightClasses[this.highlightIndex]);
         if (this.action[i][j].value !== ''&& this.action[i][j].isHighlighted === ''){
-          console.log("I'm passing hlIndex of ", this.highlightIndex)
+          // console.log("I'm passing hlIndex of ", this.highlightIndex)
           this.action[i][j].isHighlighted = this.highlightClasses[this.highlightIndex];
+
         }   
       }  
-    }  
+    }
+    return this.highlightClasses[this.highlightIndex];
   };
 
- 
+  
+  this.toggleIsDisabled = function (index) {
+
+    var disSort = _.zip.apply(null, this.action);
+    // console.log(disSort);
+    // console.log(disSort[index])
+    for (var i =0; i<disSort[index].length; i++) {
+      console.log(disSort[index][i])
+      disSort[index][i].isDisabled = true;
+      console.log(this.action)
+     }
+    
+  }
+
+
+
+
 
 
   this.hlCell = function() {
     // console.log(this.getSum()())
+    var hlClass ='';
     if (this.getSum()()){
-      this.setIsHighlighted()
-      console.log(this.action)
+      hlClass = this.setIsHighlighted();
+      // console.log(this.action)
       this.highlightIndex++;
-      console.log("this.highlightIndex",this.highlightIndex);
-    } else return;
-  }
-
-  this.whichHL = function() {
-    var hlClass = '';
-    for (var i=0; i<this.rows; i++) {
-      for (var j =0; j<this.col; j++) {
-        if(this.action[i][j].isHighlighted !== '') {
-           if (hlClass === this.action[i][j].isHighlighted){
-            break;
-           }
-        } else {
-          hlClass = this.action[i][j].isHighlighted;
-        }
-      } 
-    } 
-    console.log(hlClass);
+      // console.log("this.highlightIndex",this.highlightIndex);
+    }
+    // console.log(hlClass);
     return hlClass;
-  }; 
+  } 
 
   this.addRow = function() {
     this.action[this.rows] = [];
