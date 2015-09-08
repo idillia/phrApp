@@ -66,15 +66,29 @@ PHR.Table = function(rows, col) {
   return pot;
   };
 
+// _.pluck(_.filter(jossWhedon.shows, function(show) { return show.femaleLead; }), "title"); 
+
+
   this.getSum = function() {
    
     var colSortArray = [];
     this.getVal = function(a){
       var res = _.map(a, function(item){
-          return _.pluck(item, "value");
+        console.log("item",item);
+          return _.pluck(_.filter(item, function(isd){
+            console.log("before filter isd",isd);
+            // if (!isd.isDisabled){
+            //   console.log("isd",isd.isDisabled)
+            //   console.log("filtered isd",isd)
+              return !isd.isDisabled;
+            // }
+          }), "value");
+          
       }); 
+      console.log("res", res);
       return res;
     };
+    
     colSortArray =  _.zip.apply(null, this.getVal(this.action));
 
     return sum = function() {

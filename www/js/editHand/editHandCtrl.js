@@ -13,7 +13,7 @@ angular.module('editHand', [])
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
    
 
-
+console.log($scope.table.action);
  // Board - boardKeypad
   $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
     scope: $scope,
