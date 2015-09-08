@@ -85,32 +85,30 @@ textarea, input[type = "text"] {
   /*background-color: aqua;*/
 }
 
-table tr td disabled {
-  background-color: yellow;
-}
+
 
 .preflop {
-  background-color: yellow;
+  background-color: #A4928F;
 }
 
 .flop {
-  background-color: green;
+  background-color: #B3B7BB;
 }
 
 .turn {
-  background-color: gray;
+  background-color: #C0B2E5;
 }
 
 .river {
-  background-color: yellow;
+  background-color: #88B7BB;
 }
 
 .highlightedCell {
-  border:3px solid blue;
+  border:3px solid #C38767;
 }
 
 .disabled{
-  background-color: #d3d3d3;
+  background-color: #F8FFF9;
 }
 
 .myButton {

@@ -33,6 +33,7 @@ PHR.Table = function(rows, col) {
   this.rows = this.ROWS;
   this.col = this.COLUMNS;
   this.posVal = ["SB", "BB", "U1", "U2", "M1", "M2", "M3", "CO", "B"];
+  this.moneyNumbers = [1,2,3,4,5,6,7,8,9];
   this.highlightClasses = ["preflop", "flop", "turn", "river"];
   this.highlightIndex = 0;
 

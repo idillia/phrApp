@@ -76,44 +76,29 @@ console.log($scope.table.action);
     };
     $scope.setSelected($scope.openCol);
   };
-  $scope.isDisabled = false;
+  
   $scope.disableCell = function(){  
        $scope.table.toggleIsDisabled($scope.openPosCol);    
   };  
-  
-  // $scope.isDisabledClass = function() { 
-  //   console.log("disabaling");
-  //     var currentIndex = $scope.openPosCol;
-  //     var disSort = _.zip.apply(null, $scope.table.action);
-  //      console.log(disSort[currentIndex]);
-  //     for (var i =0; i<disSort[currentIndex].length; i++) {
-  //       console.log(disSort[currentIndex][i].isDisabled);
-  //       console.log($scope.table.action)
-  //       $scope.isDisabled = disSort[currentIndex][i].isDisabled;
-  //      }
-  //     return false;
-  //   };
-
-
-
-    
-  // $scope.movePositionPrev = function() {
-  //   $scope.openCol--;
-  //   if ($scope.openCol > 0) {
-  //     $scope.table.[$scope.openCol].value = $scope.modalVal;  
-  //   }
-  // };
-  // $scope.movePositionNext = function() {
-  //   $scope.openCol++;
-  //   if ($scope.openCol <= 8) {
-  //     console.log($scope.openCol);
-  //     $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-  //   } else return;
-  // };
+ 
+  $scope.movePositionPrev = function() {
+    $scope.openCol--;
+    if ($scope.openCol > 0) {
+      $scope.setSelected($scope.openCol);
+      // $scope.table.position[$scope.openCol].value = $scope.modalVal;  
+    }
+  };
+  $scope.movePositionNext = function() {
+    $scope.openCol++;
+    if ($scope.openCol <= 8) {
+      $scope.setSelected($scope.openCol);
+      // $scope.table.position[$scope.openCol].value = $scope.modalVal;  
+    } else return;
+  };
   
   $scope.closePositionModal = function() {
     $scope.posModal.hide();
-    $scope.setSelected($scope.openCol-1);
+    $scope.setSelected($scope.openCol+11);
   };
   $scope.playerNoteModal = function() {
     
@@ -214,14 +199,13 @@ console.log($scope.table.action);
   $scope.closeStackModal = function() {
     $scope.modalVal = [];
     $scope.stackModal.hide();
-    $scope.setSelected($scope.openCol-20);
+    $scope.setSelected($scope.openCol+20);
   };
   $scope.buttonStackModal = function(val) {
     if ($scope.openCol <= 8){ 
       $scope.modalVal.push(val);
       $scope.numbers = $scope.modalVal.join('');
       $scope.table.stack[$scope.openCol].value = $scope.numbers;
-       console.log($scope.table.stack[$scope.openCol].value)
 
     } else {
       $scope.closeStackModal();
