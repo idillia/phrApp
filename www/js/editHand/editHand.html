@@ -5,7 +5,7 @@
       <table class="table table-bordered">
         <tbody class="input-cell">
           <tr>
-            <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal" ng-class="{highlightedCell:idPositionCol === $index}">{{cell}}</td>
+            <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal" ng-class="[{highlightedCell:idPositionCol === $index}, {heroPos: position.heroPosition === $index}]">{{cell}}</td>
           </tr> 
           <tr>
             <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)" ng-class="{highlightedCell:idDeckCol === $index}">

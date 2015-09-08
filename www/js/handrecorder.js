@@ -120,21 +120,20 @@ PHR.Table = function(rows, col) {
 
   
   this.toggleIsDisabled = function (index) {
-
     var disSort = _.zip.apply(null, this.action);
-    // console.log(disSort);
-    // console.log(disSort[index])
     for (var i =0; i<disSort[index].length; i++) {
-      console.log(disSort[index][i])
       disSort[index][i].isDisabled = true;
-      console.log(this.action)
      }
-    
-  }
+     return false;
+  };
 
-
-
-
+  this.enableIsDisabled = function (index) {
+    var disSort = _.zip.apply(null, this.action);
+    for (var i =0; i<disSort[index].length; i++) {
+      disSort[index][i].isDisabled = false;
+     }
+     return true;
+  };
 
 
   this.hlCell = function() {

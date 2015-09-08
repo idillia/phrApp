@@ -14,11 +14,19 @@ table {
 }
 table tr td {
     width:100%;
-    height:2em;
+    height:1.2em;
     color: #666;
     padding:0;
     border-bottom: 1px solid #b4b4b4;
     border-right: 1px solid #b4b4b4;
+    font-size: 1.2em;
+    text-align: center;
+    vertical-align: middle;
+}
+td.stackBtn {
+  font-size: 2.5em;
+  height: 1.5em;
+  background-color: yellow;
 }
 
 /* Chat */
@@ -108,7 +116,7 @@ textarea, input[type = "text"] {
 }
 
 .disabled{
-  background-color: #F8FFF9;
+  background-color: #F2E5DE;
 }
 
 .myButton {
@@ -152,6 +160,17 @@ textarea, input[type = "text"] {
   top:1px;
 }
 
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.heroPos {
+  background-color: green;
+}
 
 
 

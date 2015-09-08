@@ -16,19 +16,9 @@
       <td><button class="button-wide smaller" ng-click="">Call</button></td>
     </tr>
     <tr>
-      <td ng-click="buttonActionModal(1)">1</td>
-      <td ng-click="buttonActionModal(2)">2</td>
-      <td ng-click="buttonActionModal(3)">3<td>  
-    </tr> 
-    <tr>
-      <td ng-click="buttonActionModal(4)">4</td>
-      <td ng-click="buttonActionModal(5)">5</td>
-      <td ng-click="buttonActionModal(6)">6</td>  
-    </tr> 
-    <tr>
-      <td ng-click="buttonActionModal(7)">7</td>
-      <td ng-click="buttonActionModal(8)">8</td>
-      <td ng-click="buttonActionModal(9)">9<td>  
+    <tr ng-repeat = "element in moneyNumbers">
+      <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonActionModal(cell)" >{{cell}}</td>
+    </tr>  
     </tr>
     <tr>
       <td><button class="button-wide smaller" ng-click="moveActionPrev()">Previous</button></td>

@@ -2,10 +2,10 @@
   <ion-content class="">
   <div class="keypad cards">
     <div class="row row-20">
-      <button class="button-wide smaller" ng-click="disableCell()">TogglePlayer</button>
-      <button class="button-wide smaller" ng-click="movePositionPrev()">Previous</button>
+      <button class="button-wide smaller" ng-class="{true: 'red', false: 'blue'}[!dis]" ng-click = "toggleIsDisabledCell()"> {{!dis && 'No' || 'Put'}} player</button>
+      <button class="button-wide smaller" ng-click="movePositionPrev()">Prev</button>
       <button class="button-wide smaller" ng-click="movePositionNext()">Next</button>
-      <button class="button-wide smaller" ng-click="">My position</button>
+      <button class="button-wide smaller" ng-click="toggleHeroPosition()">My seat</button>
       <button class="button-wide smaller" ng-click = "closePositionModal()">Done</button>
     </div>
     <lable>Comments on SB:<lable><textarea></textarea>
