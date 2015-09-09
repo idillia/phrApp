@@ -5,6 +5,7 @@ var PHR = PHR || {};
 PHR.Cell = function(val) {
   this.value = typeof val !== 'undefined' ? val : ''; 
   this.isDisabled = false;
+  this.disCol = false;
   this.isHighlighted = '';
 };
 
@@ -53,6 +54,7 @@ PHR.Table = function(rows, col) {
     for (var m = 0; m < this.col; m++) {
       this.action[k][m] = new PHR.Cell();
     }
+    // console.log("this.action", this.action);
   };
   this.calculatePotSize = function() {
     var pot = 0; 
@@ -111,7 +113,6 @@ PHR.Table = function(rows, col) {
         if (this.action[i][j].value !== ''&& this.action[i][j].isHighlighted === ''){
           // console.log("I'm passing hlIndex of ", this.highlightIndex)
           this.action[i][j].isHighlighted = this.highlightClasses[this.highlightIndex];
-
         }   
       }  
     }
@@ -120,24 +121,32 @@ PHR.Table = function(rows, col) {
 
   
   this.toggleIsDisabled = function (index) {
+    this.hand[index].isDisabled = true;
+    this.stack[index].isDisabled = true;
     var disSort = _.zip.apply(null, this.action);
     for (var i =0; i<disSort[index].length; i++) {
       disSort[index][i].isDisabled = true;
+      disSort[index][i].disCol = index;
+      console.log(disSort[index][i].disCol)
      }
      return false;
   };
 
   this.enableIsDisabled = function (index) {
+    this.hand[index].isDisabled = false;
+    this.stack[index].isDisabled = false;
+
     var disSort = _.zip.apply(null, this.action);
     for (var i =0; i<disSort[index].length; i++) {
       disSort[index][i].isDisabled = false;
+      disSort[index][i].disCol = false;
+
      }
      return true;
   };
 
 
   this.hlCell = function() {
-    // console.log(this.getSum()())
     var hlClass ='';
     if (this.getSum()()){
       hlClass = this.setIsHighlighted();
@@ -149,22 +158,53 @@ PHR.Table = function(rows, col) {
     return hlClass;
   } 
 
+  this.checkDisCol = function() {
+    var col = [];
+    var lastRow= this.action[this.action.length-2];
+    for (var i=0; i<lastRow.length; i++) {
+      col.push(lastRow[i].disCol);
+    }
+    return col;
+  }
+
+   this.checkDisColStatus = function() {
+    var col = [];
+    var lastRow= this.action[this.action.length-2];
+    for (var i=0; i<lastRow.length; i++) {
+      col.push(lastRow[i].isDisabled);
+    }
+    return col;
+  }
+
   this.addRow = function() {
     this.action[this.rows] = [];
     for (var j=0; j<this.col; j++) {
       this.action[this.rows][j] = new PHR.Cell();
-    }
+      var lastRow = this.checkDisCol();
+      var lastRowIsDis = this.checkDisColStatus();
+      // console.log("lastRowIsDis",lastRowIsDis);
+      // console.log("old action",this.action)
+      
+        // console.log(lastRow)
+        this.action[this.rows][j].disCol = lastRow[j];
+        this.action[this.rows][j].isDisabled = lastRowIsDis[j]; 
+        console.log("lastrowI", lastRowIsDis[j]);
+        console.log("inside poslednei row llop and j: ",j, this.action[this.rows][j])}
+   
     ++this.rows;
-    console.log(this.action)
+    console.log("updated action", this.action)
   } 
 };
-PHR.Table.prototype.forEachActionCell = function(func) {
-  for (var i=0; i<this.rows; i++) {
-    for (var j =0; j<this.col; j++) {
-      
-    }
-  }
-};
+
+
+
+
+// console.log(this.checkDisCol())
+
+
+// PHR.Table.prototype.forEachActionCell = function(func) {
+ 
+// };
 
 PHR.Comment = function(val) {
   this.value = '';

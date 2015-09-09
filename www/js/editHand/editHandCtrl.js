@@ -7,15 +7,15 @@ angular.module('editHand', [])
   $scope.comment = new PHR.Comment();
   $scope.position = new PHR.PositionCell();
 
-  //var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
-  // var handId = fireref.push();
+  var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
+  var handId = fireref.push();
   
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9","8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
   $scope.moneyNumbers = [[1,2,3],[4,5,6],[7,8,9]];
    
 
-console.log($scope.table.action);
+// console.log($scope.table.action);
  // Board - boardKeypad
   $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
     scope: $scope,
@@ -71,12 +71,12 @@ console.log($scope.table.action);
   });
 
   $scope.openPositionModal = function(col) {
-    $scope.openCol = col;
+    $scope.openPosCol = col;
     $scope.posModal.show();
     $scope.setSelected = function (col) {
       $scope.idPositionCol = col;
     };
-    $scope.setSelected($scope.openCol);
+    $scope.setSelected($scope.openPosCol);
   };
 
   var called = false;
@@ -85,9 +85,9 @@ console.log($scope.table.action);
     if (called) { 
       called = false; 
       $scope.dis = false;
-      return $scope.table.enableIsDisabled($scope.openCol);
+      return $scope.table.enableIsDisabled($scope.openPosCol);
     }
-    $scope.table.toggleIsDisabled($scope.openCol); 
+    $scope.table.toggleIsDisabled($scope.openPosCol); 
     called = true;
     $scope.dis = true;
   };
@@ -103,7 +103,7 @@ console.log($scope.table.action);
              console.log($scope.position)
        return $scope.position.heroPosition;
     }
-    $scope.position.heroPosition = $scope.openCol;
+    $scope.position.heroPosition = $scope.openPosCol;
           console.log($scope.position)
 
     calledPos = true;
@@ -112,18 +112,18 @@ console.log($scope.table.action);
  
 
   $scope.movePositionPrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol >= 0) {
-      $scope.setSelected($scope.openCol);
+    $scope.openPosCol--;
+    if ($scope.openPosCol >= 0) {
+      $scope.setSelected($scope.openPosCol);
       // if (!called && !$scope.dis) {
 
       // }
     }
   };
   $scope.movePositionNext = function() {
-    $scope.openCol++;
-    if ($scope.openCol <= 8) {
-      $scope.setSelected($scope.openCol);
+    $scope.openPosCol++;
+    if ($scope.openPosCol <= 8) {
+      $scope.setSelected($scope.openPosCol);
      var called = false;
      $scope.dis = false;
      $scope.toggleIsDisabledCell = function () {
@@ -131,9 +131,9 @@ console.log($scope.table.action);
          called = false; 
          $scope.dis = false;
 
-         return $scope.table.enableIsDisabled($scope.openCol);
+         return $scope.table.enableIsDisabled($scope.openPosCol);
        }
-       $scope.table.toggleIsDisabled($scope.openCol); 
+       $scope.table.toggleIsDisabled($scope.openPosCol); 
        called = true;
        $scope.dis = true;
      };
@@ -150,7 +150,7 @@ console.log($scope.table.action);
         console.log($scope.position)
        return $scope.position.heroPosition;
       }
-      $scope.position.heroPosition = $scope.openCol;
+      $scope.position.heroPosition = $scope.openPosCol;
       console.log($scope.position)
       calledPos = true;
       $scope.pos = true;
@@ -160,7 +160,7 @@ console.log($scope.table.action);
   
   $scope.closePositionModal = function() {
     $scope.posModal.hide();
-    $scope.setSelected($scope.openCol+11);
+    $scope.setSelected($scope.openPosCol+11);
   };
   // $scope.playerNoteModal = function() {
     
@@ -333,7 +333,7 @@ console.log($scope.table.action);
       }
       if($scope.openCol ===7) {
         $scope.table.addRow();
-        $scope.table.toggleIsDisabled($scope.openPosCol);
+        // $scope.table.toggleIsDisabled($scope.openPosCol); 
         
       }
      
@@ -366,61 +366,79 @@ console.log($scope.table.action);
   };
 
 
-  // Save hand information to firebase
-  // $scope.saveHands = function() {
-  //   console.log("saving hands...")
-  //   var boardref = handId.child("board");
-  //   boardref.set(JSON.stringify($scope.board), function(error) {
-  //     if (error) {console.log("failed to save")}
-  //     else {console.log("board saved successfuly")}
-  //   });
-  //   var tableref = handId.child("table");
-  //   tableref.set(JSON.stringify($scope.table), function(error) {
-  //     if (error) {console.log("failed to save")}
-  //     else {console.log("table saved successfuly")}
-  //   });
-  //   var commentref = handId.child("comment");
-  //   commentref.set(JSON.stringify($scope.comment), function(error) {
-  //     if (error) {console.log("failed to save")}
-  //     else {console.log("comment saved successfuly")}
-  //   });
-  // };
+ // Save hand information to firebase
+  $scope.saveHands = function() {
+    console.log("saving hands...")
+    var boardref = handId.child("board");
+    boardref.set(JSON.stringify($scope.board), function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("board saved successfuly")}
+    });
+    var tableref = handId.child("table");
+    tableref.set(JSON.stringify($scope.table), function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("table saved successfuly")}
+    });
+    var commentref = handId.child("comment");
+    commentref.set(JSON.stringify($scope.comment), function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("comment saved successfuly")}
+    });
+  };
 
-  // // Restore information from firebase
-  // $scope.handRecords = [];
-  // $scope.restoreHand = function() {  
-  //   fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
-  //     var board = {};
-  //     var b = JSON.parse(snapshot.val().board);
-  //     var t = JSON.parse(snapshot.val().table);
-  //     var c = JSON.parse(snapshot.val().comment);
-  //     for (var prop in b) {
-  //       board[prop] = b[prop];
-  //       for (var x in t) {
-  //         board[x] = t[x];
-  //         for (var a in c) {
-  //           board[a] = c[a];
-  //         }
-  //       }
-  //     }
-  //     console.log(board);
-  //     $scope.handRecords.unshift(board);     
-  //     // $scope.$apply();
-  //   }, function(errorObject) {
-  //     console.log("The read failed: " + errorObject.code);
-  //   });
-  // };
+  // Restore information from firebase
+  $scope.handRecords = [];
+  $scope.restoreHand = function() {  
+    fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
+      var board = {};
+      var b = JSON.parse(snapshot.val().board);
+      var t = JSON.parse(snapshot.val().table);
+      var c = JSON.parse(snapshot.val().comment);
+      for (var prop in b) {
+        board[prop] = b[prop];
+        for (var x in t) {
+          board[x] = t[x];
+          for (var a in c) {
+            board[a] = c[a];
+          }
+        }
+      }
+      console.log(board);
+      $scope.handRecords.unshift(board);     
+      // $scope.$apply();
+    }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  };
 
-  $scope.getRange= function(obj, idx){
-    obj.index = idx + 1;
-    return !(obj.index % 3)
-  }
+  $scope.callBtn = function() {};
+
+  $scope.foldBtn = function() {
+    // $scope.table.toggleIsDisabled($scope.openCol);
+  };
+
+  $scope.checkBtn = function() {};
+
   
   $scope.clearHand = function() {
     $scope.table = new PHR.Table();
     $scope.board = new PHR.Board();
     $scope.comment = new PHR.Comment();
   }  
+
+
+  // $scope.checkDisCol = function() {
+  //   var col = ''
+  //   var lastRow= $scope.table.action[$scope.table.action.length-1];
+  //   for (var i=0; i<lastRow.length; i++) {
+  //     var col = lastRow[i].disCol;
+  //   }
+  //   console.log(col);
+  //   return col;
+// };
+
+
+
 
 }]);
 

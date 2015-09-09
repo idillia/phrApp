@@ -1,14 +1,14 @@
 <ion-modal-view>
   <ion-content class="">
-  <div class="keypad cards">
+  <div class="positionModal">
     <div class="row row-20">
-      <button class="button-wide smaller" ng-class="{true: 'red', false: 'blue'}[!dis]" ng-click = "toggleIsDisabledCell()"> {{!dis && 'No' || 'Put'}} player</button>
-      <button class="button-wide smaller" ng-click="movePositionPrev()">Prev</button>
-      <button class="button-wide smaller" ng-click="movePositionNext()">Next</button>
-      <button class="button-wide smaller" ng-click="toggleHeroPosition()">My seat</button>
-      <button class="button-wide smaller" ng-click = "closePositionModal()">Done</button>
+      <button class="button button-small button-calm" ng-click = "toggleIsDisabledCell()"> {{!dis && 'No' || 'Put'}} player</button>
+      <button class="button button-small button-calm" ng-click="movePositionPrev()">Prev</button>
+      <button class="button button-small button-calm" ng-click="movePositionNext()">Next</button>
+      <button class="button button-small button-calm" ng-click="toggleHeroPosition()">My seat</button>
+      <button class="button button-small button-calm" ng-click = "closePositionModal()">Done</button>
     </div>
-    <lable>Comments on SB:<lable><textarea></textarea>
+    <!-- <lable>Comments on SB:<lable><textarea></textarea> -->
   </div>  
   </ion-content>
 </ion-modal-view>
