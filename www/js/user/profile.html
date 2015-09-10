@@ -1,0 +1,20 @@
+<ion-view title="Profile" >
+
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-content has-header="true" padding="true" ng-show="authData">
+
+        <div class="list card">
+            <div class="item">
+                <h2>{{authData.facebook.displayName}}</h2>
+            </div>
+            <div class="item item-image">
+                <img style="width:150px; height:200px" ng-src="{{authData.facebook.profileImageURL}}"/>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>
