@@ -1,6 +1,6 @@
 angular.module('editHand', []) 
 
-.controller('editHandCtrl', ['$scope','$ionicModal', function($scope, $ionicModal){
+.controller('editHandCtrl', ['$scope','$ionicModal',  function($scope, $ionicModal){
   // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
@@ -437,7 +437,12 @@ angular.module('editHand', [])
   //   return col;
 // };
 
+// Side menu
 
+ 
+// $scope.toggleMenu = function() {
+//   $ionicSideMenuDelegate.toggleLeft();
+// };
 
 
 }]);

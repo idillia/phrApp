@@ -49,9 +49,9 @@ td.stackBtn {
     overflow: hidden;
 }
 
-textarea, input[type = "text"] {
+/*textarea, input[type = "text"] {
     border:1px solid #b4b4b4;
-}
+}*/
 
 .col {
     /*background: gray;*/

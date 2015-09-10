@@ -3,17 +3,31 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
-  $stateProvider.state('editHand', {
-    url: '/edithand',
+    $stateProvider.state('app', {
+      url:'/app',
+      abstract:true,
+      templateUrl: "js/sideMenu/sideMenu.html"
+    })
+    .state('editHand', {
+      url: '/edithand',
+      views: {
+        'editHand': {
+          templateUrl: 'js/editHand/editHand.html',
+          controller: 'editHandCtrl'
+        }
+      }
+    })
+    .state('signup', {
+    url: '/signup',
     views: {
-      editHand: {
-        templateUrl: 'js/editHand/editHand.html',
-        controller: 'editHandCtrl'
+      chat: {
+        templateUrl: 'js/auth/signup.html',
+        controller: 'signupCtrl'
       }
     }
-  });
+  })
 
-  $stateProvider.state('viewHand', {
+  .state('viewHand', {
     cache: false,
     url: '/viewhand',
     views: {
@@ -22,9 +36,9 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
         controller: 'editHandCtrl'
       }
     }
-  });
+  })
 
-  $stateProvider.state('chat', {
+  .state('chat', {
     url: '/chat',
     views: {
       chat: {
@@ -32,7 +46,17 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
         controller: 'chatCtrl'
       }
     }
-  });
+  })
+  .state('login', {
+    url: '/login',
+    views: {
+      chat: {
+        templateUrl: 'js/auth/login.html',
+        controller: 'AuthCtrl'
+      }
+    }
+  })
+
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -45,6 +69,29 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       StatusBar.styleDefault();
     }
   });
-});
+})
+
+
+
+.controller('AuthCtrl', function($scope, Auth) {
+  $scope.login = function() {
+    Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
+      console.log(authData);
+    }).catch(function(error){
+      console.log(error);
+    });
+  }
+  $scope.logout = function() {
+    Auth.$unauth();
+  }
+})
+
+.controller('signupCtrl', function($scope) {
+})
+
+.factory("Auth", function($firebaseAuth){
+  var ref = new Firebase("https://phr.firebaseio.com/");
+  return $firebaseAuth(ref);
+})
 
 
