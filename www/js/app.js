@@ -121,54 +121,37 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
 
 
 .controller('AuthCtrl', function($scope,$state, Auth) {
-  var isNewUser = true;
-  Auth.$onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-    Auth.$child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData)
-    });
-  }
-});
-// find a suitable name based on the meta info given by each provider
-function getName(authData) {
-  switch(authData.provider) {
-     case 'password':
-       return authData.password.email.replace(/@.*/, '');
-     case 'twitter':
-       return authData.twitter.displayName;
-     case 'facebook':
-       return authData.facebook.displayName;
-  }
-}
+  Auth.onAuth(function(authData) {
+  if (authData) {
+    console.log("Authenticated with uid:", authData.uid);
+  
+  $scope.user = {};
+  $scope.createUser = function() {
+    $scope.message = null;
+    $scope.error = null;
 
-  Auth.$onAuth(function(authData){
-    if (authData === null) {
-      $state.go('login');
-    console.log("Not logged in yet");
-  } else {
-    $state.go('app.edithand');
-    console.log("Logged in as", authData.uid);
-  }
-  $scope.authData = authData;
-    })
+    Auth.$createUser({
+      email: $scope.email,
+      password: $scope.password
+    }).then(function(userData) {
+      $scope.message = "User created with uid: " + userData.uid;
+    }).catch(function(error) {
+      $scope.error = error;
+    });
+  };
+
   $scope.login = function() {
     Auth.$authWithOAuthRedirect("facebook").catch(function(error){
-      console.log(error);
-    });
-     Auth.$authWithPassword({
-      email    : 'm@m.com',
-      password : 'm'
-    }).catch(function(error){
       console.log(error);
     });
   };
   $scope.logout = function() {
     Auth.$unauth();
   }
-  
+  } else {
+    console.log("Client unauthenticated.")
+  }
+})
 })
 
 .controller('signupCtrl', function($scope) {
@@ -176,6 +159,8 @@ function getName(authData) {
 
 .factory("Auth", function($firebaseAuth) {
   var ref = new Firebase("https://phr.firebaseio.com/");
+   console.log(ref);
+   console.log($firebaseAuth(ref));
   return $firebaseAuth(ref);
 });
 
