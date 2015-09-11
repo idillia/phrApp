@@ -6,52 +6,10 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
   // We can catch the error thrown when the $requireAuth promise is rejected
   // and redirect the user back to the home page
   if (error === "AUTH_REQUIRED") {
-    $state.go("home");
+    $state.go("app.login");
   }
 });
 }])
-
-// app.config(["$stateProvider", function ($stateProvider) {
-// $stateProvider
-//   .state("home", {
-//     // the rest is the same for ui-router and ngRoute...
-//     controller: "HomeCtrl",
-//     templateUrl: "views/home.html",
-//     resolve: {
-//       // controller will not be loaded until $waitForAuth resolves
-//       // Auth refers to our $firebaseAuth wrapper in the example above
-//       "currentAuth": ["Auth", function(Auth) {
-//         // $waitForAuth returns a promise so the resolve waits for it to complete
-//         return Auth.$waitForAuth();
-//       }]
-//     }
-//   })
-//   .state("account", {
-//     // the rest is the same for ui-router and ngRoute...
-//     controller: "AccountCtrl",
-//     templateUrl: "views/account.html",
-//     resolve: {
-//       // controller will not be loaded until $requireAuth resolves
-//       // Auth refers to our $firebaseAuth wrapper in the example above
-//       "currentAuth": ["Auth", function(Auth) {
-//         // $requireAuth returns a promise so the resolve waits for it to complete
-//         // If the promise is rejected, it will throw a $stateChangeError (see above)
-//         return Auth.$requireAuth();
-//       }]
-//     }
-//   });
-// }]);
-
-// app.controller("HomeCtrl", ["currentAuth", function(currentAuth) {
-//   // currentAuth (provided by resolve) will contain the
-//   // authenticated user or null if not logged in
-// }]);
-
-// app.controller("AccountCtrl", ["currentAuth", function(currentAuth) {
-//   // currentAuth (provided by resolve) will contain the
-//   // authenticated user or null if not logged in
-// }])
-
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/app/edithand');
 
@@ -61,25 +19,25 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
       templateUrl: "js/sideMenu/sideMenu.html",
       controller: 'AuthCtrl'
     })
-    .state('app.login', {
+    .state('login', {
       url: '/login',
-      views: {
-        'menuContent': {
-          templateUrl: 'js/auth/login.html',
-          controller: 'AuthCtrl'
-        }
-      }
+      templateUrl: 'js/auth/login.html',
+      controller: 'AuthCtrl'
+
     })
-    .state('app.logout', {
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'js/auth/signup.html',
+      controller: 'signupCtrl'
+
+  })
+    .state('logout', {
       url: '/logout',
-      views: {
-        'menuContent': {
           templateUrl: '',
           contreller: 'AuthCtrl'
-        }
-      }
+
     })
-    .state('app.editHand', {
+    .state('app.edithand', {
       url: '/edithand',
       views: {
         'menuContent': {
@@ -96,17 +54,7 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
         }
       }
     })
-    .state('signup', {
-    url: '/signup',
-    views: {
-      chat: {
-        templateUrl: 'js/auth/signup.html',
-        controller: 'signupCtrl'
-      }
-    }
-  })
-
-  .state('app.viewHand', {
+  .state('app.viewhand', {
     cache: false,
     url: '/viewhand',
     views: {
@@ -141,7 +89,16 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
     views: {
       'menuContent': {
         templateUrl: 'js/user/profile.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        resolve: {
+      // controller will not be loaded until $requireAuth resolves
+      // Auth refers to our $firebaseAuth wrapper in the example above
+      "currentAuth": ["Auth", function(Auth) {
+        // $requireAuth returns a promise so the resolve waits for it to complete
+        // If the promise is rejected, it will throw a $stateChangeError (see above)
+        return Auth.$requireAuth();
+      }]
+    }
       }
     }
   })
@@ -163,11 +120,36 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
 
 
 
-.controller('AuthCtrl', function($scope, Auth) {
+.controller('AuthCtrl', function($scope,$state, Auth) {
+  var isNewUser = true;
+  Auth.$onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    Auth.$child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData)
+    });
+  }
+});
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+     case 'password':
+       return authData.password.email.replace(/@.*/, '');
+     case 'twitter':
+       return authData.twitter.displayName;
+     case 'facebook':
+       return authData.facebook.displayName;
+  }
+}
+
   Auth.$onAuth(function(authData){
     if (authData === null) {
+      $state.go('login');
     console.log("Not logged in yet");
   } else {
+    $state.go('app.edithand');
     console.log("Logged in as", authData.uid);
   }
   $scope.authData = authData;
@@ -176,7 +158,13 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
     Auth.$authWithOAuthRedirect("facebook").catch(function(error){
       console.log(error);
     });
-  }
+     Auth.$authWithPassword({
+      email    : 'm@m.com',
+      password : 'm'
+    }).catch(function(error){
+      console.log(error);
+    });
+  };
   $scope.logout = function() {
     Auth.$unauth();
   }
@@ -186,30 +174,9 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
 .controller('signupCtrl', function($scope) {
 })
 
-.factory("Auth", function($firebaseAuth){
+.factory("Auth", function($firebaseAuth) {
   var ref = new Firebase("https://phr.firebaseio.com/");
-  this.user = ref.getAuth();
-
-  var saveNewUser = function(userObj) {
-    ref.child('users').child(userObj.id).set(userObj);
-  };
-  this.isLoggedIn = function(){
-    return !!ref.getAuth();
-  };
-  this.loginWithPW = function(userObj, cb, cbOnReg){
-    ref.authWithPassword(userId, function(err, authData){
-      if (err) {
-        console.log("Error");
-      } else {
-        authData.email = userObj.email;
-        this.user = authData;
-        cb(authData);
-        cbOnReg && cbOnReg(true);
-      }
-    }.bind(this))
-  }
   return $firebaseAuth(ref);
-
-})
+});
 
 
