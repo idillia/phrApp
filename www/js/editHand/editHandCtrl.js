@@ -1,5 +1,5 @@
 angular.module('editHand', []) 
-
+// Reload editHand after saving, fix back button after profile 
 .controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope',  function($scope, $ionicModal, Auth, $rootScope){
   // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
