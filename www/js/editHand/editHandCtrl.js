@@ -1,14 +1,11 @@
 angular.module('editHand', []) 
 
-.controller('editHandCtrl', ['$scope','$ionicModal',  function($scope, $ionicModal){
+.controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope',  function($scope, $ionicModal, Auth, $rootScope){
   // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
   $scope.comment = new PHR.Comment();
   $scope.position = new PHR.PositionCell();
-
-  var fireref = new Firebase("https://phr.firebaseio.com/" + 'handrecords/');
-  var handId = fireref.push();
   
   $scope.cardRanks = ["A", "K", "Q", "J", "10", "9","8", "7", "6", "5", "4", "3", "2"];
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
@@ -368,6 +365,10 @@ angular.module('editHand', [])
 
  // Save hand information to firebase
   $scope.saveHands = function() {
+    console.log("Auth.uid", $rootScope.uid);
+    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.uid +"/"+  'handrecords/');
+    var handId = fireref.push();
+
     console.log("saving hands...")
     var boardref = handId.child("board");
     boardref.set(JSON.stringify($scope.board), function(error) {
@@ -389,6 +390,7 @@ angular.module('editHand', [])
   // Restore information from firebase
   $scope.handRecords = [];
   $scope.restoreHand = function() {  
+    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.uid +"/"+  'handrecords/');
     fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
       var board = {};
       var b = JSON.parse(snapshot.val().board);

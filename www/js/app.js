@@ -118,9 +118,7 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
   });
 })
 
-
-
-.controller('AuthCtrl', function($scope,$state, Auth) {
+.controller('AuthCtrl', function($scope,$state, Auth, $rootScope) {
   Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
@@ -131,121 +129,107 @@ $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState
     // console.log($scope.authData);
   }
   });
-
-
-    function authHandler(error, authData) {
-      if (error) {
-        console.log("Login Failed!", error);
-      } else {
-        console.log("Authenticated successfully with payload:", userData.uid);
-      }
-    }
-
+  $rootScope.uid = null;
   $scope.loginWithFacebook = function() {
-    Auth.$authWithOAuthPopup("facebook", authHandler);
+    Auth.$authWithOAuthPopup("facebook")
+      .then(function(authData){
+        console.log(authData)
+        $rootScope.uid = authData.uid;
+        console.log($rootScope.uid)
+        console.log("Authenticated successfully with payload:", authData.uid)
+      })
+      .catch(function(error){
+        console.log("Auth failed:", error);
+      });
   };
-   $scope.loginWithPassword = function() {
-    console.log("loggin in with passwrod")
+  $scope.loginWithPassword = function(email, password) {
     Auth.$authWithPassword({
-      email    : $scope.email,
-      password : $scope.password
-    }, authHandler)
+      email    : email,
+      password : password
+    })
+    .then(function(authData){
+      $rootScope.uid = authData.uid;
+      console.log("Authenticated successfully with password:", authData.uid)
+    })
+    .catch(function(error){
+      console.log("Auth failed:", error);
+    });
   };
 
   $scope.logout = function() {
     console.log("user loggedout");
     Auth.$unauth();
   };
-
-  var isNewUser = true;
-  var ref = new Firebase("https://phr.firebaseio.com");
-  Auth.$onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-    ref.child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData)
-    });
-  }
-  });
-  // find a suitable name based on the meta info given by each provider
-  function getName(authData) {
-    switch(authData.provider) {
-       case 'password':
-         return authData.password.email.replace(/@.*/, '');
-       case 'twitter':
-         return authData.twitter.displayName;
-       case 'facebook':
-         return authData.facebook.displayName;
-    }
-  }
-
 })
 
 .controller('signupCtrl', function($scope, $state, Auth) {
-    Auth.$onAuth(function(authData) {
+  Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
-      // $state.go('login');
     } else {
       $state.go('app.edithand')
-    $scope.authData = authData;
-    console.log($scope.authData);
-  }
-  });
-
-  $scope.signup = function() {
-    console.log(Auth.$createUser)
-    Auth.$createUser({
-      email    : "a@a.com",
-      password : "a"
-    }, function(error, userData) {
-      if (error) {
-        console.log("Error creating user:", error);
-      } else {
-        console.log("Successfully created user account with uid:", userData.uid);
-      }
-    })
-  
-    Auth.$authWithPassword({
-      email    : "a@a.com",
-      password : "a"
-    }, function(error, authData) {
-    if (error) {
-
-      console.log("Signin Failed!", error);
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
+      $scope.authData = authData;
+      console.log($scope.authData);
     }
-    })
+  });
+  $scope.signup = function(name, email, password){  
+    Auth.$createUser({
+      name: name,
+      email: email,
+      password: password
+    }).then(function(userData){
+      console.log("User ", userData, " created successfully!");
+      return Auth.$authWithPassword({
+        name: name,
+        email: email,
+        password: password
+      });  
+      }).then(function(authData){
+        saveUserToDB(authData);
+        console.log("Logged in as: ", authData);
+      }).catch(function(error){
+        console.log("Error: ", error);
+      });
   }
 
-  var isNewUser = true;
-  var ref = new Firebase("https://phr.firebaseio.com");
-  Auth.$onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-    ref.child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData)
+  $scope.signupWithFacebook = function() {
+    Auth.$authWithOAuthPopup("facebook")
+      .then(function(authData){
+        saveUserToDB(authData);
+        console.log("Authenticated successfully with payload:", authData.uid)
+      })
+      .catch(function(error){
+        console.log("Auth failed:", error);
+      });
+  };  
+
+
+  var saveUserToDB = function(authData) {
+    console.log("auth inside saveuser", authData)
+    var isNewUser = true;
+    var ref = new Firebase("https://phr.firebaseio.com");
+    Auth.$onAuth(function(authData) {
+      if (authData && isNewUser) {
+        // save the user's profile into the database so we can list users,
+        // use them in Security and Firebase Rules, and show profiles
+        ref.child("users").child(authData.uid).set({
+          provider: authData.provider,
+          name: getName(authData)
+        });
+      }
     });
-  }
-});
-// find a suitable name based on the meta info given by each provider
-function getName(authData) {
-  switch(authData.provider) {
-     case 'password':
-       return authData.password.email.replace(/@.*/, '');
-     case 'twitter':
-       return authData.twitter.displayName;
-     case 'facebook':
-       return authData.facebook.displayName;
-  }
-}
-
-
+  // find a suitable name based on the meta info given by each provider
+    function getName(authData) {
+      switch(authData.provider) {
+         case 'password':
+           return authData.password.email.replace(/@.*/, '');
+         case 'twitter':
+           return authData.twitter.displayName;
+         case 'facebook':
+           return authData.facebook.displayName;
+      }
+    }
+  };
 })  
 
 .factory("Auth", function($firebaseAuth) {
@@ -253,6 +237,9 @@ function getName(authData) {
    console.log(ref);
    console.log($firebaseAuth(ref));
   return $firebaseAuth(ref);
+})
+.factory("Users", function(){
+  
 });
 
 
