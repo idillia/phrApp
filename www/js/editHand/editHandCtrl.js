@@ -1,6 +1,6 @@
 angular.module('editHand', []) 
 // Reload editHand after saving, fix back button after profile 
-.controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope',  function($scope, $ionicModal, Auth, $rootScope){
+.controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope', '$state',  function($scope, $ionicModal, Auth, $rootScope, $state){
   // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
@@ -11,6 +11,16 @@ angular.module('editHand', [])
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
   $scope.moneyNumbers = [[1,2,3],[4,5,6],[7,8,9]];
    
+  $scope.auth = Auth;
+
+      // any time auth status updates, add the user data to scope
+  $scope.auth.$onAuth(function(authData) {
+    $rootScope.authData = authData;
+    console.log("auth inside", $rootScope.authData);
+  });
+
+  console.log("auth outside", $rootScope.authData);
+
 
 // console.log($scope.table.action);
  // Board - boardKeypad
@@ -362,11 +372,14 @@ angular.module('editHand', [])
     console.log("preflopClass", $scope.preflopClass); 
   };
 
-
+  $scope.reload = function(){
+    //will reload 'contact.detail' and 'contact.detail.item' states
+    $state.reload('app.edithand');
+  }
  // Save hand information to firebase
   $scope.saveHands = function() {
-    console.log("Auth.uid", $rootScope.uid);
-    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.uid +"/"+  'handrecords/');
+    console.log("Auth.uid", $rootScope.authData.uid);
+    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.authData.uid +"/"+  'handrecords/');
     var handId = fireref.push();
 
     console.log("saving hands...")
@@ -385,12 +398,15 @@ angular.module('editHand', [])
       if (error) {console.log("failed to save")}
       else {console.log("comment saved successfuly")}
     });
+   
   };
+
+  
 
   // Restore information from firebase
   $scope.handRecords = [];
   $scope.restoreHand = function() {  
-    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.uid +"/"+  'handrecords/');
+    var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.authData.uid +"/"+  'handrecords/');
     fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
       var board = {};
       var b = JSON.parse(snapshot.val().board);
@@ -427,24 +443,6 @@ angular.module('editHand', [])
     $scope.board = new PHR.Board();
     $scope.comment = new PHR.Comment();
   }  
-
-
-  // $scope.checkDisCol = function() {
-  //   var col = ''
-  //   var lastRow= $scope.table.action[$scope.table.action.length-1];
-  //   for (var i=0; i<lastRow.length; i++) {
-  //     var col = lastRow[i].disCol;
-  //   }
-  //   console.log(col);
-  //   return col;
-// };
-
-// Side menu
-
- 
-// $scope.toggleMenu = function() {
-//   $ionicSideMenuDelegate.toggleLeft();
-// };
 
 
 }]);

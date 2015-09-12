@@ -1,5 +1,5 @@
 {
-  "name": "HelloIonic",
+  "name": "PHR",
   "private": "true",
   "devDependencies": {
     "angular-underscore-module": "~1.0.1",

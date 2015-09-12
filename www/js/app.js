@@ -34,6 +34,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
           contreller: 'AuthCtrl'
     })
     .state('app.edithand', {
+      cache: false,
       url: '/edithand',
       views: {
         'menuContent': {
@@ -100,7 +101,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     }
   });
 })
-.controller('AuthCtrl', function($scope,$state, Auth, $rootScope) {
+.controller('AuthCtrl', function($scope,$state, Auth, $rootScope, $ionicHistory) {
   Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
@@ -116,7 +117,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     Auth.$authWithOAuthPopup("facebook")
       .then(function(authData){
         console.log(authData)
-        $rootScope.uid = authData.uid;
+        // $rootScope.uid = authData.uid;
         console.log($rootScope.uid)
         console.log("Authenticated successfully with payload:", authData.uid)
       })
@@ -130,7 +131,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       password : password
     })
     .then(function(authData){
-      $rootScope.uid = authData.uid;
+      // $rootScope.uid = authData.uid;
       console.log("Authenticated successfully with password:", authData.uid)
     })
     .catch(function(error){
@@ -140,6 +141,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
 
   $scope.logout = function() {
     console.log("user loggedout");
+    $ionicHistory.clearCache();
     Auth.$unauth();
   };
 })
