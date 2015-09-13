@@ -372,10 +372,10 @@ angular.module('editHand', [])
     console.log("preflopClass", $scope.preflopClass); 
   };
 
-  $scope.reload = function(){
-    //will reload 'contact.detail' and 'contact.detail.item' states
-    $state.reload('app.edithand');
-  }
+  // $scope.reload = function(){
+  //   //will reload 'contact.detail' and 'contact.detail.item' states
+  //   $state.reload('app.edithand');
+  // }
  // Save hand information to firebase
   $scope.saveHands = function() {
     console.log("Auth.uid", $rootScope.authData.uid);
@@ -398,16 +398,15 @@ angular.module('editHand', [])
       if (error) {console.log("failed to save")}
       else {console.log("comment saved successfuly")}
     });
-   
+    $scope.clearHand();
   };
-
-  
 
   // Restore information from firebase
   $scope.handRecords = [];
   $scope.restoreHand = function() {  
     var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.authData.uid +"/"+  'handrecords/');
     fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
+      console.log("snapshot", snapshot)
       var board = {};
       var b = JSON.parse(snapshot.val().board);
       var t = JSON.parse(snapshot.val().table);

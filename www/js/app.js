@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
           contreller: 'AuthCtrl'
     })
     .state('app.edithand', {
-      cache: false,
+      // cache: false,
       url: '/edithand',
       views: {
         'menuContent': {
@@ -87,7 +87,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
         controller: 'AuthCtrl',
       }
     }
-  })
+  });
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -107,7 +107,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       console.log("no data"); 
       $state.go('login');
     } else {
-      $state.go('app.edithand')
+      $state.go('app.edithand');
     $scope.authData = authData;
     // console.log($scope.authData);
   }
@@ -116,10 +116,10 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   $scope.loginWithFacebook = function() {
     Auth.$authWithOAuthPopup("facebook")
       .then(function(authData){
-        console.log(authData)
+        console.log(authData);
         // $rootScope.uid = authData.uid;
-        console.log($rootScope.uid)
-        console.log("Authenticated successfully with payload:", authData.uid)
+        console.log($rootScope.uid);
+        console.log("Authenticated successfully with payload:", authData.uid);
       })
       .catch(function(error){
         console.log("Auth failed:", error);
@@ -132,7 +132,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     })
     .then(function(authData){
       // $rootScope.uid = authData.uid;
-      console.log("Authenticated successfully with password:", authData.uid)
+      console.log("Authenticated successfully with password:", authData.uid);
     })
     .catch(function(error){
       console.log("Auth failed:", error);
@@ -151,7 +151,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     if(authData === null){
       console.log("no data"); 
     } else {
-      $state.go('app.edithand')
+      $state.go('app.edithand');
       $scope.authData = authData;
       console.log($scope.authData);
     }
@@ -177,19 +177,19 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     .catch(function(error){
       console.log("Error: ", error);
     });
-  }
+  };
   $scope.signupWithFacebook = function() {
     Auth.$authWithOAuthPopup("facebook")
       .then(function(authData){
         saveUserToDB(authData);
-        console.log("Authenticated successfully with payload:", authData.uid)
+        console.log("Authenticated successfully with payload:", authData.uid);
       })
       .catch(function(error){
         console.log("Auth failed:", error);
       });
   };  
   var saveUserToDB = function(authData) {
-    console.log("auth inside saveuser", authData)
+    console.log("auth inside saveuser", authData);
     var isNewUser = true;
     var ref = new Firebase("https://phr.firebaseio.com");
     Auth.$onAuth(function(authData) {
@@ -220,7 +220,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
    console.log(ref);
    console.log($firebaseAuth(ref));
   return $firebaseAuth(ref);
-})
+});
 // .factory("Users", function(){
 // });
 

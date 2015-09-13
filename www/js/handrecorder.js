@@ -18,7 +18,7 @@ PHR.HandCell = function(val1, val2) {
 PHR.PositionCell = function() {
   this.heroPosition = false;
   this.playerNote = '';
-}
+};
 
 PHR.Board = function() {
   this.cell = 5;
@@ -55,7 +55,7 @@ PHR.Table = function(rows, col) {
       this.action[k][m] = new PHR.Cell();
     }
     // console.log("this.action", this.action);
-  };
+  }
   this.calculatePotSize = function() {
     var pot = 0; 
     for (var i = 0; i < this.rows; i++){
@@ -94,16 +94,17 @@ PHR.Table = function(rows, col) {
     
     colSortArray =  _.zip.apply(null, this.getVal(this.action));
 
-    return sum = function() {
+    return function() {
       var sums = _.map(colSortArray, function(item) {
         return _.reduce(item, function(a,b){
-            if (a === '' ) a=0;
-            if (b === '') b=0;
-            return parseInt(a)+parseInt(b);})
+          if (a === '' ) a=0;
+          if (b === '') b=0;
+          return parseInt(a)+parseInt(b);
+        });
       });
       console.log("sums", sums);
       return _.every(sums, function(v, i, a){return i === 0 || v === a[i - 1];});
-      }; 
+    }; 
   };   
 
    this.setIsHighlighted = function () {
@@ -127,7 +128,7 @@ PHR.Table = function(rows, col) {
     for (var i =0; i<disSort[index].length; i++) {
       disSort[index][i].isDisabled = true;
       disSort[index][i].disCol = index;
-      console.log(disSort[index][i].disCol)
+      console.log(disSort[index][i].disCol);
      }
      return false;
   };
@@ -156,7 +157,7 @@ PHR.Table = function(rows, col) {
     }
     // console.log(hlClass);
     return hlClass;
-  } 
+  }; 
 
   this.checkDisCol = function() {
     var col = [];
@@ -165,7 +166,7 @@ PHR.Table = function(rows, col) {
       col.push(lastRow[i].disCol);
     }
     return col;
-  }
+  };
 
    this.checkDisColStatus = function() {
     var col = [];
@@ -174,7 +175,7 @@ PHR.Table = function(rows, col) {
       col.push(lastRow[i].isDisabled);
     }
     return col;
-  }
+  };
 
   this.addRow = function() {
     this.action[this.rows] = [];
@@ -189,11 +190,12 @@ PHR.Table = function(rows, col) {
         this.action[this.rows][j].disCol = lastRow[j];
         this.action[this.rows][j].isDisabled = lastRowIsDis[j]; 
         console.log("lastrowI", lastRowIsDis[j]);
-        console.log("inside poslednei row llop and j: ",j, this.action[this.rows][j])}
+        console.log("inside poslednei row llop and j: ",j, this.action[this.rows][j]);
+      }
    
     ++this.rows;
-    console.log("updated action", this.action)
-  } 
+    console.log("updated action", this.action);
+  }; 
 };
 
 

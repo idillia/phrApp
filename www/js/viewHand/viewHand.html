@@ -1,9 +1,10 @@
-<ion-view title="View Hand" ng-init="restoreHand()" hide-back-button="true">
-<ion-nav-buttons side="left">
+<ion-view title="View Hand"  hide-back-button="true">
+  <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content  overflow-scroll="true">
-    <div ng-repeat="hand in handRecords">
+   <ion-list>
+    <ion-item ng-repeat="hand in handRecords">
       <label>Board:</label><label>Pot Size: {{pot}}</label>
       <table class="board">
         <tr>
@@ -27,6 +28,11 @@
         </tbody>
       </table>
       <label>Comments:</label><textarea rows="2" cols="40" name="comment" type="text">{{hand.value}}</textarea> 
-    </div>
+    </ion-item>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="restoreHand()" distance="5%">
+
+    
+  </ion-infinite-scroll>
   <ion-content>  
 </ion-view>    

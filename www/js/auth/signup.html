@@ -15,7 +15,9 @@
           <button class="button button-block button-dark" ng-click="signup(name, email, password)" type="submit">Create account</button>
         </div>
         <div style="text-align: center">
-          Or <a href="/#/app/login">Already have an account?</a>
+          <ion-list>
+          Or <ion-item ng-href="/#/app/login">Already have an account?</ion-item>
+        </ion-list>
         </div>
           <div>
           <button class="button button-block button-positive" ng-click="signupWithFacebook()" type="submit">Login with Facebook</button>
