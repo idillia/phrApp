@@ -177,5 +177,9 @@ td.stackBtn {
   margin-top:70%;
 }
 
+.forum-card {
+  border: 2px outset slateblue;
 
-
+i.myicon.ion-loading-c {
+  font-size: 32px;
+}

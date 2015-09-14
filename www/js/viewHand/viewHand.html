@@ -3,7 +3,17 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content  overflow-scroll="true">
-   <ion-list>
+   
+   <div class="card forum-card"> 
+    <ion-list>
+     <div class="item item-royal" style="padding:5px;">
+     <span>Hand 1,  Sep 12 at 5:57pm</span>
+     <span  style="float:right">
+      <i class="icon ion-share" style="margin:0 0 0 5px;font-size:180%;"></i>
+      <i class="icon ion-edit" style="margin:0 0 0 5px;font-size:150%;"></i>
+      <i class="icon ion-trash-a" style="margin:0 0 0 5px;font-size:150%;">
+      </i><span>
+    </div> 
     <ion-item ng-repeat="hand in handRecords">
       <label>Board:</label><label>Pot Size: {{pot}}</label>
       <table class="board">
@@ -27,9 +37,11 @@
           </tr>
         </tbody>
       </table>
-      <label>Comments:</label><textarea rows="2" cols="40" name="comment" type="text">{{hand.value}}</textarea> 
+      <label>Comments:</label><div rows="2" cols="40" name="comment" type="text">{{hand.value}}</div> 
     </ion-item>
     </ion-list>
+  </div>
+    
     <ion-infinite-scroll on-infinite="restoreHand()" distance="5%">
 
     
