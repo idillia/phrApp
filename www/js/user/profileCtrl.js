@@ -8,6 +8,6 @@ angular.module('profile', [])
     $rootScope.authData = authData;
     console.log("auth inside", $rootScope.authData);
   });
-  console.log("auth inside", $rootScope.authData);hhnn                                                                                                                                                                                                                                                                                 
+  console.log("auth inside", $rootScope.authData);                                                                                                                                                                                                                                                                                 
 
 }]);
