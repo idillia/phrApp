@@ -3,16 +3,79 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 <ion-content padding="true">
-<!-- <div ng-controller="chatCtrl" > -->
-  <p>Name : <input type="text" ng-model="newmessage.user"></p>
-  <p>Message :<input type="text" ng-model="newmessage.text"></p>
-  <button ng-click="inserisci(newmessage)">Send</button>
+   <div>
+    <ion-list>
+    <ion-item class="item-avatar" ng-repeat="message in messages">
+                <!-- We output the messages -->
+        <img style="width:40px; height:45px" ng-src="{{authData.facebook.profileImageURL}}"/>
+        <h2>{{authData.facebook.displayName}}</h2>
+        <p>{{message.text}}</p>
+            </ion-item>
+         </ion-list>
+         </div>
+
+        <form name="myform" ng-submit="addMessage(message.theMessage)">
+            <label class="item item-input message-input">
+                <!-- the input text field is bound to message.theMessage -->
+                <input type="text" ng-model="newmessage.text" placeholder="Type your message..."
+                />
+            </label>
+            <button class="button button-block button-dark" ng-click="inserisci(newmessage)">
+                Send
+            </button>
+        </form>
+
+</ion-content>
+</ion-view>
+
+<!-- <ion-view title="Chat">
+<ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+<ion-content padding="true" ng-model="authData">
+<div ng-controller="chatCtrl" > -->
+<!--   <p>Name : <input type="text" ng-model="newmessage.user"></p> -->
+<!--   <button ng-click="inserisci(newmessage)">Send</button>
 
     <ul>
         <li ng-repeat="message in messages">
-            {{message.user}} dice :{{message.text}}
+    <a class="item item-avatar" href="#">
+      <img style="width:50px; height:37px" ng-src="{{authData.facebook.profileImageURL}}"/>
+      <h2>{{authData.facebook.displayName}}</h2>
+      <p>{{message.text}}</p>
+    </a>
         </li>
-    </ul>
+    </ul> -->
+<!-- </div> -->
+<!--   <div class="row row-bottom">
+    <div class="col">
+        <div class="chatbox-container">
+            <ul class="chatbox">
+               <!-- We output the messages-->
+<!--                 <li ng-repeat="message in messages">
+                <a class="item item-avatar" href="#">
+                  <img style="width:50px; height:37px" ng-src="{{authData.facebook.profileImageURL}}"/>
+                  <h2>{{authData.facebook.displayName}}</h2>
+                  <p>{{message.text}}</p>
+                </a>
+                </li>
+            </ul>
+        </div> -->
+<!--         <form name="myform" ng-submit="addMessage(message.theMessage)">
+            <label class="item item-input message-input">
+                <!-- the input text field is bound to message.theMessage -->
+                <!-- <input input type="text" ng-model="newmessage.text" placeholder="Type your message..."/>
+            </label>
+            <button class="button button-block button-dark" ng-click="inserisci(newmessage)">
+                Send
+            </button>
+        </form>
+    </div>
+  </div>
+</div> 
+</ion-content>
+</ion-view>  -->
+ 
 <!-- </div> -->
   <!-- <div class="row row-bottom">
     <div class="col">
@@ -35,5 +98,4 @@
     </div>
   </div>
 </div> --> 
-</ion-content>
-</ion-view>
+

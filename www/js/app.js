@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'])
+angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore', 'ngAnimate', 'toastr', 'profile'])
 
 // for ui-router
 .run(["$rootScope", "$state", function($rootScope, $state) {
@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     views: {
       'menuContent': {
         templateUrl: 'js/user/profile.html',
-        controller: 'AuthCtrl',
+        controller: 'profileCtrl'
       }
     }
   });
@@ -101,7 +101,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     }
   });
 })
-.controller('AuthCtrl', function($scope,$state, Auth, $rootScope, $ionicHistory) {
+.controller('AuthCtrl', function($scope,$state, Auth, $rootScope, $ionicHistory, toastr) {
   Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
@@ -123,6 +123,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       })
       .catch(function(error){
         console.log("Auth failed:", error);
+        toastr.error(error.code, 'Error');
       });
   };
   $scope.loginWithPassword = function(email, password) {
@@ -136,6 +137,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     })
     .catch(function(error){
       console.log("Auth failed:", error);
+      toastr.error(error.code, 'Error');
     });
   };
 
@@ -146,7 +148,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   };
 })
 
-.controller('signupCtrl', function($scope, $state, Auth) {
+.controller('signupCtrl', function($scope, $state, Auth, toastr) {
   Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
@@ -176,6 +178,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     })
     .catch(function(error){
       console.log("Error: ", error);
+      toastr.error(error.code, 'Error');
     });
   };
   $scope.signupWithFacebook = function() {
@@ -186,6 +189,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       })
       .catch(function(error){
         console.log("Auth failed:", error);
+        toastr.error(error.code, 'Error');
       });
   };  
   var saveUserToDB = function(authData) {

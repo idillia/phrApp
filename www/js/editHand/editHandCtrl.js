@@ -1,6 +1,6 @@
 angular.module('editHand', []) 
 // Reload editHand after saving, fix back button after profile 
-.controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope', '$state',  function($scope, $ionicModal, Auth, $rootScope, $state){
+.controller('editHandCtrl', ['$scope','$ionicModal', 'Auth', '$rootScope', '$state', 'toastr',  function($scope, $ionicModal, Auth, $rootScope, $state, toastr){
   // var handId = PHR.generateUUID();
   $scope.table = new PHR.Table();
   $scope.board = new PHR.Board();
@@ -12,18 +12,12 @@ angular.module('editHand', [])
   $scope.moneyNumbers = [[1,2,3],[4,5,6],[7,8,9]];
    
   $scope.auth = Auth;
-
-      // any time auth status updates, add the user data to scope
+  // any time auth status updates, add the user data to scope
   $scope.auth.$onAuth(function(authData) {
     $rootScope.authData = authData;
-    console.log("auth inside", $rootScope.authData);
   });
 
-  console.log("auth outside", $rootScope.authData);
-
-
-// console.log($scope.table.action);
- // Board - boardKeypad
+ //Board Modal - boardKeypad
   $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -398,6 +392,7 @@ angular.module('editHand', [])
       if (error) {console.log("failed to save")}
       else {console.log("comment saved successfuly")}
     });
+    toastr.success('The hand is saved!');
     $scope.clearHand();
   };
 
@@ -441,6 +436,7 @@ angular.module('editHand', [])
     $scope.table = new PHR.Table();
     $scope.board = new PHR.Board();
     $scope.comment = new PHR.Comment();
+
   }  
 
 
