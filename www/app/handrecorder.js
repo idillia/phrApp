@@ -9,9 +9,9 @@ PHR.Cell = function(val) {
   this.isHighlighted = '';
 };
 
-PHR.HandCell = function(val1, val2) {
+PHR.HandCell = function(val1) {
   this.card1 = typeof val1 !== 'undefined' ? val1 : '';
-  this.card2 = typeof val2 !== 'undefined' ? val2 : '';
+
   this.isDisabled = false;
 };
 

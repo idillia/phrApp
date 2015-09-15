@@ -19,48 +19,48 @@ angular.module('editHand', [])
 
 
  //Board Modal - boardKeypad
-  $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
+  $ionicModal.fromTemplateUrl('app/keypads/boardKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.boardModal = modal;
   });
   $scope.openBoardModal = function(col) {
-    $scope.openCol = col;
+    $scope.openBoardCol = col;
     $scope.boardModal.show();
     $scope.setSelected = function (col) {
       $scope.idBoardCol = col;
     };
-    $scope.setSelected($scope.openCol);
+    $scope.setSelected($scope.openBoardCol);
   };  
   $scope.moveBoardPrev = function() {
-    if($scope.openCol !== 0) {
-      $scope.openCol--;
+    if($scope.openBoardCol !== 0) {
+      $scope.openBoardCol--;
     }
-    $scope.setSelected($scope.openCol); 
+    $scope.setSelected($scope.openBoardCol); 
   };
   $scope.moveBoardNext = function() {
-    if ($scope.openCol < 4 ) {
-      $scope.openCol++;
-      $scope.setSelected($scope.openCol);
+    if ($scope.openBoardCol < 4 ) {
+      $scope.openBoardCol++;
+      $scope.setSelected($scope.openBoardCol);
     } else $scope.closeBoardModal();
   };
   
   $scope.closeBoardModal = function() {
-    $scope.setSelected($scope.openCol+11);
+    $scope.setSelected($scope.openBoardCol+11);
     $scope.boardModal.hide();
   };
   $scope.buttonBoardModal = function(rank, suit) {
-    if ($scope.openCol <= 4){ 
+    if ($scope.openBoardCol <= 4){ 
       $scope.modalVal = rank+suit;
-      $scope.board.board[$scope.openCol].value = $scope.modalVal;
+      $scope.board.board[$scope.openBoardCol].value = $scope.modalVal;
       delete $scope.modalVal;
       $scope.moveBoardNext();
     } else $scope.closeBoardModal();
   };
 
   // Position Modal - Player position Keypad
-  $ionicModal.fromTemplateUrl('js/keypads/positionKeypad.html', {
+  $ionicModal.fromTemplateUrl('app/keypads/positionKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -76,10 +76,9 @@ angular.module('editHand', [])
     $scope.setSelected($scope.openPosCol);
   };
 
-  
+  var called = false;
+  $scope.dis = false;
   $scope.toggleIsDisabledCell = function () {
-    var called = false;
-    $scope.dis = false;
     if (called) { 
       called = false; 
       $scope.dis = false;
@@ -90,25 +89,24 @@ angular.module('editHand', [])
     $scope.dis = true;
   };
 
+  var calledPos = false;
+  $scope.pos = false;
   $scope.toggleHeroPosition = function(){
-    var calledPos = false;
-    $scope.pos = false;
     if (calledPos) {
       calledPos = false;
       $scope.pos = false;
-       $scope.position.heroPosition = false;
-             console.log($scope.position)
-       return $scope.position.heroPosition;
+      $scope.position.heroPosition = false;
+      console.log($scope.position)
+      return $scope.position.heroPosition;
     }
     $scope.position.heroPosition = $scope.openPosCol;
-          console.log($scope.position)
-
+    console.log($scope.position)
     calledPos = true;
     $scope.pos = true;
-  }
+  };
  
   $scope.movePositionPrev = function() {
-    if($scope.openPosCol !== 0) {
+    if ($scope.openPosCol !== 0) {
       $scope.openPosCol--;
     }
     $scope.setSelected($scope.openPosCol); 
@@ -117,41 +115,7 @@ angular.module('editHand', [])
     if ($scope.openPosCol < 8) {
       $scope.openPosCol++;
       $scope.setSelected($scope.openPosCol);
-     
-     var called = false;
-     $scope.dis = false;
-     $scope.toggleIsDisabledCell = function () {
-       if (called) { 
-         called = false; 
-         $scope.dis = false;
-
-         return $scope.table.enableIsDisabled($scope.openPosCol);
-       }
-       $scope.table.toggleIsDisabled($scope.openPosCol); 
-       called = true;
-       $scope.dis = true;
-     };
-    } else {
-      $scope.closePositionModal();
-    };
-
-    var calledPos = false;
-    $scope.pos = false;
-    $scope.toggleHeroPosition = function(){
-      console.log($scope.position)
-      if (calledPos) {
-        calledPos = false;
-        $scope.pos = false;
-        $scope.position.heroPosition = false;
-        console.log($scope.position)
-       return $scope.position.heroPosition;
-      }
-      $scope.position.heroPosition = $scope.openPosCol;
-      console.log($scope.position)
-      calledPos = true;
-      $scope.pos = true;
-    }
-
+    } else $scope.closePositionModal();
   };
   
   $scope.closePositionModal = function() {
@@ -160,7 +124,7 @@ angular.module('editHand', [])
   };
 
   // Player Hand Keypad
-  $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
+  $ionicModal.fromTemplateUrl('app/keypads/cardsKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -168,53 +132,59 @@ angular.module('editHand', [])
   });
 
   $scope.openDeckModal = function(col) {
-    $scope.openCol = col;
+    $scope.openDeckCol = col;
     $scope.deckModal.show();
     $scope.setSelected = function (col) {
       $scope.idDeckCol = col;
     };
-    $scope.setSelected($scope.openCol);
+    $scope.setSelected($scope.openDeckCol);
   };
     
   $scope.moveDeckPrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol >= 0) {
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
+    if ($scope.openDeckCol !== 0) {
+      $scope.openDeckCol--;
     }
+    $scope.setSelected($scope.openDeckCol);
   };
   $scope.moveDeckNext = function() {
-    $scope.openCol++;
-    if ($scope.openCol <= 8) {
-      $scope.setSelected($scope.openCol);
-      $scope.table.hand[$scope.openCol].value = $scope.modalVal;  
-    } else return;
+    if ($scope.openDeckCol < 8) {
+      $scope.openDeckCol++;
+      $scope.setSelected($scope.openDeckCol);
+    } else $scope.closeDeckModal();
   };
   
   $scope.closeDeckModal = function() {
     $scope.modalVal = [];
     $scope.deckModal.hide();
-    $scope.setSelected($scope.openCol+11);
+    $scope.setSelected($scope.openDeckCol+11);
   };
   $scope.buttonDeckModal = function(rank, suit) {
     $scope.modalVal = rank+suit;
-    if ($scope.openCol <= 8){ 
+    if ($scope.openDeckCol <= 8){ 
       if (typeof $scope.modalCard1 === 'undefined') {
-        $scope.modalCard1 = rank+suit;  
+        $scope.modalCard1 = rank+suit; 
+        $scope.table.hand[$scope.openDeckCol].card1 = $scope.modalCard1;
+        console.log($scope.table.hand[$scope.openDeckCol]);
       }
       else {
-        $scope.modalCard2 = rank+suit;
-        $scope.table.hand[$scope.openCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
+        $scope.modalCard1 = rank+suit;
+        // $scope.table.hand[$scope.openDeckCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
+        $scope.table.hand[$scope.openDeckCol].card1 += $scope.modalCard1;
+         console.log($scope.table.hand[$scope.openDeckCol]);
         delete $scope.modalCard1;
-        delete $scope.modalCard2;
+        // delete $scope.modalCard2;
         $scope.moveDeckNext();  
       }
     } else {
       $scope.closeDeckModal();
-    }  
+    } 
   };
+  $scope.unknownCards = function() {
+    $scope.table.hand[$scope.openDeckCol].value = "XX"; 
+  }
 
     // Stack Keypad
-  $ionicModal.fromTemplateUrl('js/keypads/stackKeypad.html', {
+  $ionicModal.fromTemplateUrl('app/keypads/stackKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -271,7 +241,7 @@ angular.module('editHand', [])
 
 
  // Action Keypad
-  $ionicModal.fromTemplateUrl('js/keypads/actionKeypad.html', {
+  $ionicModal.fromTemplateUrl('app/keypads/actionKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {

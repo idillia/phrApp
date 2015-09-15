@@ -13,7 +13,7 @@
           </tr> 
           <tr>
             <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)" ng-class="[{highlightedCell:idDeckCol === $index}, {disabled: cell.isDisabled}]" ng-disabled="isDisabled">
-              {{cell.card1}} {{cell.card2}}</td>
+              {{cell.card1}}</td>
           </tr>
           <tr>
             <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"ng-class="[{highlightedCell:idStackCol === $index},{disabled: cell.isDisabled}]" ng-disabled="isDisabled">{{cell.value}}</td>

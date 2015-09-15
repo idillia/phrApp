@@ -15,17 +15,17 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     $stateProvider.state('app', {
       url:'/app',
       abstract:true,
-      templateUrl: "js/sideMenu/sideMenu.html",
+      templateUrl: "app/sideMenu/sideMenu.html",
       controller: 'AuthCtrl'
     })
     .state('login', {
       url: '/login',
-      templateUrl: 'js/auth/login.html',
+      templateUrl: 'app/auth/login.html',
       controller: 'AuthCtrl'
     })
     .state('signup', {
       url: '/signup',
-      templateUrl: 'js/auth/signup.html',
+      templateUrl: 'app/auth/signup.html',
       controller: 'signupCtrl'
     })
     .state('logout', {
@@ -38,7 +38,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       url: '/edithand',
       views: {
         'menuContent': {
-          templateUrl: 'js/editHand/editHand.html',
+          templateUrl: 'app/editHand/editHand.html',
           controller: 'editHandCtrl',
           // resolve: {
           //   // controller will not be loaded until $waitForAuth resolves
@@ -56,7 +56,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     url: '/viewhand',
     views: {
       'menuContent': {
-        templateUrl: 'js/viewHand/viewHand.html',
+        templateUrl: 'app/viewHand/viewHand.html',
         controller: 'editHandCtrl',
     //        resolve: {
     //   // controller will not be loaded until $requireAuth resolves
@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     url: '/chat',
     views: {
       'menuContent': {
-        templateUrl: 'js/chat/chat.html',
+        templateUrl: 'app/chat/chat.html',
         controller: 'chatCtrl'
       }
     }
@@ -83,7 +83,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     url: '/profile',
     views: {
       'menuContent': {
-        templateUrl: 'js/user/profile.html',
+        templateUrl: 'app/user/profile.html',
         controller: 'profileCtrl'
       }
     }
