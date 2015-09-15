@@ -22,7 +22,8 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "org.apache.cordova.inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios"

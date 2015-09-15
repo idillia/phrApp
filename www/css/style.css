@@ -1,4 +1,9 @@
 
+/*Remove padding*/
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
 /* Table */
 table {
     border-collapse: collapse;
@@ -19,7 +24,7 @@ table tr td {
     padding:0;
     border-bottom: 1px solid #b4b4b4;
     border-right: 1px solid #b4b4b4;
-    font-size: 1.2em;
+    font-size: 1 em;
     text-align: center;
     vertical-align: middle;
 }
@@ -179,7 +184,7 @@ td.stackBtn {
 
 .forum-card {
   border: 2px outset slateblue;
-
-i.myicon.ion-loading-c {
-  font-size: 32px;
 }
+
+
+

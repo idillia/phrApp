@@ -17,6 +17,7 @@ angular.module('editHand', [])
     $rootScope.authData = authData;
   });
 
+
  //Board Modal - boardKeypad
   $ionicModal.fromTemplateUrl('js/keypads/boardKeypad.html', {
     scope: $scope,
@@ -31,22 +32,17 @@ angular.module('editHand', [])
       $scope.idBoardCol = col;
     };
     $scope.setSelected($scope.openCol);
-
   };  
   $scope.moveBoardPrev = function() {
     if($scope.openCol !== 0) {
       $scope.openCol--;
-      $scope.setSelected($scope.openCol);
-      if ($scope.openCol >= 0) {
-        $scope.board.board[$scope.openCol].value = $scope.modalVal;  
-      }
-  }
+    }
+    $scope.setSelected($scope.openCol); 
   };
   $scope.moveBoardNext = function() {
     if ($scope.openCol < 4 ) {
       $scope.openCol++;
       $scope.setSelected($scope.openCol);
-      $scope.board.board[$scope.openCol].value = $scope.modalVal;
     } else $scope.closeBoardModal();
   };
   
@@ -62,8 +58,8 @@ angular.module('editHand', [])
       $scope.moveBoardNext();
     } else $scope.closeBoardModal();
   };
-  // Player position Keypad
 
+  // Position Modal - Player position Keypad
   $ionicModal.fromTemplateUrl('js/keypads/positionKeypad.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -80,9 +76,10 @@ angular.module('editHand', [])
     $scope.setSelected($scope.openPosCol);
   };
 
-  var called = false;
-  $scope.dis = false;
+  
   $scope.toggleIsDisabledCell = function () {
+    var called = false;
+    $scope.dis = false;
     if (called) { 
       called = false; 
       $scope.dis = false;
@@ -93,10 +90,9 @@ angular.module('editHand', [])
     $scope.dis = true;
   };
 
-
-  var calledPos = false;
-  $scope.pos = false;
   $scope.toggleHeroPosition = function(){
+    var calledPos = false;
+    $scope.pos = false;
     if (calledPos) {
       calledPos = false;
       $scope.pos = false;
@@ -111,20 +107,17 @@ angular.module('editHand', [])
     $scope.pos = true;
   }
  
-
   $scope.movePositionPrev = function() {
-    $scope.openPosCol--;
-    if ($scope.openPosCol >= 0) {
-      $scope.setSelected($scope.openPosCol);
-      // if (!called && !$scope.dis) {
-
-      // }
+    if($scope.openPosCol !== 0) {
+      $scope.openPosCol--;
     }
+    $scope.setSelected($scope.openPosCol); 
   };
   $scope.movePositionNext = function() {
-    $scope.openPosCol++;
-    if ($scope.openPosCol <= 8) {
+    if ($scope.openPosCol < 8) {
+      $scope.openPosCol++;
       $scope.setSelected($scope.openPosCol);
+     
      var called = false;
      $scope.dis = false;
      $scope.toggleIsDisabledCell = function () {
@@ -138,7 +131,9 @@ angular.module('editHand', [])
        called = true;
        $scope.dis = true;
      };
-    } else return;
+    } else {
+      $scope.closePositionModal();
+    };
 
     var calledPos = false;
     $scope.pos = false;
@@ -163,9 +158,7 @@ angular.module('editHand', [])
     $scope.posModal.hide();
     $scope.setSelected($scope.openPosCol+11);
   };
-  // $scope.playerNoteModal = function() {
-    
-  // };
+
   // Player Hand Keypad
   $ionicModal.fromTemplateUrl('js/keypads/cardsKeypad.html', {
     scope: $scope,
