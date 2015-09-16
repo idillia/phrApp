@@ -361,7 +361,7 @@ angular.module('editHand', [])
   $scope.restoreHand = function() {  
     var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.authData.uid +"/"+  'handrecords/');
     fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
-      console.log("snapshot", snapshot)
+      console.log("snapshot", snapshot.val())
       var board = {};
       var b = JSON.parse(snapshot.val().board);
       var t = JSON.parse(snapshot.val().table);
@@ -403,6 +403,10 @@ angular.module('editHand', [])
     $scope.comment = new PHR.Comment();
 
   }  
+
+  $scope.modify = function() {
+    console.log("modyfing");
+  }
 
 
 }]);

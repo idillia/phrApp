@@ -12,45 +12,47 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
 }])
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
-    $stateProvider.state('app', {
-      url:'/app',
-      abstract:true,
-      templateUrl: "app/sideMenu/sideMenu.html",
-      controller: 'AuthCtrl'
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/auth/login.html',
-      controller: 'AuthCtrl'
-    })
-    .state('signup', {
-      url: '/signup',
-      templateUrl: 'app/auth/signup.html',
-      controller: 'signupCtrl'
-    })
-    .state('logout', {
-      url: '/logout',
-          templateUrl: '',
-          contreller: 'AuthCtrl'
-    })
-    .state('app.edithand', {
-      // cache: false,
-      url: '/edithand',
-      views: {
-        'menuContent': {
-          templateUrl: 'app/editHand/editHand.html',
-          controller: 'editHandCtrl',
-          // resolve: {
-          //   // controller will not be loaded until $waitForAuth resolves
-          //   // Auth refers to our $firebaseAuth wrapper in the example above
-          //   "currentAuth": ["Auth", function(Auth) {
-          //     // $waitForAuth returns a promise so the resolve waits for it to complete
-          //     return Auth.$waitForAuth();
-          //   }]
-          // }
-        }
+  $stateProvider.state('app', {
+    url:'/app',
+    abstract:true,
+    templateUrl: "app/sideMenu/sideMenu.html",
+    controller: 'AuthCtrl'
+  })
+  .state('login', {
+    url: '/login',
+    templateUrl: 'app/auth/login.html',
+    controller: 'AuthCtrl'
+  })
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'app/auth/signup.html',
+    controller: 'signupCtrl'
+  })
+  .state('logout', {
+    url: '/logout',
+    templateUrl: '',
+    contreller: 'AuthCtrl'
+  })
+  .state('app.edithand', {
+    // cache: false,
+    url: '/edithand',
+    views: {
+      'menuContent': {
+        templateUrl: 'app/editHand/editHand.html',
+        controller: 'editHandCtrl',
       }
-    })
+    }
+  })
+  .state('app.edithand-edit', {
+    // cache: false,
+    url: '/edithand/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'app/editHand/editHand.html',
+        controller: 'editHandCtrl',
+      }
+    }
+  })
   .state('app.viewhand', {
     cache: false,
     url: '/viewhand',
@@ -58,15 +60,6 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       'menuContent': {
         templateUrl: 'app/viewHand/viewHand.html',
         controller: 'editHandCtrl',
-    //        resolve: {
-    //   // controller will not be loaded until $requireAuth resolves
-    //   // Auth refers to our $firebaseAuth wrapper in the example above
-    //   "currentAuth": ["Auth", function(Auth) {
-    //     // $requireAuth returns a promise so the resolve waits for it to complete
-    //     // If the promise is rejected, it will throw a $stateChangeError (see above)
-    //     return Auth.$requireAuth();
-    //   }]
-    // }
       }
     }
   })

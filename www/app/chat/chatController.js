@@ -1,65 +1,28 @@
 angular.module('chat', [])
 
-// .factory('chatMessages', ['$firebaseArray', function($firebaseArray){
-//   var ref = new Firebase("https://phr.firebaseio.com/" + 'chat');
-//   return $firebaseArray(ref);
-//   // return $firebaseArray(ref.limitToLast(10)).$asArray();
-
-// }])
-// .controller('chatCtrl', ['$scope', 'chatMessages', function($scope, chatMessages){
-//   $scope.messages= chatMessages;
-//   $scope.message = {};
-//   console.log($scope);
-//   $scope.addMessage = function(message) {
-//     console.log("submiting message");
-//     $scope.messages.$add({content: message});
-//     $scope.message.theMessage= "";
-//   }
-// }]);
-
- .controller('chatCtrl', ['$scope','Message', '$rootScope', 'Auth',  function($scope,Message, $rootScope, Auth ){
-
+.controller("chatCtrl", ["$scope", "$firebaseArray", "Auth", "$rootScope", function($scope, $firebaseArray, Auth, $rootScope) {
+   var ref = new Firebase("https://phr.firebaseio.com/messages");
+  // create a synchronized array
+  $scope.messages = $firebaseArray(ref);
   $scope.auth = Auth;
-
-      // any time auth status updates, add the user data to scope
+  // any time auth status updates, add the user data to scope
   $scope.auth.$onAuth(function(authData) {
     $rootScope.authData = authData;
-    console.log("auth inside", $rootScope.authData);
   });
+  console.log($rootScope.authData.facebook.profileImageURL);
 
-  console.log("auth outside", $rootScope.authData);
+   // add new items to the array
+   // the message is automatically added to our Firebase database!
+   $scope.addMessage = function(mes) {
+    console.log("fire");
+     $scope.messages.$add({
+      name: $rootScope.authData.facebook.displayName,
+      text: mes,
+      photo: $rootScope.authData.facebook.profileImageURL
+     });
+   }; 
   
-      $scope.user="Guest";
- 
-      $scope.messages= Message.all;
-
-      $scope.inserisci = function(message){
-        Message.create(message);
-      };
-  }])
- 
-.factory('Message', ['$firebaseArray', '$rootScope',
-  function($firebaseArray, $rootScope) {
-    var ref = new Firebase('https://phr.firebaseio.com/' +"users/"+ $rootScope.authData.uid +"/"  );
-    var messages = $firebaseArray(ref.child('messages'))
-
-    var Message = {
-      all: messages,
-      create: function (message) {
-        return messages.$add(message);
-      },
-      get: function (messageId) {
-        return $firebase(ref.child('messages').child(messageId)).$asObject();
-      },
-      delete: function (message) {
-        return messages.$remove(message);
-      }
-    };
-
-    return Message;
-
-  }
-  ]);
+}]);
 
 
 

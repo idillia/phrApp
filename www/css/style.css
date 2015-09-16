@@ -47,16 +47,16 @@ td.stackBtn {
     font-size: 1.2rem;
     color: rgba(0,0,0,0.8);
     position:relative;
-    height: 200px;
+    height: 500px;
     border: 1px solid rgba(0,0,255, 0.2);
     padding: 10px;
     line-height: 29px;
     overflow: hidden;
 }
 
-/*textarea, input[type = "text"] {
+textarea, input[type = "text"] {
     border:1px solid #b4b4b4;
-}*/
+}
 
 .col {
     /*background: gray;*/
@@ -183,6 +183,10 @@ td.stackBtn {
 
 .forum-card {
   border: 2px outset slateblue;
+}
+
+.login-background {
+    background-image: url('../img/pokerBg.png')
 }
 
 
