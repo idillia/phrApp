@@ -113,13 +113,25 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   }
   });
   $rootScope.uid = null;
+
+  var checkIfUserInDB = function(uid, callback){
+    var ref = new Firebase("https://phr.firebaseio.com");
+    ref.child("users").child(uid).once('value', function(snapshot) {
+      var exists = (snapshot.val() !== null);
+      callback(uid, exists);
+    });
+  };
+
   $scope.loginWithFacebook = function() {
     Auth.$authWithOAuthPopup("facebook")
       .then(function(authData){
-        console.log(authData);
-        // $rootScope.uid = authData.uid;
-        console.log($rootScope.uid);
-        console.log("Authenticated successfully with payload:", authData.uid);
+        checkIfUserInDB(authData.uid, function(uid, exists){
+          if (!exists) {
+            $scope.saveUserToDB(authData);
+            console.log($rootScope.uid);
+            console.log("Authenticated successfully with payload:", authData.uid);
+          }
+        })
       })
       .catch(function(error){
         console.log("Auth failed:", error);
@@ -139,6 +151,27 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       console.log("Auth failed:", error);
       toastr.error(error.code, 'Error');
     });
+  };
+
+  $scope.saveUserToDB = function(authData) {
+    console.log("auth inside saveuser", authData);
+    var ref = new Firebase("https://phr.firebaseio.com");
+        console.log("saveUser is ran");
+        ref.child("users").child(authData.uid).set({
+          provider: authData.provider,
+          name: getName(authData),
+    });
+  // find a suitable name based on the meta info given by each provider
+    function getName(authData) {
+      switch(authData.provider) {
+         case 'password':
+           return authData.password.email.replace(/@.*/, '');
+         case 'twitter':
+           return authData.twitter.displayName;
+         case 'facebook':
+           return authData.facebook.displayName;
+      }
+    };
   };
 
   $scope.logout = function() {
@@ -173,36 +206,25 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
       });  
     })
     .then(function(authData){
-      saveUserToDB(authData);
-      console.log("Logged in as: ", authData);
+    $scope.saveUserToDB(authData);
+      // console.log("Logged in as: ", authData);
     })
     .catch(function(error){
-      console.log("Error: ", error);
+      // console.log("Error: ", error);
       toastr.error(error.code, 'Error');
     });
   };
-  $scope.signupWithFacebook = function() {
-    Auth.$authWithOAuthPopup("facebook")
-      .then(function(authData){
-        saveUserToDB(authData);
-        console.log("Authenticated successfully with payload:", authData.uid);
-      })
-      .catch(function(error){
-        console.log("Auth failed:", error);
-        toastr.error(error.code, 'Error');
-      });
-  };  
-  var saveUserToDB = function(authData) {
+  
+  $scope.saveUserToDB = function(authData) {
     console.log("auth inside saveuser", authData);
     var isNewUser = true;
     var ref = new Firebase("https://phr.firebaseio.com");
     Auth.$onAuth(function(authData) {
       if (authData && isNewUser) {
-        // save the user's profile into the database so we can list users,
-        // use them in Security and Firebase Rules, and show profiles
+        console.log("saveUser is ran");
         ref.child("users").child(authData.uid).set({
           provider: authData.provider,
-          name: getName(authData)
+          name: getName(authData),
         });
       }
     });
@@ -216,16 +238,28 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
          case 'facebook':
            return authData.facebook.displayName;
       }
-    }
+    };
   };
 })  
 .factory("Auth", function($firebaseAuth) {
   var ref = new Firebase("https://phr.firebaseio.com/");
-   console.log(ref);
-   console.log($firebaseAuth(ref));
   return $firebaseAuth(ref);
+})
+
+.factory("DB", function(){
+    saveUserToDB = function(authData) {
+    console.log("auth inside saveuser", authData);
+    Auth.$onAuth(function(authData) {
+      if (authData && isNewUser) {
+        console.log("saveUser is ran");
+        ref.child("users").child(authData.uid).set({
+          provider: authData.provider,
+          name: getName(authData),
+        });
+      }
+    });
+};
 });
-// .factory("Users", function(){
-// });
+
 
 

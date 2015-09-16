@@ -98,7 +98,10 @@ td.stackBtn {
   /*background-color: aqua;*/
 }
 
-
+.disabled{
+  background-color: #F2E5DE;
+  z-index: -1;
+}
 
 .preflop {
   background-color: #A4928F;
@@ -118,10 +121,6 @@ td.stackBtn {
 
 .highlightedCell {
   border:3px solid #C38767;
-}
-
-.disabled{
-  background-color: #F2E5DE;
 }
 
 .myButton {

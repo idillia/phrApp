@@ -12,11 +12,11 @@
             <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal" ng-class="[{highlightedCell:idPositionCol === $index}, {heroPos: position.heroPosition === $index}]" >{{cell}}</td>
           </tr> 
           <tr>
-            <td ng-repeat="cell in table.hand" ng-click="openDeckModal($index)" ng-class="[{highlightedCell:idDeckCol === $index}, {disabled: cell.isDisabled}]" ng-disabled="isDisabled">
+            <td ng-repeat="cell in table.hand" ng-click="cell.isDisabled || openDeckModal($index)" ng-class="[{highlightedCell:idDeckCol === $index}, {disabled: cell.isDisabled}]" ng-disabled="isDisabled">
               {{cell.card1}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in table.stack" ng-click="openStackModal($index)"ng-class="[{highlightedCell:idStackCol === $index},{disabled: cell.isDisabled}]" ng-disabled="isDisabled">{{cell.value}}</td>
+            <td ng-repeat="cell in table.stack" ng-click="cell.isDisabled || openStackModal($index)"ng-class="[{highlightedCell:idStackCol === $index},{disabled: cell.isDisabled}]" ng-disabled="isDisabled">{{cell.value}}</td>
           </tr>   
           <tr ng-repeat="row in table.action" >
             <td ng-repeat="cell in row" ng-click="cell.isDisabled || openActionModal($parent.$index, $index);" ng-class="[{highlightedCell: idActionRow === $parent.$index && idActionCol === $index}, cell.isHighlighted, {disabled: cell.isDisabled}]" ng-disabled="isDisabled" >{{cell.value}}</td>  

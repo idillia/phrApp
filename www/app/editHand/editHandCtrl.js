@@ -158,6 +158,7 @@ angular.module('editHand', [])
     $scope.deckModal.hide();
     $scope.setSelected($scope.openDeckCol+11);
   };
+
   $scope.buttonDeckModal = function(rank, suit) {
     $scope.modalVal = rank+suit;
     if ($scope.openDeckCol <= 8){ 
@@ -168,11 +169,9 @@ angular.module('editHand', [])
       }
       else {
         $scope.modalCard1 = rank+suit;
-        // $scope.table.hand[$scope.openDeckCol] = new PHR.HandCell($scope.modalCard1, $scope.modalCard2);
         $scope.table.hand[$scope.openDeckCol].card1 += $scope.modalCard1;
          console.log($scope.table.hand[$scope.openDeckCol]);
         delete $scope.modalCard1;
-        // delete $scope.modalCard2;
         $scope.moveDeckNext();  
       }
     } else {
@@ -180,7 +179,8 @@ angular.module('editHand', [])
     } 
   };
   $scope.unknownCards = function() {
-    $scope.table.hand[$scope.openDeckCol].value = "XX"; 
+    $scope.table.hand[$scope.openDeckCol].card1 = "XX"; 
+    $scope.moveDeckNext();
   }
 
     // Stack Keypad
@@ -191,54 +191,49 @@ angular.module('editHand', [])
     $scope.stackModal = modal;
   });
   $scope.openStackModal = function(col) {
-    $scope.openCol = col;
+    $scope.openStackCol = col;
     $scope.stackModal.show();
     $scope.modalVal = [];
     $scope.setSelected = function (col) {
       $scope.idStackCol = col;
     };
-    $scope.setSelected($scope.openCol);
+    $scope.setSelected($scope.openStackCol);
   };  
   $scope.moveStackPrev = function() {
-    if ($scope.openCol !== 0) {
-      $scope.openCol--;
-      if ($scope.openCol > 0) {
-        $scope.setSelected($scope.openCol);
-        $scope.table.stack[$scope.openCol].value = $scope.numbers;  
-      }
+    if ($scope.openStackCol !== 0) {
+      $scope.openStackCol--;
+      $scope.setSelected($scope.openStackCol);
     }
   };
   $scope.eraseStack = function(){
     $scope.modalVal = [];
     $scope.numbers = '';
-    $scope.table.stack[$scope.openCol].value ='';
+    $scope.table.stack[$scope.openStackCol].value ='';
   }
   $scope.moveStackNext = function() {
     $scope.modalVal = [];
     $scope.numbers = '';
-    $scope.openCol++;
-    if ($scope.openCol <= 8) {
-      $scope.setSelected($scope.openCol);
-      $scope.table.stack[$scope.openCol].value = $scope.numbers;  
+    if ($scope.openStackCol < 8) {
+      $scope.openStackCol++;
+      $scope.setSelected($scope.openStackCol);
     } else $scope.closeStackModal();
   };
   $scope.closeStackModal = function() {
     $scope.modalVal = [];
     $scope.stackModal.hide();
-    $scope.setSelected($scope.openCol+20);
+    $scope.setSelected($scope.openStackCol+20);
   };
   $scope.buttonStackModal = function(val) {
-    if ($scope.openCol <= 8){ 
+    if ($scope.openStackCol <= 8){ 
       $scope.modalVal.push(val);
+      console.log($scope.modalVal)
       $scope.numbers = $scope.modalVal.join('');
-      $scope.table.stack[$scope.openCol].value = $scope.numbers;
-      console.log($scope.openCol);
-
+      $scope.table.stack[$scope.openStackCol].value = $scope.numbers;
+      console.log($scope.openStackCol);
     } else {
       $scope.closeStackModal();
     }  
   };
-
 
  // Action Keypad
   $ionicModal.fromTemplateUrl('app/keypads/actionKeypad.html', {
@@ -249,90 +244,92 @@ angular.module('editHand', [])
     $scope.modalVal = [];
   });
   $scope.openActionModal = function(row, col) {
-    $scope.openRow = row;
-    $scope.openCol = col;
+    $scope.openActionRow = row;
+    $scope.openActionCol = col;
     $scope.actionModal.show();
-    // $scope.idRow = null;
-    // $scope.idCol = null;
     $scope.setSelected = function (row, col) {
       $scope.idActionRow = row;
       $scope.idActionCol = col;
     };
-    $scope.setSelected($scope.openRow,$scope.openCol);  
+    $scope.setSelected($scope.openActionRow,$scope.openActionCol);  
   };  
   $scope.moveActionPrev = function() {
-    $scope.openCol--;
-    if ($scope.openCol >= 0) {
-      $scope.setSelected($scope.openRow, $scope.openCol);
-      $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;  
+    if ($scope.openActionCol !==0 && $scope.openActionRow === 0)  {
+      $scope.openActionCol--;
+      $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+    } 
+    if ($scope.openActionCol ===0 && $scope.openActionRow !== 0)  {
+      $scope.openActionRow--;
+      $scope.openActionCol = 9;
+      $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+    }
+    if ($scope.openActionCol !==0 && $scope.openActionRow !== 0)  {
+      $scope.openActionCol--;
+      $scope.setSelected($scope.openActionRow, $scope.openActionCol);
     }
   };
   $scope.moveActionNext = function() {
     $scope.modalVal = [];
     $scope.numbers = '';
-    console.log($scope.openCol, $scope.table.action[$scope.openRow][$scope.openCol].isDisabled);
+    console.log($scope.openActionCol, $scope.table.action[$scope.openActionRow][$scope.openActionCol].isDisabled);
     
-      if ($scope.openCol < 8) {
-        if (!$scope.table.action[$scope.openRow][$scope.openCol+1].isDisabled) {
-          $scope.openCol++;
+    if ($scope.openActionCol < 8) {
+      if (!$scope.table.action[$scope.openActionRow][$scope.openActionCol+1].isDisabled) {
+        $scope.openActionCol++;
 
-          $scope.setSelected($scope.openRow, $scope.openCol);
-          $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers; 
-        } else {
-          $scope.openCol = $scope.openCol+2;
-           console.log("should skip this", $scope.openCol);
-          $scope.setSelected($scope.openRow, $scope.$scope.openCol);
-          $scope.table.action[$scope.openRow][$scope.$scope.openCol].value = $scope.numbers;
-         
-          
-        } 
+        $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+        // $scope.table.action[$scope.openActionRow][$scope.openActionCol].value = $scope.numbers; 
+      } else {
+        $scope.openActionCol = $scope.openActionCol+2;
+         console.log("should skip this", $scope.openActionCol);
+        $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+        // $scope.table.action[$scope.openActionRow][$scope.openActionCol].value = $scope.numbers;  
+      } 
 
-        // console.log($scope.table.action[$scope.openRow][$scope.openCol].value)
-      } else if($scope.openCol === 8) {
-        console.log($scope.openRow, $scope.openCol)
-          $scope.openRow++;
-          $scope.openCol = 0;
-          $scope.setSelected($scope.openRow, $scope.openCol);
-          console.log($scope.openRow);
-      }
-      if($scope.openCol ===7) {
-        $scope.table.addRow();
-        // $scope.table.toggleIsDisabled($scope.openPosCol); 
-        
-      }
-     
-  
+      // console.log($scope.table.action[$scope.openRow][$scope.openCol].value)
+    } else if($scope.openActionCol === 8) {
+      console.log($scope.openActionRow, $scope.openActionCol)
+      $scope.openActionRow++;
+      $scope.openActionCol = 0;
+      $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+      console.log($scope.openActionRow);
+    }
+    if($scope.openActionCol ===8) {
+      $scope.table.addRow();
+    }
   };
 
+  $scope.moveOnSum = function () {
+    $scope.openActionRow++;
+    $scope.openActionCol = 0;
+    $scope.setSelected($scope.openActionRow, $scope.openActionCol);
+      $scope.modalVal = [];
+    $scope.numbers = '';
+  }
   $scope.eraseActionModal = function() {
     $scope.modalVal = [];
     $scope.numbers = '';
+    $scope.table.action[$scope.openActionRow][$scope.openActionCol].value ='';
   };
   $scope.closeActionModal = function() {
     $scope.modalVal = [];
     $scope.actionModal.hide();
-    $scope.setSelected($scope.openRow+1, $scope.openCol);
-    
+    $scope.setSelected($scope.openActionRow, $scope.openActionCol+11);
   };
   $scope.buttonActionModal = function(val) {
-
     $scope.modalVal.push(val);
     $scope.numbers = $scope.modalVal.join('');
-    $scope.table.action[$scope.openRow][$scope.openCol].value = $scope.numbers;
-
-    
-    // $scope.table.whichHL();
-    // console.log($scope.colSum());
+    $scope.table.action[$scope.openActionRow][$scope.openActionCol].value = $scope.numbers;
     $scope.pot = $scope.table.calculatePotSize();
-    // console.log($scope.pot);
     $scope.preflopClass = $scope.table.hlCell(); 
+
+    if ($scope.preflopClass) {
+      $scope.table.addRow();
+      $scope.moveOnSum();
+    }
     console.log("preflopClass", $scope.preflopClass); 
   };
 
-  // $scope.reload = function(){
-  //   //will reload 'contact.detail' and 'contact.detail.item' states
-  //   $state.reload('app.edithand');
-  // }
  // Save hand information to firebase
   $scope.saveHands = function() {
     console.log("Auth.uid", $rootScope.authData.uid);
@@ -378,7 +375,7 @@ angular.module('editHand', [])
           }
         }
       }
-      console.log(board);
+      // console.log(board);
       $scope.handRecords.unshift(board);     
       // $scope.$apply();
     }, function(errorObject) {
@@ -386,13 +383,18 @@ angular.module('editHand', [])
     });
   };
 
-  $scope.callBtn = function() {};
+  $scope.callBtn = function() {
 
-  $scope.foldBtn = function() {
-    // $scope.table.toggleIsDisabled($scope.openCol);
   };
 
-  $scope.checkBtn = function() {};
+  $scope.foldBtn = function() {
+    $scope.table.toggleIsDisabled($scope.openActionCol);
+  };
+
+  $scope.checkBtn = function() {
+    $scope.table.action[$scope.openActionRow][$scope.openActionCol].value = 0;
+
+  };
 
   
   $scope.clearHand = function() {

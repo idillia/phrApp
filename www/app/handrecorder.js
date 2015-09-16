@@ -11,7 +11,7 @@ PHR.Cell = function(val) {
 
 PHR.HandCell = function(val1) {
   this.card1 = typeof val1 !== 'undefined' ? val1 : '';
-
+  this.isHighlighted = '';
   this.isDisabled = false;
 };
 
@@ -108,13 +108,18 @@ PHR.Table = function(rows, col) {
   };   
 
    this.setIsHighlighted = function () {
+    for (var m =0; m<this.row.length; m++){
+      this.hand[m].isHighlighted = this.highlightClasses[this.highlightIndex];
+      this.stack[m].isHighlighted = this.highlightClasses[this.highlightIndex];
+      console.log("I'm passing hlIndex of ", this.hand, this.stack)
+    }
     for (var i=0; i<this.rows; i++) {
       for (var j =0; j<this.col; j++) {
         // console.log(this.highlightClasses[this.highlightIndex]);
         if (this.action[i][j].value !== ''&& this.action[i][j].isHighlighted === ''){
           // console.log("I'm passing hlIndex of ", this.highlightIndex)
           this.action[i][j].isHighlighted = this.highlightClasses[this.highlightIndex];
-        }   
+        }  
       }  
     }
     return this.highlightClasses[this.highlightIndex];
@@ -198,15 +203,6 @@ PHR.Table = function(rows, col) {
   }; 
 };
 
-
-
-
-// console.log(this.checkDisCol())
-
-
-// PHR.Table.prototype.forEachActionCell = function(func) {
- 
-// };
 
 PHR.Comment = function(val) {
   this.value = '';

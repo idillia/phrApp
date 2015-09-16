@@ -6,15 +6,15 @@
     <table>
     <tr>
       <td><button class="button-wide smaller" ng-click="eraseStack()">Erase</button></td>
-      <td><button class="button-wide smaller" ng-click="">No player</button></td>
+      <td></td>
       <td><button class="button-wide smaller" ng-click = "closeStackModal()">Done</button></td>
     </tr>  
     <tr ng-repeat = "element in moneyNumbers">
-      <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonStackModal(cell)" >{{cell}}</td>
+      <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonStackModal(cell)">{{cell}}</td>
     </tr>
     <tr>
       <td><button class="button-wide smaller" ng-click="moveStackPrev()">Previous</button></td>
-      <td ng-click="buttonStackModal(0)">0</td>
+      <td class="stackBtn" ng-click="buttonStackModal(0)">0</td>
       <td><button class="button-wide smaller" ng-click="moveStackNext()">Next</button></td>  
     </tr>
   </table>
