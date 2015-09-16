@@ -29,10 +29,10 @@
             <td ng-repeat="cell in table.posVal" ng-class ="{heroPos: position.heroPosition === $index}">{{cell}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in hand.hand">{{cell.card1}}{{cell.card2}}</td>
+            <td ng-repeat="cell in hand.hand" ng-class="{disabled: cell.isDisabled}">{{cell.card1}}{{cell.card2}}</td>
           </tr>
           <tr>
-            <td ng-repeat="cell in hand.stack">{{cell.value}}</td>
+            <td ng-repeat="cell in hand.stack" ng-class="{disabled: cell.isDisabled}">{{cell.value}}</td>
           </tr>
           <tr ng-repeat="row in hand.action">
             <td ng-repeat="cell in row" ng-class="[cell.isHighlighted, {disabled: cell.isDisabled}]">{{cell.value}}</td>
