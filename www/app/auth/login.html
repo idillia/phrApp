@@ -1,13 +1,13 @@
 <ion-view title="Login" hide-back-button="true">
-  <ion-content has-header="true" has-tabs="true" padding="true" class="login-background">
+  <ion-content has-header="true"  class="login-background">
     <form >
-      <div class="list">
+      <div class="list relative">
         
-        <label class="item item-input">
-          <input type="text" placeholder="Email" ng-model="email">
+        <label class="loginItem item item-input">
+          <input class="loginInput" type="text" placeholder="Email" ng-model="email">
         </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="password">
+        <label class="loginItem item item-input">
+          <input class="loginInput" type="password" placeholder="Password" ng-model="password">
         </label>
         <div>
           <button class="button button-block button-dark" ng-click="loginWithPassword(email, password)" type="submit">Login</button>
@@ -17,7 +17,7 @@
           Or <a ui-sref="signup">Create an account</a>
         
         </div>
-        <div>
+        <div class="absolute">
           <button class="button button-block button-positive" ng-click="loginWithFacebook()" type="submit">Login with Facebook</button>
         </div>
         </div>

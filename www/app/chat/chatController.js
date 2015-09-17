@@ -9,17 +9,25 @@ angular.module('chat', [])
   $scope.auth.$onAuth(function(authData) {
     $rootScope.authData = authData;
   });
-  console.log($rootScope.authData.facebook.profileImageURL);
+ 
 
    // add new items to the array
    // the message is automatically added to our Firebase database!
    $scope.addMessage = function(mes) {
-    console.log("fire");
+   console.log($rootScope.authData.facebook);
+     if ($rootScope.authData.facebook !== undefined) {
      $scope.messages.$add({
       name: $rootScope.authData.facebook.displayName,
       text: mes,
       photo: $rootScope.authData.facebook.profileImageURL
      });
+    } else {
+      $scope.messages.$add({
+      name: $rootScope.name,
+      text: mes,
+      photo: $rootScope.authData.password.profileImageURL
+     });
+    }
    }; 
   
 }]);

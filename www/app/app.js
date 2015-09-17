@@ -174,7 +174,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   };
 })
 
-.controller('signupCtrl', function($scope, $state, Auth, toastr) {
+.controller('signupCtrl', function($scope, $state, Auth, toastr, $rootScope) {
   Auth.$onAuth(function(authData) {
     if(authData === null){
       console.log("no data"); 
@@ -185,6 +185,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     }
   });
   $scope.signup = function(name, email, password){  
+  $rootScope.name = name;
     Auth.$createUser({
       name: name,
       email: email,
@@ -200,7 +201,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     })
     .then(function(authData){
     $scope.saveUserToDB(authData);
-      // console.log("Logged in as: ", authData);
+      console.log("Logged in as: ", authData);
     })
     .catch(function(error){
       // console.log("Error: ", error);
@@ -210,14 +211,16 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   
   $scope.saveUserToDB = function(authData) {
     console.log("auth inside saveuser", authData);
-    var isNewUser = true;
+    console.log($scope.name);
     var ref = new Firebase("https://phr.firebaseio.com");
     Auth.$onAuth(function(authData) {
-      if (authData && isNewUser) {
-        console.log("saveUser is ran");
+      if (authData) {
+        console.log("saveUser is ran", authData);
         ref.child("users").child(authData.uid).set({
           provider: authData.provider,
-          name: getName(authData),
+          emailName: getName(authData),
+          name:$rootScope.name
+
         });
       }
     });
@@ -234,25 +237,12 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     };
   };
 })  
+
 .factory("Auth", function($firebaseAuth) {
   var ref = new Firebase("https://phr.firebaseio.com/");
   return $firebaseAuth(ref);
 })
 
-.factory("DB", function(){
-    saveUserToDB = function(authData) {
-    console.log("auth inside saveuser", authData);
-    Auth.$onAuth(function(authData) {
-      if (authData && isNewUser) {
-        console.log("saveUser is ran");
-        ref.child("users").child(authData.uid).set({
-          provider: authData.provider,
-          name: getName(authData),
-        });
-      }
-    });
-};
-});
 
 
 
