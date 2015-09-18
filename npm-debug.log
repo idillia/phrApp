@@ -1,0 +1,189 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'karma-chrome-launcher',
+1 verbose cli   '--save-dev' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of /Users/mila/Projects/hr/thesis-phr/phrApp/package.json
+5 warn package.json phrapp@1.0.0 No repository field.
+6 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/async/package.json
+7 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/bower/package.json
+8 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp/package.json
+9 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-concat/package.json
+10 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-jshint/package.json
+11 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-minify-css/package.json
+12 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-rename/package.json
+13 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-sass/package.json
+14 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/gulp-util/package.json
+15 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/jasmine-core/package.json
+16 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/jshint/package.json
+17 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/jshint-stylish/package.json
+18 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/karma/package.json
+19 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/karma-jasmine/package.json
+20 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/karma-phantomjs-launcher/package.json
+21 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/phantomjs/package.json
+22 verbose installManyTop reading scoped package data from /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/shelljs/package.json
+23 info package.json async@1.4.2 No README data
+24 verbose readDependencies loading dependencies from /Users/mila/Projects/hr/thesis-phr/phrApp/package.json
+25 silly cache add args [ 'karma-chrome-launcher', null ]
+26 verbose cache add spec karma-chrome-launcher
+27 silly cache add parsed spec { raw: 'karma-chrome-launcher',
+27 silly cache add   scope: null,
+27 silly cache add   name: 'karma-chrome-launcher',
+27 silly cache add   rawSpec: '',
+27 silly cache add   spec: '*',
+27 silly cache add   type: 'range' }
+28 silly addNamed karma-chrome-launcher@*
+29 verbose addNamed "*" is a valid semver range for karma-chrome-launcher
+30 silly addNameRange { name: 'karma-chrome-launcher', range: '*', hasData: false }
+31 silly mapToRegistry name karma-chrome-launcher
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry uri https://registry.npmjs.org/karma-chrome-launcher
+35 verbose addNameRange registry:https://registry.npmjs.org/karma-chrome-launcher not in flight; fetching
+36 verbose request uri https://registry.npmjs.org/karma-chrome-launcher
+37 verbose request no auth needed
+38 info attempt registry request try #1 at 11:12:23 AM
+39 verbose request id ecd71599a887c5b4
+40 verbose etag "5FY7I675W6EOGPEHJGF94JLKK"
+41 http request GET https://registry.npmjs.org/karma-chrome-launcher
+42 http 304 https://registry.npmjs.org/karma-chrome-launcher
+43 silly get cb [ 304,
+43 silly get   { date: 'Fri, 18 Sep 2015 18:12:23 GMT',
+43 silly get     via: '1.1 varnish',
+43 silly get     'cache-control': 'max-age=60',
+43 silly get     etag: '"5FY7I675W6EOGPEHJGF94JLKK"',
+43 silly get     age: '10',
+43 silly get     connection: 'keep-alive',
+43 silly get     'x-served-by': 'cache-lax1420-LAX',
+43 silly get     'x-cache': 'HIT',
+43 silly get     'x-cache-hits': '1',
+43 silly get     'x-timer': 'S1442599943.153045,VS0,VE0',
+43 silly get     vary: 'Accept' } ]
+44 verbose etag https://registry.npmjs.org/karma-chrome-launcher from cache
+45 verbose get saving karma-chrome-launcher to /Users/mila/.npm/registry.npmjs.org/karma-chrome-launcher/.cache.json
+46 silly addNameRange number 2 { name: 'karma-chrome-launcher', range: '*', hasData: true }
+47 silly addNameRange versions [ 'karma-chrome-launcher',
+47 silly addNameRange   [ '0.0.1',
+47 silly addNameRange     '0.0.2',
+47 silly addNameRange     '0.1.0',
+47 silly addNameRange     '0.1.1',
+47 silly addNameRange     '0.1.2',
+47 silly addNameRange     '0.1.3',
+47 silly addNameRange     '0.1.4',
+47 silly addNameRange     '0.1.5',
+47 silly addNameRange     '0.1.6',
+47 silly addNameRange     '0.1.7',
+47 silly addNameRange     '0.1.8',
+47 silly addNameRange     '0.1.9',
+47 silly addNameRange     '0.1.10',
+47 silly addNameRange     '0.1.11',
+47 silly addNameRange     '0.1.12',
+47 silly addNameRange     '0.2.0' ] ]
+48 silly addNamed karma-chrome-launcher@0.2.0
+49 verbose addNamed "0.2.0" is a plain semver version for karma-chrome-launcher
+50 silly mapToRegistry name karma-chrome-launcher
+51 silly mapToRegistry using default registry
+52 silly mapToRegistry registry https://registry.npmjs.org/
+53 silly mapToRegistry uri https://registry.npmjs.org/karma-chrome-launcher
+54 verbose addRemoteTarball https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz not in flight; adding
+55 verbose addRemoteTarball [ 'https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz',
+55 verbose addRemoteTarball   'bab12f5f2f4b2f62914a677f29fceca99c090eba' ]
+56 info retry fetch attempt 1 at 11:12:23 AM
+57 info attempt registry request try #1 at 11:12:23 AM
+58 http fetch GET https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz
+59 http fetch 200 https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz
+60 silly fetchAndShaCheck shasum bab12f5f2f4b2f62914a677f29fceca99c090eba
+61 verbose addTmpTarball /var/folders/bm/dw8k52rj5kn20hdk5g3hl2y00000gn/T/npm-5973-7a51311e/registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz not in flight; adding
+62 verbose addTmpTarball already have metadata; skipping unpack for karma-chrome-launcher@0.2.0
+63 silly cache afterAdd karma-chrome-launcher@0.2.0
+64 verbose afterAdd /Users/mila/.npm/karma-chrome-launcher/0.2.0/package/package.json not in flight; writing
+65 verbose afterAdd /Users/mila/.npm/karma-chrome-launcher/0.2.0/package/package.json written
+66 silly install resolved [ { name: 'karma-chrome-launcher',
+66 silly install resolved     version: '0.2.0',
+66 silly install resolved     description: 'A Karma plugin. Launcher for Chrome and Chrome Canary.',
+66 silly install resolved     main: 'index.js',
+66 silly install resolved     scripts: { test: 'jasmine-node test' },
+66 silly install resolved     repository:
+66 silly install resolved      { type: 'git',
+66 silly install resolved        url: 'git://github.com/karma-runner/karma-chrome-launcher.git' },
+66 silly install resolved     keywords: [ 'karma-plugin', 'karma-launcher', 'chrome' ],
+66 silly install resolved     author: { name: 'Vojta Jina', email: 'vojta.jina@gmail.com' },
+66 silly install resolved     dependencies: { 'fs-access': '^1.0.0', which: '^1.0.9' },
+66 silly install resolved     license: 'MIT',
+66 silly install resolved     devDependencies:
+66 silly install resolved      { chai: '^3.0.0',
+66 silly install resolved        eslint: '^0.23.0',
+66 silly install resolved        'eslint-config-standard': '^3.3.0',
+66 silly install resolved        grunt: '^0.4.1',
+66 silly install resolved        'grunt-auto-release': '^0.0.6',
+66 silly install resolved        'grunt-bump': '^0.3.1',
+66 silly install resolved        'grunt-conventional-changelog': '^1.2.2',
+66 silly install resolved        'grunt-eslint': '^15.0.0',
+66 silly install resolved        'grunt-karma': '^0.11.1',
+66 silly install resolved        'grunt-npm': '^0.0.2',
+66 silly install resolved        'grunt-simple-mocha': '^0.4.0',
+66 silly install resolved        'jasmine-node': '^1.14.5',
+66 silly install resolved        karma: '^0.12.36',
+66 silly install resolved        'karma-mocha': '^0.2.0',
+66 silly install resolved        'load-grunt-tasks': '^3.2.0',
+66 silly install resolved        mocha: '^2.2.5',
+66 silly install resolved        sinon: '^1.15.3' },
+66 silly install resolved     contributors:
+66 silly install resolved      [ [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object],
+66 silly install resolved        [Object] ],
+66 silly install resolved     gitHead: '4d0268e4a9691be92173f8e8845fc2c903c00797',
+66 silly install resolved     bugs: { url: 'https://github.com/karma-runner/karma-chrome-launcher/issues' },
+66 silly install resolved     homepage: 'https://github.com/karma-runner/karma-chrome-launcher#readme',
+66 silly install resolved     _id: 'karma-chrome-launcher@0.2.0',
+66 silly install resolved     _shasum: 'bab12f5f2f4b2f62914a677f29fceca99c090eba',
+66 silly install resolved     _from: 'karma-chrome-launcher@*',
+66 silly install resolved     _npmVersion: '2.11.2',
+66 silly install resolved     _nodeVersion: '0.10.38',
+66 silly install resolved     _npmUser: { name: 'dignifiedquire', email: 'dignifiedquire@gmail.com' },
+66 silly install resolved     dist:
+66 silly install resolved      { shasum: 'bab12f5f2f4b2f62914a677f29fceca99c090eba',
+66 silly install resolved        tarball: 'http://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz' },
+66 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+66 silly install resolved     directories: {},
+66 silly install resolved     _resolved: 'https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.2.0.tgz' } ]
+67 info install karma-chrome-launcher@0.2.0 into /Users/mila/Projects/hr/thesis-phr/phrApp
+68 info installOne karma-chrome-launcher@0.2.0
+69 verbose installOne of karma-chrome-launcher to /Users/mila/Projects/hr/thesis-phr/phrApp not in flight; installing
+70 warn locking Error: EACCES, open '/Users/mila/.npm/_locks/karma-chrome-launcher-7811a77352055f94.lock'
+70 warn locking     at Error (native)
+70 warn locking  /Users/mila/.npm/_locks/karma-chrome-launcher-7811a77352055f94.lock failed { [Error: EACCES, open '/Users/mila/.npm/_locks/karma-chrome-launcher-7811a77352055f94.lock']
+70 warn locking   errno: -13,
+70 warn locking   code: 'EACCES',
+70 warn locking   path: '/Users/mila/.npm/_locks/karma-chrome-launcher-7811a77352055f94.lock' }
+71 verbose stack Error: Attempt to unlock /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/karma-chrome-launcher, which hasn't been locked
+71 verbose stack     at unlock (/usr/local/lib/node_modules/npm/lib/utils/locker.js:66:11)
+71 verbose stack     at cb (/usr/local/lib/node_modules/npm/lib/install.js:1017:5)
+71 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:1021:20
+71 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/locker.js:40:9
+71 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:149:38)
+71 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/lockfile/lockfile.js:177:38
+71 verbose stack     at FSReqWrap.oncomplete (fs.js:95:15)
+72 verbose cwd /Users/mila/Projects/hr/thesis-phr/phrApp
+73 error Darwin 14.4.0
+74 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "karma-chrome-launcher" "--save-dev"
+75 error node v0.12.7
+76 error npm  v2.11.3
+77 error Attempt to unlock /Users/mila/Projects/hr/thesis-phr/phrApp/node_modules/karma-chrome-launcher, which hasn't been locked
+78 error If you need help, you may report this error at:
+78 error     <https://github.com/npm/npm/issues>
+79 verbose exit [ 1, true ]

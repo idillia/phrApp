@@ -1,22 +1,20 @@
 <ion-modal-view>
   <ion-content >
-  <div class="positionModal">
-
+    <div class="positionModal">
       <table>
-    <tr>
-      <td><button class="button button-dark" ng-click="movePositionPrev()">Prev</button></td>
-      <td><button class="button button-dark" ng-click="movePositionNext()">Next</button></td>
-      <td><button class="button button-dark" ng-click = "closePositionModal()">Done</button></td>
-    </tr>
-    <tr>
-      <td><button class="button button button-dark" ng-click = "toggleIsDisabledCell()"> {{!dis && 'No' || 'Put'}} player</button>
-     </td>
-     <td></td>
-     <td><button class="button button-dark" ng-click="toggleHeroPosition()">My seat</button></td>
-    </tr> 
-  </table>
-
-  </div>  
+        <tr>
+          <td><button class="button button-dark" ng-click="movePositionPrev()">Prev</button></td>
+          <td><button class="button button-dark" ng-click="movePositionNext()">Next</button></td>
+          <td><button class="button button-dark" ng-click = "closePositionModal()">Done</button></td>
+        </tr>
+        <tr>
+          <td><button class="button button button-dark" ng-click = "toggleIsDisabledCell()"> {{!dis && 'No' || 'Put'}} player</button>
+        </td>
+         <td></td>
+         <td><button class="button button-dark" ng-click="toggleHeroPosition()">My seat</button></td>
+        </tr> 
+      </table>
+    </div>  
   </ion-content>
 </ion-modal-view>
 

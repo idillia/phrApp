@@ -15,37 +15,27 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   $stateProvider.state('app', {
     url:'/app',
     abstract:true,
-    templateUrl: "app/sideMenu/sideMenu.html",
-    controller: 'AuthCtrl'
+      templateUrl: "app/sideMenu/sideMenu.html",
+      controller: 'AuthCtrl'
   })
   .state('login', {
     url: '/login',
-    templateUrl: 'app/auth/login.html',
-    controller: 'AuthCtrl'
+      templateUrl: 'app/auth/login.html',
+      controller: 'AuthCtrl'
   })
   .state('signup', {
     url: '/signup',
-    templateUrl: 'app/auth/signup.html',
-    controller: 'signupCtrl'
+      templateUrl: 'app/auth/signup.html',
+      controller: 'signupCtrl'
   })
   .state('logout', {
     url: '/logout',
-    templateUrl: '',
-    contreller: 'AuthCtrl'
+      templateUrl: '',
+      contreller: 'AuthCtrl'
   })
   .state('app.edithand', {
     cache: false,
     url: '/edithand',
-    views: {
-      'menuContent': {
-        templateUrl: 'app/editHand/editHand.html',
-        controller: 'editHandCtrl',
-      }
-    }
-  })
-  .state('app.edithand-edit', {
-    // cache: false,
-    url: '/edithand/:id',
     views: {
       'menuContent': {
         templateUrl: 'app/editHand/editHand.html',
@@ -86,17 +76,17 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
       StatusBar.styleDefault();
     }
   });
 })
 .controller('AuthCtrl', function($scope,$state, Auth, $rootScope, $ionicHistory, toastr) {
   Auth.$onAuth(function(authData) {
-    if(authData === null){
+    if (authData === null){
       console.log("no data"); 
       $state.go('login');
     } else {
@@ -157,12 +147,12 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   // find a suitable name based on the meta info given by each provider
     function getName(authData) {
       switch(authData.provider) {
-         case 'password':
-           return authData.password.email.replace(/@.*/, '');
-         case 'twitter':
-           return authData.twitter.displayName;
-         case 'facebook':
-           return authData.facebook.displayName;
+        case 'password':
+          return authData.password.email.replace(/@.*/, '');
+        case 'twitter':
+          return authData.twitter.displayName;
+        case 'facebook':
+          return authData.facebook.displayName;
       }
     };
   };
@@ -227,12 +217,12 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
   // find a suitable name based on the meta info given by each provider
     function getName(authData) {
       switch(authData.provider) {
-         case 'password':
-           return authData.password.email.replace(/@.*/, '');
-         case 'twitter':
-           return authData.twitter.displayName;
-         case 'facebook':
-           return authData.facebook.displayName;
+        case 'password':
+          return authData.password.email.replace(/@.*/, '');
+        case 'twitter':
+          return authData.twitter.displayName;
+        case 'facebook':
+          return authData.facebook.displayName;
       }
     };
   };
@@ -241,7 +231,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
 .factory("Auth", function($firebaseAuth) {
   var ref = new Firebase("https://phr.firebaseio.com/");
   return $firebaseAuth(ref);
-})
+});
 
 
 

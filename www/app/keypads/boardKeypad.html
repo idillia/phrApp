@@ -1,18 +1,18 @@
 <ion-modal-view>
-  <ion-content class="">
-  <div class="keypad cards">
-    <div class="row row-20">
-      <button class="button button-dark" ng-click="moveBoardPrev()">Previous</button>
-      <button class="button button-dark" ng-click="moveBoardNext()">Next</button>
-      <button class="button button-dark" ng-click = "closeBoardModal()">Done</button>
-    </div>
-
-    <div class="row" ng-repeat="rank in cardRanks">
-      <div class="col" ng-repeat="suit in cardSuits">
-        <div class="card-button myButton" ng-click="buttonBoardModal(rank, suit)">{{rank}}{{suit}}</div>
+  <ion-content>
+    <div class="keypad cards">
+      <div class="row">
+        <button class="button button-dark" ng-click="moveBoardPrev()">Previous</button>
+        <button class="button button-dark" ng-click="moveBoardNext()">Next</button>
+        <button class="button button-dark" ng-click = "closeBoardModal()">Done</button>
       </div>
-    </div>
-  </div>  
+
+      <div class="row" ng-repeat="rank in cardRanks">
+        <div class="col" ng-repeat="suit in cardSuits">
+          <div class="card-button myButton" ng-click="buttonBoardModal(rank, suit)">{{rank}}{{suit}}</div>
+        </div>
+      </div>
+    </div>  
   </ion-content>
 </ion-modal-view>
 

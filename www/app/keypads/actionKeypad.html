@@ -1,33 +1,29 @@
 
 <ion-modal-view>
   <ion-content class="has-header" padding="true">
-  <div class="action-keypad action">
-    <div class="row row-20  ">
-    <table>
-    <tr>
-      <td><button class="button button-dark smaller " ng-click="eraseActionModal()">Erase</button></td>
-      <td></td>
-      <td><button class="button button-dark" ng-click = "closeActionModal()">Done</button></td>
-    </tr>  
-    <tr>
-      
-      <td><button class="button button-dark" ng-click="foldBtn()">Fold</button></td>
-      <td><button class="button button-dark" ng-click="checkBtn()">Check</button></td>
-      <td><button class="button button-dark" ng-click="">Call</button></td>
-    </tr>
-    <tr>
-    <tr ng-repeat = "element in moneyNumbers">
-      <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonActionModal(cell)" >{{cell}}</td>
-    </tr>  
-    </tr>
-    <tr>
-      <td><button class="button button-dark" ng-click="moveActionPrev()">Previous</button></td>
-      <td class="stackBtn" ng-click="buttonActionModal(0)">0</td>
-      <td><button class="button button-dark" ng-click="moveActionNext()">Next</button></td>  
-    </tr>
-  </table>
-  </div>
-  </div>  
+    <div class="action-keypad action">
+      <div class="row row-20 ">
+        <table>
+          <tr>
+            <td><button class="button button-dark smaller " ng-click="eraseActionModal()">Erase</button></td>
+            <td></td>
+            <td><button class="button button-dark" ng-click = "closeActionModal()">Done</button></td>
+          </tr>  
+          <tr>
+            <td><button class="button button-dark" ng-click="foldBtn()">Fold</button></td>
+            <td><button class="button button-dark" ng-click="checkBtn()">Check</button></td>
+            <td><button class="button button-dark" ng-click="">Call</button></td>
+          </tr>
+          <tr ng-repeat = "element in moneyNumbers">
+            <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonActionModal(cell)">{{cell}}</td>
+          </tr>  
+          <tr>
+            <td><button class="button button-dark" ng-click="moveActionPrev()">Previous</button></td>
+            <td class="stackBtn" ng-click="buttonActionModal(0)">0</td>
+            <td><button class="button button-dark" ng-click="moveActionNext()">Next</button></td>  
+          </tr>
+        </table>
+      </div>
+    </div>  
   </ion-content>
-
 </ion-modal-view>

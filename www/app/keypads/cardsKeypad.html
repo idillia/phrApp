@@ -1,19 +1,19 @@
 <ion-modal-view>
   <ion-content>
-  <div class="keypad cards">
-    <div class="row row-20 overlay-container ">
-      <button class="button button-dark" ng-click="unknownCards()">Un seen</button>
-      <button class="button button-dark" ng-click="moveDeckPrev()">Previous</button>
-      <button class="button button-dark" ng-click="moveDeckNext()">Next</button>
-      <button class="button button-dark" ng-click = "closeDeckModal()">Done</button>
-    </div>
-
-    <div class="row" ng-repeat="rank in cardRanks">
-      <div class="col" ng-repeat="suit in cardSuits">
-        <div class="card-button myButton" ng-click="buttonDeckModal(rank, suit)">{{rank}}{{suit}}</div>
+    <div class="keypad cards">
+      <div class="row row-20 overlay-container ">
+        <button class="button button-dark" ng-click="unknownCards()">Un seen</button>
+        <button class="button button-dark" ng-click="moveDeckPrev()">Previous</button>
+        <button class="button button-dark" ng-click="moveDeckNext()">Next</button>
+        <button class="button button-dark" ng-click = "closeDeckModal()">Done</button>
       </div>
-    </div>
-  </div>  
+
+      <div class="row" ng-repeat="rank in cardRanks">
+        <div class="col" ng-repeat="suit in cardSuits">
+          <div class="card-button myButton" ng-click="buttonDeckModal(rank, suit)">{{rank}}{{suit}}</div>
+        </div>
+      </div>
+    </div>  
   </ion-content>
 </ion-modal-view>
 

@@ -1,6 +1,6 @@
 <ion-view title="Signup">
   <ion-content has-header="true" padding="true" class="login-background">
-    <form   >
+    <form>
       <div class="list">
         <label class="item item-input">
           <input type="text" placeholder="Name" ng-model="name">
@@ -15,9 +15,7 @@
           <button class="button button-block button-dark" ng-click="signup(name, email, password)" type="submit">Create account</button>
         </div>
         <div style="text-align: center">
-          <ion-list>
-          Or <a ui-sref="login">Already have an account?</a>
-        </ion-list>
+          <a ui-sref="login">Already have an account?</a>
         </div>
       </div>
     </form>

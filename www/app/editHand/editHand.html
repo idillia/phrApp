@@ -1,7 +1,7 @@
 <ion-view title="Edit Hand">
-<ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon">
+  </button></ion-nav-buttons>
   <ion-content>
     <form name="addHandForm">    
       <label>Board:</label><label class = "pot">Pot Size: {{pot}}</label>
@@ -12,7 +12,7 @@
             <td ng-click="openPositionModal($index)" ng-repeat="cell in table.posVal" ng-class="[{highlightedCell:idPositionCol === $index}, {heroPos: position.heroPosition === $index}]" >{{cell}}</td>
           </tr> 
           <tr>
-            <td ng-repeat="cell in table.hand" ng-click="cell.isDisabled || openDeckModal($index)" style="padding-right:5px, padding-left:5px" ng-class="[{highlightedCell:idDeckCol === $index}, {disabled: cell.isDisabled}]" ng-disabled="isDisabled">
+            <td ng-repeat="cell in table.hand" ng-click="cell.isDisabled || openDeckModal($index)" class="hand-padding"  ng-class="[{highlightedCell:idDeckCol === $index}, {disabled: cell.isDisabled}]" ng-disabled="isDisabled">
               {{cell.card1}}</td>
           </tr>
           <tr>
@@ -26,9 +26,9 @@
       <label>Comments:</label><textarea rows="6" cols="40" name="comment" type="text" ng-model="comment.value" ></textarea> 
     </form>  
   </ion-content>
-      <ion-tabs class="editHand-position tabs-dark tabs-icon-top">
-      <ion-tab title="Save Hand" icon="ion-archive" ng-click="saveHands()"></ion-tab>
-      <ion-tab title="Clear Hand" icon="ion-refresh" ng-click="clearHand()"></ion-tab>
-      <ion-tab title="Add Row" icon="ion-plus-round" ng-click="table.addRow()"></ion-tab>
-      </ion-tabs>
+  <ion-tabs class="editHand-position tabs-dark tabs-icon-top">
+  <ion-tab title="Save Hand" icon="ion-archive" ng-click="saveHands()"></ion-tab>
+  <ion-tab title="Clear Hand" icon="ion-refresh" ng-click="clearHand()"></ion-tab>
+  <ion-tab title="Add Row" icon="ion-plus-round" ng-click="table.addRow()"></ion-tab>
+  </ion-tabs>
 </ion-view>

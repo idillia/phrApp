@@ -10,15 +10,13 @@ angular.module('chat', [])
     $rootScope.authData = authData;
   });
   $scope.newMessageText = "";
- 
-
    // add new items to the array
    // the message is automatically added to our Firebase database!
-   $scope.addMessage = function(newMessageText) {
-   console.log($rootScope.name);
-   console.log($rootScope.authData.facebook);
-     if ($rootScope.authData.facebook !== undefined) {
-     $scope.messages.$add({
+  $scope.addMessage = function(newMessageText) {
+    console.log($rootScope.name);
+    console.log($rootScope.authData.facebook);
+    if ($rootScope.authData.facebook !== undefined) {
+    $scope.messages.$add({
       name: $rootScope.authData.facebook.displayName,
       text: newMessageText,
       photo: $rootScope.authData.facebook.profileImageURL,
@@ -34,8 +32,7 @@ angular.module('chat', [])
     }
     $ionicScrollDelegate.scrollBottom();
     $scope.newMessageText='';
-   }; 
-
+  }; 
 }]);
 
 

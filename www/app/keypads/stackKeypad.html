@@ -1,25 +1,24 @@
 
 <ion-modal-view>
-  <ion-content class="has-header" padding="true">
-  <div class="action-keypad">
-    <div class="row row-20  ">
-    <table>
-    <tr>
-      <td><button class="button button-dark" ng-click="eraseStack()">Erase</button></td>
-      <td></td>
-      <td><button class="button button-dark" ng-click = "closeStackModal()">Done</button></td>
-    </tr>  
-    <tr ng-repeat = "element in moneyNumbers">
-      <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonStackModal(cell)">{{cell}}</td>
-    </tr>
-    <tr>
-      <td><button class="button button-dark" ng-click="moveStackPrev()">Previous</button></td>
-      <td class="stackBtn" ng-click="buttonStackModal(0)">0</td>
-      <td><button class="button button-dark" ng-click="moveStackNext()">Next</button></td>  
-    </tr>
-  </table>
-  </div>
-  </div>  
+  <ion-content padding="true">
+    <div class="action-keypad">
+      <div class="row row-20">
+        <table>
+          <tr>
+            <td><button class="button button-dark" ng-click="eraseStack()">Erase</button></td>
+            <td></td>
+            <td><button class="button button-dark" ng-click = "closeStackModal()">Done</button></td>
+          </tr>  
+          <tr ng-repeat = "element in moneyNumbers">
+            <td class="stackBtn" ng-repeat="cell in element " ng-click="buttonStackModal(cell)">{{cell}}</td>
+          </tr>
+          <tr>
+            <td><button class="button button-dark" ng-click="moveStackPrev()">Previous</button></td>
+            <td class="stackBtn" ng-click="buttonStackModal(0)">0</td>
+            <td><button class="button button-dark" ng-click="moveStackNext()">Next</button></td>  
+          </tr>
+        </table>
+      </div>
+    </div>  
   </ion-content>
-
 </ion-modal-view>

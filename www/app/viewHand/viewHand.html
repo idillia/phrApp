@@ -2,48 +2,45 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  
   <ion-content  overflow-scroll="true">
-  <ion-list class="nopadding">
-   <ion-item class="nopadding" ng-repeat="hand in handRecords" >
-   <div class="nopadding card forum-card "> 
-    
-     <div class="item nopadding  item-royal " style="padding:5px;">
-     <span>Submited on: {{hand.time | date: 'MMM d h:mm a' }}</span>
-     <span  style="float:right">
-      <i class="icon ion-share" style="margin:0 0 0 5px;font-size:180%;" ng-click=""></i>
-      <i class="icon ion-edit" style="margin:0 0 0 5px;font-size:150%;" ng-click="modify()"></i>
-      <i class="icon ion-trash-a" style="margin:0 0 0 5px;font-size:150%;">
-      </i><span>
-    </div> 
-    
-      <label>Board:</label><label>Pot Size: {{pot}}</label>
-      <table class="board">
-        <tr>
-          <td ng-repeat="cell in hand.board">{{cell.value || '&nbsp;'}}</td>
-        </tr>
-      </table> 
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td ng-repeat="cell in table.posVal" ng-class ="{heroPos: position.heroPosition === $index}">{{cell}}</td>
-          </tr>
-          <tr>
-            <td ng-repeat="cell in hand.hand" ng-class="{disabled: cell.isDisabled}">{{cell.card1}}{{cell.card2}}</td>
-          </tr>
-          <tr>
-            <td ng-repeat="cell in hand.stack" ng-class="{disabled: cell.isDisabled}">{{cell.value}}</td>
-          </tr>
-          <tr ng-repeat="row in hand.action">
-            <td ng-repeat="cell in row" ng-class="[cell.isHighlighted, {disabled: cell.isDisabled}]">{{cell.value}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <label>Comments:</label><div rows="2" cols="40" name="comment" type="text">{{hand.value}}</div> 
-    </div>
-   
-  </ion-item>
-  </ion-list>
-  <ion-infinite-scroll on-infinite="restoreHand()" distance="5%"></ion-infinite-scroll>
+    <ion-list class="nopadding">
+      <ion-item class="nopadding" ng-repeat="hand in handRecords">
+        <div class="nopadding card forum-card"> 
+          <div class="item nopadding  item-royal " style="padding:5px;">
+            <span>Submited on: {{hand.time | date: 'MMM d h:mm a' }}</span>
+            <span  style="float:right">
+              <i class="icon ion-share" style="margin:0 0 0 5px;font-size:180%;" ng-click=""></i>
+              <i class="icon ion-edit" style="margin:0 0 0 5px;font-size:150%;" ng-click="modify()"></i>
+              <i class="icon ion-trash-a" style="margin:0 0 0 5px;font-size:150%;">
+              </i>
+            </span>
+          </div> 
+          <label>Board:</label><label>Pot Size: {{pot}}</label>
+          <table class="board">
+            <tr>
+              <td ng-repeat="cell in hand.board">{{cell.value || '&nbsp;'}}</td>
+            </tr>
+          </table> 
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td ng-repeat="cell in table.posVal" ng-class ="{heroPos: position.heroPosition === $index}">{{cell}}</td>
+              </tr>
+              <tr>
+                <td ng-repeat="cell in hand.hand" class="hand-padding" ng-class="{disabled: cell.isDisabled}">{{cell.card1}}{{cell.card2}}</td>
+              </tr>
+              <tr>
+                <td ng-repeat="cell in hand.stack" ng-class="{disabled: cell.isDisabled}">{{cell.value}}</td>
+              </tr>
+              <tr ng-repeat="row in hand.action">
+                <td ng-repeat="cell in row" ng-class="[cell.isHighlighted, {disabled: cell.isDisabled}]">{{cell.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <label>Comments:</label><div rows="2" cols="40" name="comment" type="text">{{hand.value}}</div> 
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="restoreHand()" distance="5%"></ion-infinite-scroll>
   <ion-content>  
 </ion-view>    

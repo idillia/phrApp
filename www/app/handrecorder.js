@@ -1,7 +1,4 @@
 var PHR = PHR || {};
-
-
-
 PHR.Cell = function(val) {
   this.value = typeof val !== 'undefined' ? val : ''; 
   this.isDisabled = false;
@@ -54,7 +51,6 @@ PHR.Table = function(rows, col) {
     for (var m = 0; m < this.col; m++) {
       this.action[k][m] = new PHR.Cell();
     }
-    // console.log("this.action", this.action);
   }
   this.calculatePotSize = function() {
     var pot = 0; 
@@ -69,30 +65,21 @@ PHR.Table = function(rows, col) {
   return pot;
   };
 
-// _.pluck(_.filter(jossWhedon.shows, function(show) { return show.femaleLead; }), "title"); 
-
-
   this.getSum = function() {
-   
     var colSortArray = [];
     this.getVal = function(a){
       var res = _.map(a, function(item){
         console.log("item",item);
-          return _.pluck(_.filter(item, function(isd){
-            console.log("before filter isd",isd);
-            // if (!isd.isDisabled){
-            //   console.log("isd",isd.isDisabled)
-            //   console.log("filtered isd",isd)
-              return !isd.isDisabled;
-            // }
-          }), "value");
-          
+        return _.pluck(_.filter(item, function(isd){
+          console.log("before filter isd",isd);
+          return !isd.isDisabled;
+        }), "value");
       }); 
       console.log("res", res);
       return res;
     };
-    
-    colSortArray =  _.zip.apply(null, this.getVal(this.action));
+
+    colSortArray = _.zip.apply(null, this.getVal(this.action));
 
     return function() {
       var sums = _.map(colSortArray, function(item) {
@@ -108,8 +95,7 @@ PHR.Table = function(rows, col) {
   };   
 
    this.setIsHighlighted = function () {
-
-    for (var m =0; m<=this.row; m++){
+    for (var m =0; m<this.row; m++){
       this.hand[m].isHighlighted = this.highlightClasses[this.highlightIndex];
       this.stack[m].isHighlighted = this.highlightClasses[this.highlightIndex];
       console.log("I'm passing hlIndex of ", this.hand, this.stack)
@@ -117,7 +103,7 @@ PHR.Table = function(rows, col) {
     for (var i=0; i<this.rows; i++) {
       for (var j =0; j<this.col; j++) {
         // console.log(this.highlightClasses[this.highlightIndex]);
-        if (this.action[i][j].value !== ''&& this.action[i][j].isHighlighted === ''){
+        if ((this.action[i][j].isHighlighted === '' && this.action[i][j].value !== '')|| (this.action[i][j].isHighlighted === '' && this.action[i][j].isDisabled === true && this.action[i][j].value === '')){
           // console.log("I'm passing hlIndex of ", this.highlightIndex)
           this.action[i][j].isHighlighted = this.highlightClasses[this.highlightIndex];
         }  
@@ -147,7 +133,6 @@ PHR.Table = function(rows, col) {
     for (var i =0; i<disSort[index].length; i++) {
       disSort[index][i].isDisabled = false;
       disSort[index][i].disCol = false;
-
      }
      return true;
   };
@@ -189,21 +174,15 @@ PHR.Table = function(rows, col) {
       this.action[this.rows][j] = new PHR.Cell();
       var lastRow = this.checkDisCol();
       var lastRowIsDis = this.checkDisColStatus();
-      // console.log("lastRowIsDis",lastRowIsDis);
-      // console.log("old action",this.action)
-      
-        // console.log(lastRow)
-        this.action[this.rows][j].disCol = lastRow[j];
-        this.action[this.rows][j].isDisabled = lastRowIsDis[j]; 
-        console.log("lastrowI", lastRowIsDis[j]);
-        console.log("inside poslednei row llop and j: ",j, this.action[this.rows][j]);
-      }
-   
+      this.action[this.rows][j].disCol = lastRow[j];
+      this.action[this.rows][j].isDisabled = lastRowIsDis[j]; 
+      console.log("lastrowI", lastRowIsDis[j]);
+      console.log("inside poslednei row llop and j: ",j, this.action[this.rows][j]);
+    }
     ++this.rows;
     console.log("updated action", this.action);
   }; 
 };
-
 
 PHR.Comment = function(val) {
   this.value = '';
