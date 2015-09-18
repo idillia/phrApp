@@ -108,7 +108,8 @@ PHR.Table = function(rows, col) {
   };   
 
    this.setIsHighlighted = function () {
-    for (var m =0; m<this.row.length; m++){
+
+    for (var m =0; m<=this.row; m++){
       this.hand[m].isHighlighted = this.highlightClasses[this.highlightIndex];
       this.stack[m].isHighlighted = this.highlightClasses[this.highlightIndex];
       console.log("I'm passing hlIndex of ", this.hand, this.stack)

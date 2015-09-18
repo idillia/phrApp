@@ -287,7 +287,7 @@ angular.module('editHand', [])
       } 
 
       // console.log($scope.table.action[$scope.openRow][$scope.openCol].value)
-    } else if($scope.openActionCol === 8) {
+    }else if($scope.openActionCol === 8) {
       console.log($scope.openActionRow, $scope.openActionCol)
       $scope.openActionRow++;
       $scope.openActionCol = 0;
@@ -330,6 +330,12 @@ angular.module('editHand', [])
     console.log("preflopClass", $scope.preflopClass); 
   };
 
+var convertTime = function (timestamp) { // Convert UNIX epoch time into human readble time.
+    var epoch = new Date(timestamp);
+    var date = epoch.toUTCString();
+    return date;
+}
+
  // Save hand information to firebase
   $scope.saveHands = function() {
     console.log("Auth.uid", $rootScope.authData.uid);
@@ -352,6 +358,11 @@ angular.module('editHand', [])
       if (error) {console.log("failed to save")}
       else {console.log("comment saved successfuly")}
     });
+     var timeref = handId.child("submitedTime");
+      timeref.set(Firebase.ServerValue.TIMESTAMP, function(error) {
+      if (error) {console.log("failed to save")}
+      else {console.log("time saved successfuly")}
+    });
     toastr.success('The hand is saved!');
     $scope.clearHand();
   };
@@ -361,12 +372,14 @@ angular.module('editHand', [])
   $scope.restoreHand = function() {  
     var fireref = new Firebase("https://phr.firebaseio.com/" +"users/"+ $rootScope.authData.uid +"/"+  'handrecords/');
     fireref.orderByKey().on("child_added", function(snapshot, prevChildKey){
-      console.log("snapshot", snapshot.val())
+      
       var board = {};
       var b = JSON.parse(snapshot.val().board);
       var t = JSON.parse(snapshot.val().table);
       var c = JSON.parse(snapshot.val().comment);
+      var h = convertTime(snapshot.val().submitedTime);
       for (var prop in b) {
+        board.time = snapshot.val().submitedTime;
         board[prop] = b[prop];
         for (var x in t) {
           board[x] = t[x];
@@ -375,6 +388,7 @@ angular.module('editHand', [])
           }
         }
       }
+      console.log(board);
       // console.log(board);
       $scope.handRecords.unshift(board);     
       // $scope.$apply();

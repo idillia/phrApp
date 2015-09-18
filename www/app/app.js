@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'chat', 'firebase', 'editHand', 'underscore'
     contreller: 'AuthCtrl'
   })
   .state('app.edithand', {
-    // cache: false,
+    cache: false,
     url: '/edithand',
     views: {
       'menuContent': {

@@ -1,6 +1,6 @@
 angular.module('chat', [])
 
-.controller("chatCtrl", ["$scope", "$firebaseArray", "Auth", "$rootScope", function($scope, $firebaseArray, Auth, $rootScope) {
+.controller("chatCtrl", ["$scope", "$firebaseArray", "Auth", "$rootScope", "$ionicScrollDelegate", function($scope, $firebaseArray, Auth, $rootScope, $ionicScrollDelegate) {
    var ref = new Firebase("https://phr.firebaseio.com/messages");
   // create a synchronized array
   $scope.messages = $firebaseArray(ref);
@@ -9,27 +9,33 @@ angular.module('chat', [])
   $scope.auth.$onAuth(function(authData) {
     $rootScope.authData = authData;
   });
+  $scope.newMessageText = "";
  
 
    // add new items to the array
    // the message is automatically added to our Firebase database!
-   $scope.addMessage = function(mes) {
+   $scope.addMessage = function(newMessageText) {
+   console.log($rootScope.name);
    console.log($rootScope.authData.facebook);
      if ($rootScope.authData.facebook !== undefined) {
      $scope.messages.$add({
       name: $rootScope.authData.facebook.displayName,
-      text: mes,
-      photo: $rootScope.authData.facebook.profileImageURL
+      text: newMessageText,
+      photo: $rootScope.authData.facebook.profileImageURL,
+      date: Firebase.ServerValue.TIMESTAMP
      });
     } else {
       $scope.messages.$add({
-      name: $rootScope.name,
-      text: mes,
-      photo: $rootScope.authData.password.profileImageURL
+      // name: $rootScope.name,
+      text: newMessageText,
+      photo: $rootScope.authData.password.profileImageURL,
+      date: Firebase.ServerValue.TIMESTAMP
      });
     }
+    $ionicScrollDelegate.scrollBottom();
+    $scope.newMessageText='';
    }; 
-  
+
 }]);
 
 

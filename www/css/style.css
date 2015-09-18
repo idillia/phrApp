@@ -1,10 +1,37 @@
-
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
 /*Remove padding*/
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
 }
 
+button {
+  width: 100%;
+}
 .loginItem {
   opacity: 0.6;
   color: black;
@@ -28,9 +55,9 @@ table {
 }
 table tr td {
     width:100%;
-    height:1.8em;
+    height:2.8em;
     color: #666;
-    padding:0;
+    padding:0px;
     border-bottom: 1px solid #b4b4b4;
     border-right: 1px solid #b4b4b4;
     font-size: 1 em;
@@ -46,7 +73,7 @@ td.stackBtn {
 /* Chat */
 .chatbox {
     position:absolute;
-    bottom: 0px;
+   /* bottom: 0px;*/
 }
 .message-input {
     margin-top: 10px;
@@ -58,18 +85,12 @@ td.stackBtn {
     position:relative;
     height: 500px;
     border: 1px solid rgba(0,0,255, 0.2);
-    padding: 10px;
-    line-height: 29px;
-    overflow: hidden;
+    line-height: 20px;
+    overflow: scroll;
 }
 
-/*textarea, input[type = "text"] {
-    border:1px solid #b4b4b4;
-}*/
 
 .col {
-    /*background: gray;*/
-    /*border: solid black;*/
     padding: 0;
 
 }
@@ -80,7 +101,7 @@ td.stackBtn {
 
 .card-button {
   height: 30px;
-  width: 55px;
+  width: 98%;
 }
 
 .keypad  {
@@ -92,7 +113,7 @@ td.stackBtn {
 }
 .action-keypad {
   margin-top:60%;
-  background-color: green;
+  background-color: darkslategray;
   font-size: 2em;
 }
 
@@ -157,6 +178,7 @@ td.stackBtn {
   padding:7px 4px;
   text-decoration:none;
   text-shadow:0px 1px 12px #ced9bf;
+  text-align: center;
 }
 .myButton:hover {
   background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #9ba892), color-stop(1, #dbe6c4));
@@ -173,16 +195,8 @@ td.stackBtn {
   top:1px;
 }
 
-.red {
-  background-color: red;
-}
-
-.blue {
-  background-color: blue;
-}
-
 .heroPos {
-  background-color: green;
+  background-color: gray;
 }
 
 .positionModal {
@@ -195,11 +209,14 @@ td.stackBtn {
 }
 
 .login-background {
-    background-image: url('../img/pokerBg.png')
-}
+    background-image: url('../img/pokerBg.png');
+    background-size: cover;
+    background-position: center;
+} 
 
 div.relative {
   position: relative;
+
 }
 
 div.absolute {
@@ -208,6 +225,123 @@ div.absolute {
   bottom: -420px;
 }
 
-.transparent
+#footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  height:48px;
+  margin-bottom: 0;
+}
+
+#footer__bar {
+  margin-bottom: 10px;
+  padding: 0;
+} 
+
+#user__form {
+  width: 100%;
+  width: 100%;
+}
+
+#user-message, #chat__input {
+  background-color: white;
+}
+
+#user-message {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#chat-content {
+  margin-bottom: 60px;
+} 
+
+#chat-content {
+  margin-top: 44px;
+  margin-bottom: 47px;
+  font-size: 20px;
+  background-color: #FFF;
+}
+
+.group__chat--message {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.group__chat--pic {
+  width: 30px;
+  height: 30px;
+  float: left;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.group__chat--text {
+  font-size: 1em;
+  margin-left: 2px;
+  clear: left;
+}
+
+.group__chat--name,
+.group__chat--time
+ {
+  display: block;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.group__chat--time {
+  font-size: 1em;
+  color: #aaa;
+}
+
+#group__buttons {
+  margin-top: 20px;
+}
+
+#user-message, #chat__input {
+  background-color: white;
+}
+#chat__input {
+  padding: 0;
+}
+
+.button--input {
+  width: 80px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+#footer__form {
+  width: 100%;
+}
+
+p.button--input--text {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#user-room {
+  margin-bottom: 50px;
+}
+
+label {
+    display: inline-block;
+}
+
+textarea {
+  border: 1px solid gray;
+  margin: 3px 15px; 
+}
+
+.pot {
+  float: right;
+}
+
 
 

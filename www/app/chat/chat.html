@@ -2,24 +2,58 @@
 <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-<ion-content padding="true">
-<div class="row row-bottom">
-<div class="col">
-<div class="chatbox-container">
+<ion-content id="user-room" >
+<!-- <div class="chatbox-container">
+  <ion-list class="nopadding">
+   <ion-item class="item item-avatar" ng-repeat="message in messages">
+    <img ng-src="{{message.photo}}"/>
+   {{ message.name }}:
+  {{ message.text }}
+   </ion-item>
+  </ion-list> 
+</div> -->
+ 
+    <section >
+      <div ng-repeat="message in messages track by $index" class="group__chat--message">
+        <img class="group__chat--pic" ng-src="{{message.photo}}"/>
+        <h3 class="group__chat--name">{{message.name}}</h3>
+        <p class="group__chat--time">{{message.date | date: 'MMM d h:mm a'}}</p>
+        <p class="group__chat--text">{{message.text}}</p>
+      </div>
+    </section>
+  
+
+</ion-content>
+ <div id="footer">
+    <div class="item item-input" id="footer__bar">
+     <form ng-submit="addMessage(newMessageText)" id="footer__form"> 
+      <label class="item-input-wrapper" id="chat__input">
+        <input type="text" name="search_input" ng-model="newMessageText"  id="user-message">
+        <button class="button button--input button-royal" >
+          <p class="button--input--text">Send</p>
+        </button>
+      </label>
+    </form>
+   </div>
+  </div>
+
+</ion-view>
+
+
+<!-- <div class="row row-bottom">
+<div class="col"> -->
+<!-- <div class="chatbox-container">
 <ul class="chatbox">
   <li class="item item-avatar" ng-repeat="message in messages">
     <img ng-src="{{message.photo}}"/>
     {{ message.name }}: {{ message.text }}
   </li>
 </ul>
-</div>
+</div> -->
     <!-- push a new message onto the array -->
-   <form>
+<!--    <form>
       <input ng-model="newMessageText" />
       <button type="submit" ng-click="addMessage(newMessageText)">Add Message</button>
-    </form>
-</div>
-</div>
-</ion-content>
-</ion-view>
-
+    </form> -->
+<!-- </div>
+</div> -->

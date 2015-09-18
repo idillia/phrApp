@@ -8,6 +8,12 @@ angular.module('profile', [])
     $rootScope.authData = authData;
     console.log("auth inside", $rootScope.authData);
   });
-  console.log("auth inside", $rootScope.authData);                                                                                                                                                                                                                                                                                 
+  console.log("auth inside", $rootScope.authData);     
+
+  if ($rootScope.authData.facebook === undefined) {
+    $scope.photo = $rootScope.authData.password.profileImageURL
+  }  else {
+    $scope.photo = $rootScope.authData.facebook.profileImageURL
+  }                                                                                                                                                                                                                                                                          
 
 }]);
