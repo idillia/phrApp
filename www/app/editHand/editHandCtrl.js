@@ -11,6 +11,8 @@ angular.module('editHand', [])
   $scope.cardSuits = ['\u2660','\u2665', '\u2663', '\u2666'];
   $scope.moneyNumbers = [[1,2,3],[4,5,6],[7,8,9]];
    
+
+  $scope.test = true; 
   $scope.auth = Auth;
   // any time auth status updates, add the user data to scope
   $scope.auth.$onAuth(function(authData) {
@@ -172,7 +174,7 @@ angular.module('editHand', [])
     $scope.modalVal = rank+suit;
     if ($scope.openDeckCol <= 8){ 
       if (typeof $scope.modalCard1 === 'undefined') {
-        $scope.modalCard1 = rank+suit; 
+        $scope.modalCard1 = rank+suit+"\n"; 
         $scope.table.hand[$scope.openDeckCol].card1 = $scope.modalCard1;
         console.log($scope.table.hand[$scope.openDeckCol]);
       }
@@ -416,9 +418,9 @@ var convertTime = function (timestamp) { // Convert UNIX epoch time into human r
           }
         }
       }
-      console.log(board);
       // console.log(board);
       $scope.handRecords.unshift(board);     
+      console.log("board from Firebase", $scope.handRecords);
       // $scope.$apply();
     }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);

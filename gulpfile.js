@@ -7,19 +7,29 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var jshint = require('gulp-jshint');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
+// gulp.task('test', function(done){
+//   karma.start({
+//     configFile: __dirname + '/tests/my.conf.js',
+//     singleRun: true
+//   }, function() {
+//     done();
+//   });
+// });
+
 gulp.task('test', function(done){
-  karma.start({
-    configFile: __dirname + '/tests/my.conf.js',
-    singleRun: true
-  }, function() {
-    done();
-  });
+  var config = {
+    configFile:__dirname + '/tests/my.conf.js',
+    singleRun: true,
+    autoWatch: false
+  };
+  var server = new Server(config, done);
+  server.start();
 });
 
 gulp.task('default', ['sass', 'lint']);

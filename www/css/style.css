@@ -341,6 +341,7 @@ textarea {
 .hand-padding {
   padding-right:9px;
   padding-left:5px;
+  white-space: pre-wrap;
 }
 
 
